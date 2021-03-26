@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
-import { ClrIconModule } from '@clr/angular';
+import { ClrDatagridModule, ClrIconModule } from '@clr/angular';
 import { MainComponent } from './main.component';
 
 // Components
@@ -14,9 +14,10 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 // Pages
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail-page.component';
 
 
-const ClrModules = [ClrIconModule];
+const ClrModules = [ClrDatagridModule, ClrIconModule];
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ const ClrModules = [ClrIconModule];
     AlertComponent,
     SidenavComponent,
     SubnavComponent,
+    FailureMailPageComponent,
   ],
   imports: [CommonModule, MainRoutingModule, ...ClrModules],
 })

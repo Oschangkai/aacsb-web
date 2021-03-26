@@ -1,15 +1,12 @@
 <nav class="sidenav">
   <section class="sidenav-content">
     <section class="nav-group">
-      <input id="tabexample2" type="checkbox" />
-      <label for="tabexample2">Sidenav</label>
+      <a routerLink="" routerLinkActive="active">
+        <input id="home" type="checkbox" />
+        <label for="home">Home</label>
+      </a>
       <ul class="nav-list">
-        <li><a class="nav-link">Link 1</a></li>
-        <li><a class="nav-link">Link 2</a></li>
-        <li><a class="nav-link active">Link 3</a></li>
-        <li><a class="nav-link">Link 4</a></li>
-        <li><a class="nav-link">Link 5</a></li>
-        <li><a class="nav-link">Link 6</a></li>
+        <li><a routerLink="failure-mail" class="nav-link" routerLinkActive="active">Failure Mail</a></li>
       </ul>
     </section>
   </section>

@@ -1,16 +1,28 @@
-<header class="header header-6">
+<header class="header header-4">
   <div class="branding">
-    <a href="javascript:void(0)">
-      <clr-icon shape="vm-bug"></clr-icon>
-      <span class="title">Project Clarity</span>
+    <a routerLink="">
+      <img src="./assets/logos/MAYO_Horizontal_Reverse.png" style="padding: 0 12px 0 0"  [height]="36" alt="logo" >
+<!--      <clr-icon shape="vm-bug"></clr-icon>-->
+      <span class="title">Project Boardroom</span>
     </a>
   </div>
   <div class="header-nav">
-    <a href="javascript://" class="nav-link nav-icon">
-      <clr-icon shape="cloud"></clr-icon>
-    </a>
-    <a href="javascript://" class="active nav-link nav-icon">
-      <clr-icon shape="folder"></clr-icon>
-    </a>
+<!--    <a href="javascript://" class="nav-link nav-icon">-->
+<!--      <clr-icon shape="cloud"></clr-icon>-->
+<!--    </a>-->
+<!--    <a href="javascript://" class="active nav-link nav-icon">-->
+<!--      <clr-icon shape="folder"></clr-icon>-->
+<!--    </a>-->
+  </div>
+  <div class="header-actions header-actions--overflow">
+    <div class="dropdown bottom-left open">
+      <button class="nav-text dropdown-toggle" aria-label="open user profile">
+        oscar_chang@mayohr.com
+        <cds-icon shape="angle" direction="up"></cds-icon>
+      </button>
+      <div class="dropdown-menu">
+        <a href="javascript://" class="dropdown-item">Log out</a>
+      </div>
+    </div>
   </div>
 </header>

@@ -3,13 +3,20 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MainComponent } from './main.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import {FailureMailPageComponent} from './pages/failure-mail-page/failure-mail-page.component';
 
-const routes: Routes = [
-  {
+const routes: Routes = [{
     path: '',
     component: MainComponent,
-    children: [{ path: '', component: MainPageComponent }],
-  },
+    children: [{
+      path: '',
+      component: MainPageComponent
+    }, {
+      path: 'failure-mail',
+      component: FailureMailPageComponent,
+      children: [{ path: '', component: FailureMailPageComponent }],
+    }],
+  }
 ];
 
 @NgModule({

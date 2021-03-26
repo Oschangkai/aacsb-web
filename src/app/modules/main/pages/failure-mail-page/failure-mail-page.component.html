@@ -1,0 +1,58 @@
+<h1>Failure Mails</h1>
+<clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+  <!-- Action Bar -->
+  <clr-dg-action-bar>
+    <div class="btn-group">
+      <button type="button" class="btn btn-sm btn-secondary btn-warning-outline">
+        <clr-icon shape="close"></clr-icon> Unblock
+      </button>
+    </div>
+  </clr-dg-action-bar>
+
+  <!-- Columns -->
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Created
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Email
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Reason
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      Status
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      Category
+    </ng-container>
+  </clr-dg-column>
+
+  <!-- Row Data -->
+  <clr-dg-row *clrDgItems="let failureMailEvent of failureMailEvents" [clrDgItem]="failureMailEvent">
+    <clr-dg-cell>{{failureMailEvent.created*1000 | date}}</clr-dg-cell>
+    <clr-dg-cell>{{failureMailEvent.email}}</clr-dg-cell>
+    <clr-dg-cell>{{failureMailEvent.reason}}</clr-dg-cell>
+    <clr-dg-cell>{{failureMailEvent.status}}</clr-dg-cell>
+    <clr-dg-cell>{{failureMailEvent.category}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <!-- Placeholder -->
+  <clr-dg-placeholder>There's no failure event</clr-dg-placeholder>
+
+  <!-- Footer -->
+  <clr-dg-footer>
+    <clr-dg-pagination #failureMailEvent [clrDgPageSize]="20">
+      <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Events per page</clr-dg-page-size>
+      {{failureMailEvent.firstItem + 1}} - {{failureMailEvent.lastItem + 1}} of {{failureMailEvent.totalItems}} events
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

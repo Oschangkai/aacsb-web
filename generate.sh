@@ -23,7 +23,7 @@ printf "name=%s\n" "$name"
 printf "Current dir is %s\n" "$PWD"
 
 # ==== execute ====
-ng generate component "modules/$module/$type/$name" --module="$module"
+ng generate component "modules/${module}/${type}s/${name}" --module="$module"
 
 # ==== pause to show progress ====
 function pause(){
