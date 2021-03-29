@@ -14,4 +14,5 @@ export type PaginationResponse<T> = {
 export type ResponseData<T> = {
   data: T[];
   count: number;
+  [x: string]: any;
 };
