@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Scalable-Angular-Project'`, () => {
+  it(`should have as title 'MAYO-Boardroom'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Scalable-Angular-Project');
+    expect(app.title).toEqual('MAYO-Boardroom');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('Scalable-Angular-Project app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('MAYO-Boardroom app is running!');
   });
 });

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ClrLoadingState } from '@clr/angular';
-import {FormControl, FormGroup} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { FailureMailEvents } from '@model/query.response.model';
 
 @Component({
   selector: 'app-failure-mail-page',
@@ -26,7 +27,7 @@ export class FailureMailPageComponent implements OnInit {
   selected: any[] = [];
 
   // TODO: api, model
-  failureMailEvents: { reason: string; created: number; category: string; email: string; status: string }[] = [
+  failureMailEvents: FailureMailEvents[] = [
     {
       created: 1615797179,
       email: 'marvin_wu@mayohr.com',

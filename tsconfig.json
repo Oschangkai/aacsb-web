@@ -19,21 +19,21 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@environment/*": ["src/environments/*"],
+      "@service/*": ["src/app/core/services/*"],
+      "@component/*": ["src/app/shared/components/*"],
+      "@model/*": ["src/app/shared/models/*"],
+      "@core/*": ["src/app/core/*"],
+      "@module/*": ["src/app/modules/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@app/*": ["src/app/*"],
+    }
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  },
-  "paths": {
-    "@environment/*": ["src/environments/*"],
-    "@service/*": ["src/app/core/services/*"],
-    "@component/*": ["src/app/shared/components/*"],
-    "@model/*": ["src/app/shared/models/*"],
-    "@core/*": ["src/app/core/*"],
-    "@module/*": ["src/app/modules/*"],
-    "@shared/*": ["src/app/shared/*"],
-    "@app/*": ["src/app/*"],
   }
 }
