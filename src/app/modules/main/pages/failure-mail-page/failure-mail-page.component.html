@@ -1,36 +1,71 @@
+<!-- Title -->
 <h1>Failure Mails</h1>
+
+<!-- Search Area -->
+<form class="clr-form-compact" clrForm clrLayout="horizontal" [formGroup]="queryForm">
+  <clr-date-container>
+    <label>Start Date</label>
+    <input formControlName="startDate" type="date" clrDate name="startDate" />
+  </clr-date-container>
+  <clr-date-container>
+    <label>End Date</label>
+    <input formControlName="endDate" type="date" clrDate name="endDate" />
+  </clr-date-container>
+  <clr-input-container>
+    <label>Reason</label>
+    <input formControlName="q"  clrInput type="text" name="q" />
+  </clr-input-container>
+  <clr-datalist-container>
+    <label>Email</label>
+    <input formControlName="email"  clrDatalistInput name="email" />
+    <datalist>
+      <option *ngFor="let item of ['123@abc.com', '456@abc.com']" [value]="item"></option>
+    </datalist>
+  </clr-datalist-container>
+</form>
+<button class="btn btn-primary" [clrLoading]="submitBtnState" (click)="submit()">
+  <clr-icon shape="search"></clr-icon>
+  Query
+</button>
+
+<!-- Data List -->
 <clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
   <!-- Action Bar -->
   <clr-dg-action-bar>
     <div class="btn-group">
-      <button type="button" class="btn btn-sm btn-secondary btn-warning-outline">
+      <button
+        type="button"
+        class="btn btn-sm btn-secondary btn-warning-outline"
+        [disabled]="!selected.length"
+        (click)="unblock()"
+      >
         <clr-icon shape="close"></clr-icon> Unblock
       </button>
     </div>
   </clr-dg-action-bar>
 
   <!-- Columns -->
-  <clr-dg-column>
+  <clr-dg-column [clrDgField]="'created'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      Created
+      Date
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column>
+  <clr-dg-column [clrDgField]="'email'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Email
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column>
+  <clr-dg-column [clrDgField]="'reason'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Reason
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column>
+  <clr-dg-column [clrDgField]="'status'">
     <ng-container *clrDgHideableColumn="{hidden: true}">
       Status
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column>
+  <clr-dg-column [clrDgField]="'category'">
     <ng-container *clrDgHideableColumn="{hidden: true}">
       Category
     </ng-container>
@@ -38,7 +73,7 @@
 
   <!-- Row Data -->
   <clr-dg-row *clrDgItems="let failureMailEvent of failureMailEvents" [clrDgItem]="failureMailEvent">
-    <clr-dg-cell>{{failureMailEvent.created*1000 | date}}</clr-dg-cell>
+    <clr-dg-cell>{{failureMailEvent.created*1000 | date:'short'}}</clr-dg-cell>
     <clr-dg-cell>{{failureMailEvent.email}}</clr-dg-cell>
     <clr-dg-cell>{{failureMailEvent.reason}}</clr-dg-cell>
     <clr-dg-cell>{{failureMailEvent.status}}</clr-dg-cell>

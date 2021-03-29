@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ClrLoadingState } from '@clr/angular';
+import {FormControl, FormGroup} from '@angular/forms';
+
 @Component({
   selector: 'app-failure-mail-page',
   templateUrl: './failure-mail-page.component.html',
@@ -9,7 +12,15 @@ export class FailureMailPageComponent implements OnInit {
 
   constructor() { }
 
-  loading: boolean = true;
+  submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
+  queryForm: FormGroup = new FormGroup({
+    startDate: new FormControl(),
+    endDate: new FormControl(),
+    q: new FormControl(),
+    email: new FormControl()
+  });
+
+  loading: boolean = false;
   selected: any[] = [];
 
   failureMailEvents: { reason: string; created: number; category: string; email: string; status: string }[] = [
@@ -29,13 +40,21 @@ export class FailureMailPageComponent implements OnInit {
     },
     {
       created: 1614913193,
-      email: '123@yahoo.com.tw',
+      email: 'marvin_wu@mayohr.com',
       reason: '552 1 Requested mail action aborted, mailbox not found',
       status: '552',
       category: 'Bounce'
     }
   ];
 
+  submit(): void {
+    this.submitBtnState = ClrLoadingState.LOADING;
+    console.log(this.queryForm.value);
+  }
+  unblock(): void {
+    const mail = this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
+    console.log(mail);
+  }
   ngOnInit(): void {
   }
 

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './main-routing.module';
-import { ClrDatagridModule, ClrIconModule } from '@clr/angular';
+import { ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule, ClrIconModule, ClrInputModule, ClrLoadingModule } from '@clr/angular';
 import { MainComponent } from './main.component';
 
 // Components
@@ -17,7 +18,10 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail-page.component';
 
 
-const ClrModules = [ClrDatagridModule, ClrIconModule];
+const ClrModules = [
+  ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule,
+  ClrIconModule, ClrInputModule, ClrLoadingModule
+];
 
 @NgModule({
   declarations: [
@@ -31,6 +35,6 @@ const ClrModules = [ClrDatagridModule, ClrIconModule];
     SubnavComponent,
     FailureMailPageComponent,
   ],
-  imports: [CommonModule, MainRoutingModule, ...ClrModules],
+  imports: [CommonModule, ReactiveFormsModule, MainRoutingModule, ...ClrModules],
 })
 export class MainModule {}
