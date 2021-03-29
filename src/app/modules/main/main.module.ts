@@ -3,7 +3,15 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './main-routing.module';
-import { ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule, ClrIconModule, ClrInputModule, ClrLoadingModule } from '@clr/angular';
+import {
+  ClrDatagridModule,
+  ClrDatalistModule,
+  ClrDatepickerModule,
+  ClrIconModule,
+  ClrInputModule,
+  ClrLoadingModule,
+  ClrVerticalNavModule
+} from '@clr/angular';
 import { MainComponent } from './main.component';
 
 // Components
@@ -20,7 +28,7 @@ import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail
 
 const ClrModules = [
   ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule,
-  ClrIconModule, ClrInputModule, ClrLoadingModule
+  ClrIconModule, ClrInputModule, ClrLoadingModule, ClrVerticalNavModule
 ];
 
 @NgModule({

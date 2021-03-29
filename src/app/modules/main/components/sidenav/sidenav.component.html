@@ -1,13 +1,10 @@
-<nav class="sidenav">
-  <section class="sidenav-content">
-    <section class="nav-group">
-      <a routerLink="" routerLinkActive="active">
-        <input id="home" type="checkbox" />
-        <label for="home">Home</label>
-      </a>
-      <ul class="nav-list">
-        <li><a routerLink="failure-mail" class="nav-link" routerLinkActive="active">Failure Mail</a></li>
-      </ul>
-    </section>
-  </section>
-</nav>
+<clr-vertical-nav style="height: 100%" [clrVerticalNavCollapsible]="true" [clrVerticalNavCollapsed]="false">
+  <a clrVerticalNavLink routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+    <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
+    Home
+  </a>
+  <a clrVerticalNavLink routerLink="failure-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+    <clr-icon clrVerticalNavIcon shape="envelope"></clr-icon>
+    Failure Mails
+  </a>
+</clr-vertical-nav>
