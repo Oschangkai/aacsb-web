@@ -19,6 +19,7 @@
     <label>Email</label>
     <input formControlName="email"  clrDatalistInput name="email" />
     <datalist>
+      <!-- TODO: api -->
       <option *ngFor="let item of ['123@abc.com', '456@abc.com']" [value]="item"></option>
     </datalist>
   </clr-datalist-container>

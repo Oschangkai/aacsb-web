@@ -13,6 +13,7 @@ export class FailureMailPageComponent implements OnInit {
   constructor() { }
 
   submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
+  // TODO: loading disable, start/end date max/min date
   queryForm: FormGroup = new FormGroup({
     startDate: new FormControl(),
     endDate: new FormControl(),
@@ -20,9 +21,11 @@ export class FailureMailPageComponent implements OnInit {
     email: new FormControl()
   });
 
+  // TODO: implement global data fetching
   loading: boolean = false;
   selected: any[] = [];
 
+  // TODO: api, model
   failureMailEvents: { reason: string; created: number; category: string; email: string; status: string }[] = [
     {
       created: 1615797179,
@@ -49,10 +52,13 @@ export class FailureMailPageComponent implements OnInit {
 
   submit(): void {
     this.submitBtnState = ClrLoadingState.LOADING;
+    this.loading = true;
+    // TODO: api
     console.log(this.queryForm.value);
   }
   unblock(): void {
     const mail = this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
+    // TODO: api
     console.log(mail);
   }
   ngOnInit(): void {
