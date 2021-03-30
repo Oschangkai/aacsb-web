@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as store from 'store';
 
 /**
  * This service was created for:
@@ -14,4 +15,12 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   constructor() { }
+
+  getToken(): string {
+    return store.get('token');
+  }
+
+  setToken() {
+    store.set('token', '123');
+  }
 }
