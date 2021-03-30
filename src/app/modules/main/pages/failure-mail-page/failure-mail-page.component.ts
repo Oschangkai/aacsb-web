@@ -5,6 +5,7 @@ import { ClrLoadingState } from '@clr/angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FailureMailEvents } from '@model/query.response.model';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
+import { ResponseData } from '@model/response.model';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class FailureMailPageComponent implements OnInit {
   loading = false;
   openModal = false;
   selected: any[] = [];
-  failureMailEvents: FailureMailEvents[] = [];
+  failureMailEvents: ResponseData<FailureMailEvents> = { data: [], count: 0, emails: [] };
   unblockMails = () => this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
 
   submit(): void {
@@ -47,7 +48,7 @@ export class FailureMailPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(
       ({ failureMailEvents }) => {
-        this.failureMailEvents = failureMailEvents.data.data;
+        this.failureMailEvents = failureMailEvents.data;
       }
     );
   }

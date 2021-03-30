@@ -19,8 +19,7 @@
     <label>Email</label>
     <input formControlName="email"  clrDatalistInput name="email" />
     <datalist>
-      <!-- TODO: api -->
-      <option *ngFor="let item of ['123@abc.com', '456@abc.com']" [value]="item"></option>
+      <option *ngFor="let item of failureMailEvents.emails" [value]="item"></option>
     </datalist>
   </clr-datalist-container>
 </form>
@@ -73,7 +72,7 @@
   </clr-dg-column>
 
   <!-- Row Data -->
-  <clr-dg-row *clrDgItems="let failureMailEvent of failureMailEvents" [clrDgItem]="failureMailEvent">
+  <clr-dg-row *clrDgItems="let failureMailEvent of failureMailEvents.data" [clrDgItem]="failureMailEvent">
     <clr-dg-cell>{{failureMailEvent.created*1000 | date:'short'}}</clr-dg-cell>
     <clr-dg-cell>{{failureMailEvent.email}}</clr-dg-cell>
     <clr-dg-cell>{{failureMailEvent.reason}}</clr-dg-cell>
