@@ -25,24 +25,21 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail-page.component';
 
-
+const Pages = [
+  MainPageComponent, FailureMailPageComponent
+];
+const Components = [
+  MainComponent, ToolbarComponent, FooterComponent, AlertComponent,
+  SidenavComponent, SubnavComponent
+];
 const ClrModules = [
+  ClrIconModule,
   ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule,
-  ClrIconModule, ClrInputModule, ClrLoadingModule, ClrVerticalNavModule
+  ClrInputModule, ClrLoadingModule, ClrVerticalNavModule
 ];
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    ToolbarComponent,
-    MainPageComponent,
-    FooterComponent,
-    AlertComponent,
-    AlertComponent,
-    SidenavComponent,
-    SubnavComponent,
-    FailureMailPageComponent,
-  ],
+  declarations: [...Pages, ...Components],
   imports: [CommonModule, ReactiveFormsModule, MainRoutingModule, ...ClrModules],
 })
 export class MainModule {}
