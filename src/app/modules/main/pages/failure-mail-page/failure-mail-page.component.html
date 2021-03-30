@@ -92,3 +92,21 @@
     </clr-dg-pagination>
   </clr-dg-footer>
 </clr-datagrid>
+
+<!-- Unblock Dialog -->
+<clr-modal [(clrModalOpen)]="openModal">
+  <h3 class="modal-title">Confirm</h3>
+  <div class="modal-body">
+    <p>
+      Are you sure to unblock following emails? <br><br>
+      <ng-container *ngFor="let mail of unblockMails()">
+        <code>{{mail}}</code><br>
+      </ng-container>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="openModal = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="openModal = false">Ok</button>
+  </div>
+</clr-modal>
+

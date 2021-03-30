@@ -23,8 +23,10 @@ export class FailureMailPageComponent implements OnInit {
   });
 
   // TODO: implement global data fetching
-  loading: boolean = false;
+  loading = false;
+  openModal = false;
   selected: any[] = [];
+  unblockMails = () => this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
 
   // TODO: api, model
   failureMailEvents: FailureMailEvents[] = [
@@ -58,9 +60,9 @@ export class FailureMailPageComponent implements OnInit {
     console.log(this.queryForm.value);
   }
   unblock(): void {
-    const mail = this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
+    this.openModal = true;
     // TODO: api
-    console.log(mail);
+    console.log(this.unblockMails);
   }
   ngOnInit(): void {
   }

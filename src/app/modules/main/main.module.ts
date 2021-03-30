@@ -9,7 +9,7 @@ import {
   ClrDatepickerModule,
   ClrIconModule,
   ClrInputModule,
-  ClrLoadingModule,
+  ClrLoadingModule, ClrModalModule,
   ClrVerticalNavModule
 } from '@clr/angular';
 import { MainComponent } from './main.component';
@@ -35,7 +35,8 @@ const Components = [
 const ClrModules = [
   ClrIconModule,
   ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule,
-  ClrInputModule, ClrLoadingModule, ClrVerticalNavModule
+  ClrInputModule, ClrLoadingModule, ClrVerticalNavModule,
+  ClrModalModule
 ];
 
 @NgModule({
