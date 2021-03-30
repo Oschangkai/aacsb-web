@@ -1,12 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CoreModule } from './core/core.module';
+
+import { NgProgressModule } from 'ngx-progressbar';
+import { NgProgressHttpModule } from 'ngx-progressbar/http';
+import { NgProgressRouterModule } from 'ngx-progressbar/router';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    CoreModule
+    NgProgressModule.withConfig({ min: 20, color: 'hsl(9, 100%, 43%)' }),
+    NgProgressRouterModule,
+    NgProgressHttpModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
