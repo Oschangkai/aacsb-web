@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ClrLoadingState } from '@clr/angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FailureMailEvents } from '@model/query.response.model';
+import { FailureMailService } from '@module/main/services/failure-mail.service';
+
 
 @Component({
   selector: 'app-failure-mail-page',
   templateUrl: './failure-mail-page.component.html',
-  styleUrls: ['./failure-mail-page.component.scss']
+  styleUrls: ['./failure-mail-page.component.scss'],
+  providers: [FailureMailService]
 })
 export class FailureMailPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   // TODO: loading disable, start/end date max/min date
@@ -26,32 +30,8 @@ export class FailureMailPageComponent implements OnInit {
   loading = false;
   openModal = false;
   selected: any[] = [];
+  failureMailEvents: FailureMailEvents[] = [];
   unblockMails = () => this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
-
-  // TODO: api, model
-  failureMailEvents: FailureMailEvents[] = [
-    {
-      created: 1615797179,
-      email: 'marvin_wu@mayohr.com',
-      reason: '550 5.4.1 All recipient addresses rejected : Access denied. AS(201806271) [SG2APC01FT049.eop-APC01.prod.protection.outlook.com]',
-      status: '5.4.1',
-      category: 'Bounce'
-    },
-    {
-      created: 1615738031,
-      email: 'qualityassurancedept@mayohr.com',
-      reason: '550 5.4.1 All recipient addresses rejected : Access denied. AS(201806271) [SG2APC01FT063.eop-APC01.prod.protection.outlook.com]',
-      status: '5.4.1',
-      category: 'Bounce'
-    },
-    {
-      created: 1614913193,
-      email: 'marvin_wu@mayohr.com',
-      reason: '552 1 Requested mail action aborted, mailbox not found',
-      status: '552',
-      category: 'Bounce'
-    }
-  ];
 
   submit(): void {
     this.submitBtnState = ClrLoadingState.LOADING;
@@ -65,6 +45,11 @@ export class FailureMailPageComponent implements OnInit {
     console.log(this.unblockMails);
   }
   ngOnInit(): void {
+    this.route.data.subscribe(
+      ({ failureMailEvents }) => {
+        this.failureMailEvents = failureMailEvents.data.data;
+      }
+    );
   }
 
 }

@@ -25,6 +25,10 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail-page.component';
 
+// Resolver
+import { FailureMailResolver } from '@module/main/pages/failure-mail-page/failure-mail-resolver.service';
+import {FailureMailService} from '@module/main/services/failure-mail.service';
+
 const Pages = [
   MainPageComponent, FailureMailPageComponent
 ];
@@ -42,5 +46,6 @@ const ClrModules = [
 @NgModule({
   declarations: [...Pages, ...Components],
   imports: [CommonModule, ReactiveFormsModule, MainRoutingModule, ...ClrModules],
+  providers: [FailureMailService, FailureMailResolver]
 })
 export class MainModule {}
