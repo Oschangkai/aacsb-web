@@ -17,7 +17,7 @@
     "target": "es2015",
     "module": "es2020",
     "lib": [
-      "es2018",
+      "es2019",
       "dom"
     ],
     "paths": {
@@ -25,6 +25,7 @@
       "@service/*": ["src/app/core/services/*"],
       "@component/*": ["src/app/shared/components/*"],
       "@model/*": ["src/app/shared/models/*"],
+      "@utils/*": ["src/app/shared/utils/*"],
       "@core/*": ["src/app/core/*"],
       "@module/*": ["src/app/modules/*"],
       "@shared/*": ["src/app/shared/*"],

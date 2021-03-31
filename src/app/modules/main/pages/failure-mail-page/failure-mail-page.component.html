@@ -23,13 +23,14 @@
     </datalist>
   </clr-datalist-container>
 </form>
-<button class="btn btn-primary" [clrLoading]="submitBtnState" (click)="submit()">
+<button class="btn btn-primary" [clrLoading]="submitBtnState()" (click)="submit()">
   <clr-icon shape="search"></clr-icon>
   Query
 </button>
+{{queryForm.getRawValue()|json}}
 
 <!-- Data List -->
-<clr-datagrid [clrDgLoading]="loading" [(clrDgSelected)]="selected">
+<clr-datagrid [clrDgLoading]="loadData" [(clrDgSelected)]="selected">
   <!-- Action Bar -->
   <clr-dg-action-bar>
     <div class="btn-group">
@@ -85,7 +86,7 @@
 
   <!-- Footer -->
   <clr-dg-footer>
-    <clr-dg-pagination #failureMailEvent [clrDgPageSize]="20">
+    <clr-dg-pagination #failureMailEvent [clrDgPageSize]="10">
       <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Events per page</clr-dg-page-size>
       {{failureMailEvent.firstItem + 1}} - {{failureMailEvent.lastItem + 1}} of {{failureMailEvent.totalItems}} events
     </clr-dg-pagination>

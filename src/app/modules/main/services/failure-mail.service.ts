@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {BaseResponse} from '@model/response.model';
+import {Observable, throwError} from 'rxjs';
+import {SimpleResponse} from '@model/response.model';
 import {FailureMailEvents} from '@model/query.response.model';
+import { environment } from '@environment/environment';
+import { removeEmptyProperty} from '@utils/converter';
+
+const baseUrl = environment.api;
+const MANAGEMENT = 'SendGrid/management';
 
 @Injectable()
 export class FailureMailService {
 
   constructor(private http: HttpClient) { }
 
-  MANAGEMENT = 'SendGrid/management';
+  get(): Observable<SimpleResponse<FailureMailEvents>> {
+    return this.http
+      .get<SimpleResponse<FailureMailEvents>>(`${baseUrl}/${MANAGEMENT}/failureMails`);
+  }
 
-  get(): Observable<BaseResponse<FailureMailEvents>> {
-    return this.http.get<BaseResponse<FailureMailEvents>>(`https://localhost:9001/api/v1/${this.MANAGEMENT}/failureMails`);
+  query(query: any): Observable<SimpleResponse<FailureMailEvents>> {
+    const params: any = removeEmptyProperty({...query});
+    return this.http
+      .get<SimpleResponse<FailureMailEvents>>(`${baseUrl}/${MANAGEMENT}/failureMails`, { params });
   }
 
 }

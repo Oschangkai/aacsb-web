@@ -3,10 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ClrLoadingState } from '@clr/angular';
 import { FormControl, FormGroup } from '@angular/forms';
-import { FailureMailEvents } from '@model/query.response.model';
-import { FailureMailService } from '@module/main/services/failure-mail.service';
-import { ResponseData } from '@model/response.model';
 
+import { FailureMailEvents } from '@model/query.response.model';
+import { ResponseData } from '@model/response.model';
+import { FailureMailService } from '@module/main/services/failure-mail.service';
+
+import { removeEmptyProperty } from '@utils/converter';
 
 @Component({
   selector: 'app-failure-mail-page',
@@ -16,9 +18,11 @@ import { ResponseData } from '@model/response.model';
 })
 export class FailureMailPageComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private failureMailService: FailureMailService
+  ) { }
 
-  submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   // TODO: loading disable, start/end date max/min date
   queryForm: FormGroup = new FormGroup({
     startDate: new FormControl(),
@@ -28,17 +32,29 @@ export class FailureMailPageComponent implements OnInit {
   });
 
   // TODO: implement global data fetching
-  loading = false;
+  loadData = false;
   openModal = false;
+  query = {};
   selected: any[] = [];
   failureMailEvents: ResponseData<FailureMailEvents> = { data: [], count: 0, emails: [] };
-  unblockMails = () => this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
 
+  unblockMails = () => this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
+  submitBtnState = () => this.loadData ? ClrLoadingState.LOADING : ClrLoadingState.DEFAULT;
   submit(): void {
-    this.submitBtnState = ClrLoadingState.LOADING;
-    this.loading = true;
-    // TODO: api
-    console.log(this.queryForm.value);
+    this.loadData = true;
+    this.query = {...this.queryForm.value};
+
+    this.load();
+  }
+  load(): void {
+    const params: any = {...this.query};
+    params.startDate = Math.floor(new Date(params.startDate).getTime() / 1000) || null;
+    params.endDate = Math.floor(new Date(params.endDate).getTime() / 1000) || null;
+
+    this.failureMailService.query(params).subscribe(res => {
+      this.loadData = false;
+      this.failureMailEvents = res.data;
+    });
   }
   unblock(): void {
     this.openModal = true;
@@ -48,7 +64,7 @@ export class FailureMailPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.subscribe(
       ({ failureMailEvents }) => {
-        this.failureMailEvents = failureMailEvents.data;
+        this.failureMailEvents = {...failureMailEvents.data};
       }
     );
   }

@@ -1,15 +1,17 @@
-export type BaseResponse<T> = {
+export type BaseResponse = {
   succeeded: boolean;
-  message?: string;
-  errors?: string;
-  data?: ResponseData<T>;
-  count?: number;
+  message: string;
 };
+export type SimpleResponse<T> = {
+  errors?: string;
+  data: ResponseData<T>;
+  count: number;
+} & BaseResponse;
 
 export type PaginationResponse<T> = {
   pageNumber: number;
   pageSize: number;
-} & BaseResponse<T>;
+} & SimpleResponse<T>;
 
 export type ResponseData<T> = {
   data: T[];
