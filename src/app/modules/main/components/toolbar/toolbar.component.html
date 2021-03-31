@@ -15,10 +15,10 @@
 <!--    </a>-->
   </div>
   <div class="header-actions header-actions--overflow">
-    <div class="dropdown bottom-left ">
-      <button class="nav-text dropdown-toggle" aria-label="open user profile">
+    <div class="dropdown bottom-left" [class.open]="openDropdown" >
+      <button class="nav-text dropdown-toggle" aria-label="open user profile" (click)="openDropdown = !openDropdown">
         oscar_chang@mayohr.com
-        <cds-icon shape="angle" direction="up"></cds-icon>
+        <clr-icon shape="angle" direction="up"></clr-icon>
       </button>
       <div class="dropdown-menu">
         <a href="javascript://" class="dropdown-item">Log out</a>
