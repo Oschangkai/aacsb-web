@@ -2,7 +2,6 @@ import { Injectable, } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { catchError } from 'rxjs/operators';
 import { FailureMailEvents } from '@model/query.response.model';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
 import {SimpleResponse} from '@model/response.model';

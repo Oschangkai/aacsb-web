@@ -13,4 +13,11 @@ import { Injectable } from '@angular/core';
 export class NotificationService {
 
   constructor() { }
+
+  errors: any;
+
+  showError(err: any): void {
+
+  }
+
 }

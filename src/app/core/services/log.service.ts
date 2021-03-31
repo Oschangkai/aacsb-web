@@ -12,4 +12,9 @@ import { Injectable } from '@angular/core';
 export class LogService {
 
   constructor() { }
+
+  logError(message: string, stack: string): void {
+    // TODO: Send errors to server here
+    console.log('LogService: ' + message);
+  }
 }

@@ -16,7 +16,6 @@ import {
 import { MainComponent } from './main.component';
 
 // Components
-import { AlertComponent } from './components/alert/alert.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SubnavComponent } from './components/subnav/subnav.component';
@@ -27,15 +26,16 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail-page.component';
 
 // Resolver
-import { FailureMailResolver } from '@module/main/services/failure-mail-resolver.service';
-import {FailureMailService} from '@module/main/services/failure-mail.service';
-import {NgProgressModule} from 'ngx-progressbar';
+import { FailureMailResolver } from '@module/main/services/failure-mail.resolver';
+import { FailureMailService } from '@module/main/services/failure-mail.service';
+import { NgProgressModule } from 'ngx-progressbar';
+import { SharedModule } from '@shared/shared.module';
 
 const Pages = [
   MainPageComponent, FailureMailPageComponent
 ];
 const Components = [
-  MainComponent, ToolbarComponent, FooterComponent, AlertComponent,
+  MainComponent, ToolbarComponent, FooterComponent,
   SidenavComponent, SubnavComponent
 ];
 const ClrModules = [
@@ -53,7 +53,8 @@ const ClrModules = [
     MainRoutingModule,
     NgProgressModule,
     NgProgressHttpModule,
-    ...ClrModules
+    ...ClrModules,
+    SharedModule
   ],
   providers: [FailureMailService, FailureMailResolver]
 })
