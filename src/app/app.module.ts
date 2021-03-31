@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 
 import { NgProgressModule } from 'ngx-progressbar';
-import { NgProgressHttpModule } from 'ngx-progressbar/http';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
 
 @NgModule({
@@ -19,9 +18,8 @@ import { NgProgressRouterModule } from 'ngx-progressbar/router';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgProgressModule.withConfig({ min: 20, color: 'hsl(9, 100%, 43%)' }),
+    NgProgressModule.withConfig({ min: 20, color: 'hsl(9, 100%, 43%)', spinner: false }),
     NgProgressRouterModule,
-    NgProgressHttpModule,
     CoreModule,
   ],
   providers: [],

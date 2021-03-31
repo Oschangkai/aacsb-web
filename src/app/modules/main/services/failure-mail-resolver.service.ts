@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { FailureMailEvents } from '@model/query.response.model';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
-import {BaseResponse} from '@model/response.model';
+import {SimpleResponse} from '@model/response.model';
 
 @Injectable()
-export class FailureMailResolver implements Resolve<BaseResponse<FailureMailEvents>> {
+export class FailureMailResolver implements Resolve<SimpleResponse<FailureMailEvents>> {
   constructor(
     private failureMailService: FailureMailService,
     private router: Router
@@ -19,7 +19,6 @@ export class FailureMailResolver implements Resolve<BaseResponse<FailureMailEven
     state: RouterStateSnapshot
   ): Observable<any> {
 
-    return this.failureMailService.get()
-      .pipe(catchError((err) => this.router.navigateByUrl('/')));
+    return this.failureMailService.get();
   }
 }

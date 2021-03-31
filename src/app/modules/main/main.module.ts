@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgProgressHttpModule } from 'ngx-progressbar/http';
 
 import { MainRoutingModule } from './main-routing.module';
 import {
@@ -26,8 +27,9 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail-page.component';
 
 // Resolver
-import { FailureMailResolver } from '@module/main/pages/failure-mail-page/failure-mail-resolver.service';
+import { FailureMailResolver } from '@module/main/services/failure-mail-resolver.service';
 import {FailureMailService} from '@module/main/services/failure-mail.service';
+import {NgProgressModule} from 'ngx-progressbar';
 
 const Pages = [
   MainPageComponent, FailureMailPageComponent
@@ -45,7 +47,14 @@ const ClrModules = [
 
 @NgModule({
   declarations: [...Pages, ...Components],
-  imports: [CommonModule, ReactiveFormsModule, MainRoutingModule, ...ClrModules],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MainRoutingModule,
+    NgProgressModule,
+    NgProgressHttpModule,
+    ...ClrModules
+  ],
   providers: [FailureMailService, FailureMailResolver]
 })
 export class MainModule {}
