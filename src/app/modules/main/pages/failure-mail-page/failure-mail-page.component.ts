@@ -9,6 +9,7 @@ import { ResponseData } from '@model/response.model';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
 
 import { removeEmptyProperty } from '@utils/converter';
+import {HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-failure-mail-page',
@@ -47,19 +48,27 @@ export class FailureMailPageComponent implements OnInit {
     this.load();
   }
   load(): void {
-    const params: any = {...this.query};
+    let params: any = {...this.query};
     params.startDate = Math.floor(new Date(params.startDate).getTime() / 1000) || null;
     params.endDate = Math.floor(new Date(params.endDate).getTime() / 1000) || null;
+    params = removeEmptyProperty({...params});
 
-    this.failureMailService.query(params).subscribe(res => {
-      this.loadData = false;
-      this.failureMailEvents = res.data;
-    });
+    this.failureMailService.query(new HttpParams({fromObject: params}))
+      .subscribe(res => {
+        this.loadData = false;
+        this.failureMailEvents = res.data;
+      });
   }
   unblock(): void {
     this.openModal = true;
-    // TODO: api
-    console.log(this.unblockMails);
+    this.loadData = true;
+    const unblockList = this.selected.map(el => ({email: el.email, category: el.category}));
+    this.failureMailService.unblock(unblockList)
+      .subscribe(res => {
+        this.selected = [];
+        this.loadData = false;
+        this.openModal = false;
+      });
   }
   ngOnInit(): void {
     this.route.data.subscribe(
