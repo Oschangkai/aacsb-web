@@ -40,6 +40,7 @@ export class AlertService {
     this.alert(new Alert({
       ...options,
       type: AlertType.Error,
+      keepAfterRouteChange: options?.keepAfterRouteChange ?? true,
       autoClose: options?.autoClose ?? false,
       duration: options?.duration ?? AlertDuration.Long,
       message

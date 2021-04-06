@@ -1,7 +1,7 @@
 <div class="alert-area">
   <button
     class="btn btn-link btn-sm data-loading"
-    *ngIf="alerts.length"
+    *ngIf="alerts.length > 1"
     (click)="alertService.clear()"
   >
     Clear All
