@@ -5,7 +5,9 @@
   <div class="content-container">
     <app-sidenav></app-sidenav>
     <div class="content-area">
-      <ng-progress></ng-progress>
+      <span class="data-loading" *ngIf="progressRef.state | async; let state">
+        <clr-spinner [clrSmall]="true" *ngIf="state.active"></clr-spinner>
+      </span>
       <router-outlet></router-outlet>
     </div>
   </div>

@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
+import {NgProgressHttpModule} from 'ngx-progressbar/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NgProgressRouterModule } from 'ngx-progressbar/router';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgProgressModule.withConfig({ min: 20, color: 'hsl(9, 100%, 43%)', spinner: false }),
+    NgProgressModule.withConfig({ min: 20, color: 'hsl(9, 100%, 43%)' }),
+    NgProgressHttpModule,
     NgProgressRouterModule,
     CoreModule,
   ],

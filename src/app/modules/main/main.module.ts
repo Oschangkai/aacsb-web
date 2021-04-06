@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgProgressHttpModule } from 'ngx-progressbar/http';
 
 import { MainRoutingModule } from './main-routing.module';
 import {
@@ -10,7 +9,7 @@ import {
   ClrDatepickerModule,
   ClrIconModule,
   ClrInputModule,
-  ClrLoadingModule, ClrModalModule,
+  ClrLoadingModule, ClrModalModule, ClrSpinnerModule,
   ClrVerticalNavModule
 } from '@clr/angular';
 import { MainComponent } from './main.component';
@@ -28,7 +27,6 @@ import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail
 // Resolver
 import { FailureMailResolver } from '@module/main/services/failure-mail.resolver';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
-import { NgProgressModule } from 'ngx-progressbar';
 import { SharedModule } from '@shared/shared.module';
 
 const Pages = [
@@ -42,7 +40,7 @@ const ClrModules = [
   ClrIconModule,
   ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule,
   ClrInputModule, ClrLoadingModule, ClrVerticalNavModule,
-  ClrModalModule
+  ClrModalModule, ClrSpinnerModule
 ];
 
 @NgModule({
@@ -51,8 +49,6 @@ const ClrModules = [
     CommonModule,
     ReactiveFormsModule,
     MainRoutingModule,
-    NgProgressModule,
-    NgProgressHttpModule,
     ...ClrModules,
     SharedModule
   ],

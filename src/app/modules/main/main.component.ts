@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NgProgress, NgProgressRef} from 'ngx-progressbar';
 
 @Component({
   selector: 'app-main',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private ngProgress: NgProgress) { }
+  progressRef: NgProgressRef = this.ngProgress.ref();
 
   ngOnInit(): void {
   }
