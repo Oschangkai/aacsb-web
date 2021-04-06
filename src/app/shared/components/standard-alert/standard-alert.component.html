@@ -8,7 +8,7 @@
   </button>
   <clr-alerts *ngFor="let alert of alerts" style="clear: both;">
     <clr-alert [clrAlertType]=alert.type>
-      <clr-alert-item>{{alert.message}}</clr-alert-item>
+      <clr-alert-item style="white-space: pre-line;">{{alert.message}}</clr-alert-item>
     </clr-alert>
   </clr-alerts>
 </div>

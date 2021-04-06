@@ -25,7 +25,6 @@ export class StandardAlertComponent implements OnInit, OnDestroy {
     // subscribe to new alert notifications
     this.alertSubscription = this.alertService.onAlert(this.id)
       .subscribe(alert => {
-        console.log(alert);
         // clear alerts when an empty alert is received
         if (!alert.message) {
           // filter out alerts without 'keepAfterRouteChange' flag
