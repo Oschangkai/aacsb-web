@@ -9,7 +9,7 @@ import {NgProgress, NgProgressRef} from 'ngx-progressbar';
 export class MainComponent implements OnInit {
 
   constructor(private ngProgress: NgProgress) { }
-  progressRef: NgProgressRef = this.ngProgress.ref();
+  progressRef: NgProgressRef = this.ngProgress.ref('http-load');
 
   ngOnInit(): void {
   }

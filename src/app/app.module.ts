@@ -20,7 +20,7 @@ import {NgProgressHttpModule} from 'ngx-progressbar/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     NgProgressModule.withConfig({ min: 20, color: 'hsl(9, 100%, 43%)' }),
-    NgProgressHttpModule,
+    NgProgressHttpModule.withConfig({id: 'http-load', silentApis: []}),
     NgProgressRouterModule,
     CoreModule,
   ],
