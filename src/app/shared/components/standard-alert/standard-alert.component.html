@@ -1,17 +1,14 @@
-<div class="notification-area">
-  <clr-alerts>
-    <clr-alert>
-      <clr-alert-item>1.1 This is my alert text</clr-alert-item>
-      <clr-alert-item>1.2 This is my alert text</clr-alert-item>
-    </clr-alert>
-    <clr-alert [clrAlertType]="'warning'">
-      <clr-alert-item>2. This is my alert text</clr-alert-item>
-    </clr-alert>
-    <clr-alert [clrAlertType]="'danger'">
-      <clr-alert-item>3. This is my alert text</clr-alert-item>
-    </clr-alert>
-    <clr-alert [clrAlertType]="'success'">
-      <clr-alert-item>4. This is my alert text</clr-alert-item>
+<div class="alert-area">
+  <button
+    class="btn btn-link btn-sm data-loading"
+    *ngIf="alerts.length"
+    (click)="alertService.clear()"
+  >
+    Clear All
+  </button>
+  <clr-alerts *ngFor="let alert of alerts" style="clear: both;">
+    <clr-alert [clrAlertType]=alert.type>
+      <clr-alert-item>{{alert.message}}</clr-alert-item>
     </clr-alert>
   </clr-alerts>
 </div>
