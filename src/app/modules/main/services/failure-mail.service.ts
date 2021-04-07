@@ -15,7 +15,7 @@ export class FailureMailService {
 
   get(): Observable<SimpleResponse<FailureMailEvents>> {
     return this.http
-      .get<SimpleResponse<FailureMailEvents>>(`${baseUrl}/${MANAGEMENT}/failureMails`);
+      .get<SimpleResponse<FailureMailEvents>>(`${baseUrl}/${MANAGEMENT}/failureMails`, {params: new HttpParams().append('page', '1').append('pageSize', '1000')});
   }
 
   query(params: HttpParams = new HttpParams()): Observable<SimpleResponse<FailureMailEvents>> {

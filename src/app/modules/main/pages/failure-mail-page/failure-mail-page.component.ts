@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ClrLoadingState } from '@clr/angular';
+import {ClrDatagridStateInterface, ClrLoadingState} from '@clr/angular';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { FailureMailEvents } from '@model/query.response.model';
@@ -26,31 +26,31 @@ export class FailureMailPageComponent implements OnInit {
 
   // TODO: loading disable, start/end date max/min date
   queryForm: FormGroup = new FormGroup({
-    startDate: new FormControl(),
-    endDate: new FormControl(),
+    startTimestamp: new FormControl(),
+    endTimestamp: new FormControl(),
     q: new FormControl(),
     email: new FormControl()
   });
 
-  // TODO: implement global data fetching
   loadData = false;
   openModal = false;
-  query = {};
+  query = { ...this.queryForm.value, page: 1, pageSize: 10 };
   selected: any[] = [];
   failureMailEvents: ResponseData<FailureMailEvents> = { data: [], count: 0, emails: [] };
 
+  pageFromClient = () => !!(this.query.startTimestamp || this.query.endTimestamp);
   unblockMails = () => this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
   submitBtnState = () => this.loadData ? ClrLoadingState.LOADING : ClrLoadingState.DEFAULT;
   submit(): void {
     this.loadData = true;
-    this.query = {...this.queryForm.value};
+    this.query = {...this.queryForm.value, page: 1, pageSize: 1000};
 
     this.load();
   }
   load(): void {
     let params: any = {...this.query};
-    params.startDate = Math.floor(new Date(params.startDate).getTime() / 1000) || null;
-    params.endDate = Math.floor(new Date(params.endDate).getTime() / 1000) || null;
+    params.startTimestamp = Math.floor(new Date(params.startTimestamp).getTime() / 1000) || null;
+    params.endTimestamp = Math.floor(new Date(params.endTimestamp).getTime() / 1000) || null;
     params = removeEmptyProperty({...params});
 
     this.failureMailService.query(new HttpParams({fromObject: params}))
@@ -69,6 +69,9 @@ export class FailureMailPageComponent implements OnInit {
         this.loadData = false;
         this.openModal = false;
       });
+  }
+  refresh(state: ClrDatagridStateInterface): void {
+    // TODO: 目前因前端框架的 bug，從 Server 取分頁資料會發生錯誤，故暫不實作
   }
   ngOnInit(): void {
     this.route.data.subscribe(

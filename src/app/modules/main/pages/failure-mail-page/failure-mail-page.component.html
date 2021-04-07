@@ -5,11 +5,11 @@
 <form class="clr-form-compact" clrForm clrLayout="horizontal" [formGroup]="queryForm">
   <clr-date-container>
     <label>Start Date</label>
-    <input formControlName="startDate" type="date" clrDate name="startDate" />
+    <input formControlName="startTimestamp" type="date" clrDate name="startTimestamp" />
   </clr-date-container>
   <clr-date-container>
     <label>End Date</label>
-    <input formControlName="endDate" type="date" clrDate name="endDate" />
+    <input formControlName="endTimestamp" type="date" clrDate name="endTimestamp" />
   </clr-date-container>
   <clr-input-container>
     <label>Reason</label>
@@ -29,7 +29,7 @@
 </button>
 
 <!-- Data List -->
-<clr-datagrid [clrDgLoading]="loadData" [(clrDgSelected)]="selected">
+<clr-datagrid [clrDgLoading]="loadData" [(clrDgSelected)]="selected" (clrDgRefresh)="refresh($event)">
   <!-- Action Bar -->
   <clr-dg-action-bar>
     <div class="btn-group">
@@ -85,7 +85,7 @@
 
   <!-- Footer -->
   <clr-dg-footer>
-    <clr-dg-pagination #failureMailEvent [clrDgPageSize]="10">
+    <clr-dg-pagination #failureMailEvent> <!--[clrDgTotalItems]="total"-->
       <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Events per page</clr-dg-page-size>
       {{failureMailEvent.firstItem + 1}} - {{failureMailEvent.lastItem + 1}} of {{failureMailEvent.totalItems}} events
     </clr-dg-pagination>
