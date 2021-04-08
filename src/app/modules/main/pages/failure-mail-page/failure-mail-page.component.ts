@@ -33,7 +33,7 @@ export class FailureMailPageComponent implements OnInit, OnDestroy {
   private httpStateSubscription: Subscription;
 
   // states
-  loadData = false;
+  loadData = true;
   submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   openModal = false;
 
@@ -53,7 +53,11 @@ export class FailureMailPageComponent implements OnInit, OnDestroy {
 
   // watch values
   pageFromClient = () => !!(this.query.startTimestamp || this.query.endTimestamp);
-  unblockMails = () => this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
+  unblockList = () => this.selected
+    .map(el => ({email: el.email, category: el.category}))
+    .filter( (v, i , a ) =>
+      a.findIndex(t => (JSON.stringify(t) === JSON.stringify(v))) === i
+    )
 
   submit(): void {
     this.query = {...this.queryForm.value, page: 1, pageSize: 1000};
@@ -72,8 +76,7 @@ export class FailureMailPageComponent implements OnInit, OnDestroy {
   }
   unblock(): void {
     this.openModal = true;
-    const unblockList = this.selected.map(el => ({email: el.email, category: el.category}));
-    this.failureMailService.unblock(unblockList)
+    this.failureMailService.unblock([...this.unblockList()])
       .subscribe(res => {
         this.selected = [];
         this.openModal = false;

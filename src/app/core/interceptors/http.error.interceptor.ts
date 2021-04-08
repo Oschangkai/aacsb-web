@@ -14,7 +14,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   handleError(error: HttpErrorResponse): Observable<any> {
     console.log(error);
-    this.alert.error(`HTTP error with status code ${error.status} ${error.statusText}.\n${error.message}`);
+    this.alert.error(`HTTP error with status code ${error.status} ${error.statusText}.\n${error.url}`);
     return of(null);
   }
 

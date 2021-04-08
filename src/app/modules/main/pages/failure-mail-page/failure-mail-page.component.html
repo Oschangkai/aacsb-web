@@ -98,8 +98,8 @@
   <div class="modal-body">
     <p>
       Are you sure to unblock following emails? <br><br>
-      <ng-container *ngFor="let mail of unblockMails()">
-        <code>{{mail}}</code><br>
+      <ng-container *ngFor="let item of unblockList()">
+        <code>{{item.email}}</code><br>
       </ng-container>
     </p>
   </div>
