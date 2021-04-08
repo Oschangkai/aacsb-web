@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import {ClrDatagridStateInterface, ClrLoadingState} from '@clr/angular';
 import { FormControl, FormGroup } from '@angular/forms';
+import {HttpParams} from '@angular/common/http';
+
+import {Subscription} from 'rxjs';
+import {ClrDatagridStateInterface, ClrLoadingState} from '@clr/angular';
+import {NgProgress} from 'ngx-progressbar';
 
 import { FailureMailEvents } from '@model/query.response.model';
 import { ResponseData } from '@model/response.model';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
-
 import { removeEmptyProperty } from '@utils/converter';
-import {HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-failure-mail-page',
@@ -17,34 +18,45 @@ import {HttpParams} from '@angular/common/http';
   styleUrls: ['./failure-mail-page.component.scss'],
   providers: [FailureMailService]
 })
-export class FailureMailPageComponent implements OnInit {
+export class FailureMailPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private ngProgress: NgProgress,
     private failureMailService: FailureMailService
-  ) { }
+  ) {
+    this.httpStateSubscription = this.ngProgress.ref('http-load').state.subscribe(state => {
+      this.loadData = state.active;
+      this.submitBtnState = state.active ? ClrLoadingState.LOADING : ClrLoadingState.DEFAULT;
+    });
+  }
+  private httpStateSubscription: Subscription;
 
-  // TODO: loading disable, start/end date max/min date
+  // states
+  loadData = false;
+  submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
+  openModal = false;
+
+  // form
+  // TODO: start/end date max/min date
   queryForm: FormGroup = new FormGroup({
     startTimestamp: new FormControl(),
     endTimestamp: new FormControl(),
     q: new FormControl(),
     email: new FormControl()
   });
-
-  loadData = false;
-  openModal = false;
   query = { ...this.queryForm.value, page: 1, pageSize: 10 };
+
+  // data
   selected: any[] = [];
   failureMailEvents: ResponseData<FailureMailEvents> = { data: [], count: 0, emails: [] };
 
+  // watch values
   pageFromClient = () => !!(this.query.startTimestamp || this.query.endTimestamp);
   unblockMails = () => this.selected.map(el => el.email).filter((el, idx, self) => self.indexOf(el) === idx);
-  submitBtnState = () => this.loadData ? ClrLoadingState.LOADING : ClrLoadingState.DEFAULT;
-  submit(): void {
-    this.loadData = true;
-    this.query = {...this.queryForm.value, page: 1, pageSize: 1000};
 
+  submit(): void {
+    this.query = {...this.queryForm.value, page: 1, pageSize: 1000};
     this.load();
   }
   load(): void {
@@ -55,30 +67,32 @@ export class FailureMailPageComponent implements OnInit {
 
     this.failureMailService.query(new HttpParams({fromObject: params}))
       .subscribe(res => {
-        this.loadData = false;
         this.failureMailEvents = res.data;
       });
   }
   unblock(): void {
     this.openModal = true;
-    this.loadData = true;
     const unblockList = this.selected.map(el => ({email: el.email, category: el.category}));
     this.failureMailService.unblock(unblockList)
       .subscribe(res => {
         this.selected = [];
-        this.loadData = false;
         this.openModal = false;
       });
   }
+
   refresh(state: ClrDatagridStateInterface): void {
     // TODO: 目前因前端框架的 bug，從 Server 取分頁資料會發生錯誤，故暫不實作
   }
+
   ngOnInit(): void {
     this.route.data.subscribe(
       ({ failureMailEvents }) => {
         this.failureMailEvents = {...failureMailEvents.data};
       }
     );
+  }
+  ngOnDestroy(): void {
+    this.httpStateSubscription.unsubscribe();
   }
 
 }

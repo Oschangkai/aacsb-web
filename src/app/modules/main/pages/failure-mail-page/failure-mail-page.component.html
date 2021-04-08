@@ -5,25 +5,25 @@
 <form class="clr-form-compact" clrForm clrLayout="horizontal" [formGroup]="queryForm">
   <clr-date-container>
     <label>Start Date</label>
-    <input formControlName="startTimestamp" type="date" clrDate name="startTimestamp" />
+    <input formControlName="startTimestamp" type="date" clrDate name="startTimestamp" [disabled]="loadData" />
   </clr-date-container>
   <clr-date-container>
     <label>End Date</label>
-    <input formControlName="endTimestamp" type="date" clrDate name="endTimestamp" />
+    <input formControlName="endTimestamp" type="date" clrDate name="endTimestamp" [disabled]="loadData" />
   </clr-date-container>
   <clr-input-container>
     <label>Reason</label>
-    <input formControlName="q"  clrInput type="text" name="q" />
+    <input formControlName="q" clrInput type="text" name="q" [disabled]="loadData" />
   </clr-input-container>
   <clr-datalist-container>
     <label>Email</label>
-    <input formControlName="email"  clrDatalistInput name="email" />
+    <input formControlName="email" clrDatalistInput name="email" [disabled]="loadData" />
     <datalist>
       <option *ngFor="let item of failureMailEvents.emails" [value]="item"></option>
     </datalist>
   </clr-datalist-container>
 </form>
-<button class="btn btn-primary" [clrLoading]="submitBtnState()" (click)="submit()">
+<button class="btn btn-primary" [clrLoading]="submitBtnState" (click)="submit()">
   <clr-icon shape="search"></clr-icon>
   Query
 </button>
@@ -105,7 +105,7 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline" (click)="openModal = false">Cancel</button>
-    <button type="button" class="btn btn-primary" (click)="unblock()" [clrLoading]="submitBtnState()">Ok</button>
+    <button type="button" class="btn btn-primary" (click)="unblock()" [clrLoading]="submitBtnState">Ok</button>
   </div>
 </clr-modal>
 
