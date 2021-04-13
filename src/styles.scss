@@ -11,3 +11,21 @@
   float: right;
   overflow: auto;
 }
+.login-wrapper {
+  background: url('./assets/logos/MAYO_Horizontal.png');
+  background-size: 50vmin;
+  background-position: calc(25.2rem) 50%;
+  background-repeat: no-repeat;
+}
+.ms-login-button {
+  background: #fff;
+  border-width: 1px!important;
+  border-color: #8c8c8c!important;
+  color: #5e5e5e!important;
+}
+.ms-login-button:active {
+  box-shadow: 0 .1rem 0 0 #5e5e5e inset!important;
+}
+.ms-login-button:hover {
+  background-color: rgba(94, 94, 94, 0.08)!important;
+}
