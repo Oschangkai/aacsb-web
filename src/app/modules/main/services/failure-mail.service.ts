@@ -6,7 +6,7 @@ import {FailureMailEvents} from '@model/query.response.model';
 import { environment } from '@environment/environment';
 
 const baseUrl = environment.api;
-const MANAGEMENT = 'SendGrid/management';
+const MANAGEMENT = 'v1/SendGrid/management';
 
 @Injectable()
 export class FailureMailService {

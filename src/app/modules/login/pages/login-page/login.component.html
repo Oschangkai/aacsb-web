@@ -6,10 +6,10 @@
       <h5 class="hint">Use your Microsoft account to sign in</h5>
     </section>
     <div class="login-group">
-      <div class="error active">
-        Invalid user name or password
+      <div class="error active" *ngIf="message">
+        {{message}}
       </div>
-      <button type="submit" class="btn btn-outline ms-login-button">
+      <button class="btn btn-outline ms-login-button" (click)="msSignIn()" #msSignInBtn>
         <span><img src="./assets/logos/ms.svg" alt="microsoft logo"></span>
         Sign in with Microsoft
       </button>
