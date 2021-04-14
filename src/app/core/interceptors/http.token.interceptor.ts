@@ -3,6 +3,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { UserService } from '@service/user.service';
+import {environment} from '@environment/environment';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
@@ -13,12 +14,14 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       'Content-Type': 'application/json',
       Accept: 'application/json'
     };
+    const isApiUrl = req.url.startsWith(environment.api);
 
+    // fake token
     this.userService.setToken();
     const token = this.userService.getToken();
 
-    if (token) {
-      headersConfig.Authorization = `Token ${token}`;
+    if (token && isApiUrl) {
+      headersConfig.Authorization = `Bearer ${token}`;
     }
 
     const request = req.clone({ setHeaders: headersConfig });
