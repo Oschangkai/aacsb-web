@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   message: string|null = null;
+  isCallback = false;
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
