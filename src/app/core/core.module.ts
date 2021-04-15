@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpTokenInterceptor } from './interceptors/http.token.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http.error.interceptor';
 import { ErrorService } from '@service/error.service';
+import {AuthGuard} from '@core/guards/auth.guard';
 
 // set zh-hant
 registerLocaleData(localeZhHant);
@@ -15,6 +16,7 @@ registerLocaleData(localeZhHant);
 @NgModule({
   declarations: [],
   providers: [
+    AuthGuard,
     { provide: ErrorHandler, useClass: ErrorService },
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },

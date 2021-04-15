@@ -8,11 +8,13 @@ import {FailureMailPageComponent} from './pages/failure-mail-page/failure-mail-p
 
 // Resolver
 import {FailureMailResolver} from '@module/main/services/failure-mail.resolver';
+import {AuthGuard} from '@core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
