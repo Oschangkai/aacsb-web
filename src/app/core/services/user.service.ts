@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import * as store from 'store';
 
 import {environment} from '@environment/environment';
+import {User} from '@model/User.model';
 
 
 const baseUrl = environment.api;
@@ -28,11 +29,42 @@ export class UserService {
     @Inject(DOCUMENT) private document: Document) { }
 
   getToken(): string {
-    return store.get('token');
+    return store.get('user.token');
+  }
+  setToken(token: any): void {
+    store.set('user.token', token);
   }
 
-  setToken(): void {
-    store.set('token', '123');
+  getId(): string {
+    return store.get('user.id');
+  }
+  setId(id: string): void {
+    store.set('user.id', id);
+  }
+
+  getUsername(): string {
+    return store.get('user.username');
+  }
+  setUsername(username: string): void {
+    store.set('user.username', username);
+  }
+
+  getEmail(): string {
+    return store.get('user.email');
+  }
+  setEmail(email: string): void {
+    store.set('user.email', email);
+  }
+
+  getUser(): User {
+    return store.get('user');
+  }
+  setUser(user: User): void {
+    store.set('user', user);
+  }
+
+  clear(): void {
+    store.clearAll();
   }
 
   signInWithMicrosoft(returnUrl?: string): void {

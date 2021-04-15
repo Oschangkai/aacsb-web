@@ -15,9 +15,6 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       Accept: 'application/json'
     };
     const isApiUrl = req.url.startsWith(environment.api);
-
-    // fake token
-    this.userService.setToken();
     const token = this.userService.getToken();
 
     if (token && isApiUrl) {

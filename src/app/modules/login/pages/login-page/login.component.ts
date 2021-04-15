@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '@service/user.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from '@model/User.model';
 
 @Component({
   selector: 'app-login',
@@ -11,15 +12,42 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private router: Router,
     private activatedRoute: ActivatedRoute
   ) { }
 
+  success: string|null = null;
   message: string|null = null;
+  params: any;
   isCallback = false;
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
+      if (params && params.token) {
+        this.isCallback = true;
+
+        this.params = params;
+        this.userService.setToken(params.token);
+        this.userService.setId(params.id);
+        this.userService.setUsername(params.username);
+        this.userService.setEmail(params.email);
+        this.userService.setUser(new User({
+          id: params.id,
+          email: params.email,
+          token: params.token,
+          username: params.username
+        }));
+
+        if (params.path) {
+          this.router.navigate([params.path]);
+        } else {
+          this.router.navigate(['/']);
+        }
+      } else {
+        this.userService.clear();
+      }
       this.message = params.message;
+      this.success = params.success;
     });
   }
 

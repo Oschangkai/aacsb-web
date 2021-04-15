@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '@service/user.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private user: UserService,
+    private router: Router
+  ) { }
+
   openDropdown = false;
+  email: string|null = null;
 
   ngOnInit(): void {
+    this.email = this.user.getEmail();
+  }
+
+  logout(): void {
+    this.user.clear();
   }
 
 }

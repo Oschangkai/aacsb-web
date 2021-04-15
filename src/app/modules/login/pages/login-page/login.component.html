@@ -4,7 +4,10 @@
       <h3 class="welcome">Welcome to</h3>
       MAYO Boardroom
       <h5 class="hint" *ngIf="!isCallback">Use your Microsoft account to sign in</h5>
-      <h5 class="hint" *ngIf="isCallback">We're Logging you in, please wait...</h5>
+      <h5 class="hint" *ngIf="isCallback">
+        Hello {{params.username}},<br/>
+        We're Logging you in, please wait...
+      </h5>
     </section>
     <div class="login-group" *ngIf="isCallback">
       <clr-spinner *ngIf="isCallback"></clr-spinner>
@@ -13,6 +16,9 @@
       <div class="error active" *ngIf="message">
         {{message}}
       </div>
+      <clr-alert clrAlertIcon="check-circle" [clrAlertClosable]="false" clrAlertType="success" *ngIf="success">
+        {{success}}
+      </clr-alert>
       <button class="btn btn-outline ms-login-button" (click)="msSignIn()" #msSignInBtn>
         <span><img src="./assets/logos/ms.svg" alt="microsoft logo"></span>
         Sign in with Microsoft
@@ -20,3 +26,4 @@
     </div>
   </form>
 </div>
+<app-standard-alert></app-standard-alert>

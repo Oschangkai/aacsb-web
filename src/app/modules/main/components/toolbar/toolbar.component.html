@@ -17,11 +17,11 @@
   <div class="header-actions header-actions--overflow">
     <div class="dropdown bottom-left" [class.open]="openDropdown" >
       <button class="nav-text dropdown-toggle" aria-label="open user profile" (click)="openDropdown = !openDropdown">
-        oscar_chang@mayohr.com
+        {{email}}
         <clr-icon shape="angle" direction="up"></clr-icon>
       </button>
       <div class="dropdown-menu">
-        <a href="javascript://" class="dropdown-item">Log out</a>
+        <a routerLink="/login" [queryParams]="{success: 'Successfully Logout!'}" class="dropdown-item" (click)="logout()">Log out</a>
       </div>
     </div>
   </div>
