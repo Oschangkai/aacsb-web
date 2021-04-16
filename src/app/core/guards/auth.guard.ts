@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate, CanLoad {
 
   checkLogin(url: string): boolean {
     if (!this.isLogin) {
-      this.router.navigate(['/login'], {queryParams: {message: 'Please Login.'}});
+      this.router.navigate(['/login'], {queryParams: {message: 'Please Login.', path: url}});
       return false;
     }
     return true;
