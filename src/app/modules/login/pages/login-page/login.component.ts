@@ -23,10 +23,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(params => {
+      this.params = params;
       if (params && params.token) {
         this.isCallback = true;
 
-        this.params = params;
         this.userService.setToken(params.token);
         this.userService.setId(params.id);
         this.userService.setUsername(params.username);
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   }
 
   msSignIn(): boolean {
-    this.userService.signInWithMicrosoft('/');
+    this.userService.signInWithMicrosoft(this.params.path ?? '/');
     // https://stackoverflow.com/questions/275092/windows-location-href-not-working-on-firefox3
     return false; // Avoid NS_BINDING_ABORTED
   }

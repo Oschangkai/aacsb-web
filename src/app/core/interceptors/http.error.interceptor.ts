@@ -28,7 +28,8 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               case 'IDX10223':
                 this.router.navigate(['/login'], {
                   queryParams: {
-                    message: error.error.Message
+                    message: error.error.Message,
+                    path: this.router.url
                   }
                 });
                 return of(null);
@@ -42,6 +43,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             this.alert.error(`HTTP error with status code ${error.status} ${error.statusText}.\n${error.url}`);
           }
           break;
+        case 500:
         case 0:
         default:
           this.alert.error(`HTTP error with status code ${error.status} ${error.statusText}.\n${error.url}`);
