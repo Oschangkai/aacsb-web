@@ -75,10 +75,10 @@ export class FailureMailPageComponent implements OnInit, OnDestroy {
       });
   }
   unblock(): void {
-    this.openModal = true;
     this.failureMailService.unblock([...this.unblockList()])
       .subscribe(res => {
         this.selected = [];
+        this.load();
         this.openModal = false;
       });
   }
