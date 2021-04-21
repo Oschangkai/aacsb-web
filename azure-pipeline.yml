@@ -8,9 +8,6 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 variables:
-  tag: $(Build.BuildId)
-  version: $(Build.BuildNumber)
-  commitHash: $(Build.SourceVersion)
   DOCKER_BUILDKIT: 1
 
 stages:
@@ -21,14 +18,11 @@ stages:
     - job: Docker
       displayName: Build and Publish docker image
       steps:
-  - job: Docker
-      displayName: Build and Publish docker image
-      steps:
       - script: |
           echo $buildNumber
           echo $sourceVersion
-          version=${buildNumber}.${sourceVersion}
           commitHash=${sourceVersion:0:7}
+          version=${buildNumber}.${commitHash}
           echo $version
           echo $commitHash
           echo "##vso[task.setvariable variable=version]version"
