@@ -1,6 +1,5 @@
 trigger:
 - master
-- dev
 - staging
 - devops
 
@@ -33,22 +32,22 @@ stages:
         parameters:
           version: $(version)
           ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/dev') }}:
-            stage: dev
+            profile: dev
             tags: |
               latest
               dev
               dev-latest
           ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/staging') }}:
-            stage: staging
+            profile: staging
             tags: |
               staging
               staging-latest
           ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
-            stage: prod
+            profile: prod
             tags: |
               stable
               stable-latest
           ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/devops') }}:
-            stage: dev
+            profile: dev
             tags: |
               devops

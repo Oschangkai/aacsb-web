@@ -2,7 +2,7 @@ parameters:
 - name: version
   default: '$(Build.BuildNumber)'
   type: string
-- name: stage
+- name: profile
   default: dev
   type: string
 - name: tags
@@ -20,7 +20,7 @@ steps:
     repository: 'portal-frontend'
     command: 'build'
     Dockerfile: './Dockerfile'
-    arguments: '--build-arg stage=${{ parameters.stage }} --build-arg version=${{ parameters.version }}'
+    arguments: '--build-arg profile=${{ parameters.profile }} --build-arg version=${{ parameters.version }}'
     tags: |
       ${{ parameters.tags }}
       ${{ parameters.version }}
