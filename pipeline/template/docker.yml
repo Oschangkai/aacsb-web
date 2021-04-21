@@ -20,7 +20,7 @@ steps:
     repository: 'portal-frontend'
     command: 'build'
     Dockerfile: './Dockerfile'
-    arguments: '--build-arg profile=${{ parameters.profile }} --build-arg version=${{ parameters.version }}'
+    arguments: '--build-arg PROFILE=${{ parameters.profile }} --build-arg version=${{ parameters.version }}'
     tags: |
       ${{ parameters.tags }}
       ${{ parameters.version }}
