@@ -1,0 +1,35 @@
+parameters:
+- name: version
+  default: '$(Build.BuildNumber)'
+  type: string
+- name: stage
+  default: dev
+  type: string
+- name: tags
+  default: latest
+  type: string
+- name: containerRegistry
+  default: ACR
+  type: string
+
+steps:
+- task: Docker@2
+  displayName: 'Build image'
+  inputs:
+    containerRegistry: ${{ parameters.containerRegistry }}
+    repository: 'portal-frontend'
+    command: 'build'
+    Dockerfile: './Dockerfile'
+    arguments: '--build-arg stage=${{ parameters.stage }} --build-arg version=${{ parameters.version }}'
+    tags: |
+      ${{ parameters.tags }}
+      ${{ parameters.version }}
+- task: Docker@2
+  displayName: 'Push image'
+  inputs:
+    containerRegistry: ${{ parameters.containerRegistry }}
+    repository: 'portal-frontend'
+    command: 'push'
+    tags: |
+      ${{ parameters.tags }}
+      ${{ parameters.version }}

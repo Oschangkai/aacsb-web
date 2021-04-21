@@ -1,0 +1,60 @@
+trigger:
+- master
+- dev
+- staging
+- devops
+
+pool:
+  vmImage: 'ubuntu-18.04'
+
+variables:
+  tag: $(Build.BuildId)
+  version: $(Build.BuildNumber)
+  commitHash: $(Build.SourceVersion)
+  DOCKER_BUILDKIT: 1
+
+stages:
+  - stage: Build
+    displayName: 'Build and Publish Docker'
+    dependsOn: []
+    jobs:
+    - job: Docker
+      displayName: Build and Publish docker image
+      steps:
+  - job: Docker
+      displayName: Build and Publish docker image
+      steps:
+      - script: |
+          echo $buildNumber
+          echo $sourceVersion
+          version=${buildNumber}.${sourceVersion}
+          commitHash=${sourceVersion:0:7}
+          echo $version
+          echo $commitHash
+          echo "##vso[task.setvariable variable=version]version"
+          echo "##vso[task.setvariable variable=commitHash]$commitHash" ## Set variable for using in other tasks.
+        env: { sourceVersion: $(Build.SourceVersion), buildNumber: $(Build.BuildNumber) }
+        displayName: Generate Variables
+      - template: pipeline/template/docker.yml
+        parameters:
+          version: ${{ variables.version }}
+          ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/dev') }}:
+            stage: dev
+            tags: |
+              latest
+              dev
+              dev-latest
+          ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/staging') }}:
+            stage: staging
+            tags: |
+              staging
+              staging-latest
+          ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+            stage: prod
+            tags: |
+              stable
+              stable-latest
+          ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/devops') }}:
+            stage: dev
+            tags: |
+              devops
