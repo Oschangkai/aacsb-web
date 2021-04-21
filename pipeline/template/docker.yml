@@ -6,7 +6,7 @@ parameters:
   default: dev
   type: string
 - name: tags
-  default: latest
+  default: test
   type: string
 - name: containerRegistry
   default: ACR
