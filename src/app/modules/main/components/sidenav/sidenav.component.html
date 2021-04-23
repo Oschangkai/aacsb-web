@@ -1,27 +1,29 @@
 <clr-vertical-nav style="height: 100%" [clrVerticalNavCollapsible]="true" [clrVerticalNavCollapsed]="false">
   <ng-container *ngFor="let sideMenuItem of sideMenu" [ngSwitch]="!!sideMenuItem.child">
-    <clr-vertical-nav-group
-      *ngSwitchCase="true"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{exact:true}"
-    >
-      <clr-icon [attr.shape]="sideMenuItem.shape" clrVerticalNavIcon></clr-icon>
-      {{sideMenuItem.displayName}}
+    <ng-container *ngSwitchCase="true">
+      <clr-vertical-nav-group
+        *permission="sideMenuItem.permission; operation: 'OR'"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}"
+      >
+        <clr-icon [attr.shape]="sideMenuItem.shape" clrVerticalNavIcon></clr-icon>
+        {{sideMenuItem.displayName}}
 
-      <clr-vertical-nav-group-children>
-        <ng-container
-          *ngFor="let item of sideMenuItem.child"
-          [ngTemplateOutlet]=sideMenuItemTemplate
-          [ngTemplateOutletContext]="{
+        <clr-vertical-nav-group-children>
+          <ng-container
+            *ngFor="let item of sideMenuItem.child"
+            [ngTemplateOutlet]=sideMenuItemTemplate
+            [ngTemplateOutletContext]="{
             routerLink: item.routerLink,
             permission: item.permission,
             shape: item.shape,
             displayName: item.displayName
           }"
-        ></ng-container>
-      </clr-vertical-nav-group-children>
+          ></ng-container>
+        </clr-vertical-nav-group-children>
 
-    </clr-vertical-nav-group>
+      </clr-vertical-nav-group>
+    </ng-container>
 
     <ng-container
       *ngSwitchCase="false"
