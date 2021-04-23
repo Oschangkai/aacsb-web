@@ -1,20 +1,56 @@
 <clr-vertical-nav style="height: 100%" [clrVerticalNavCollapsible]="true" [clrVerticalNavCollapsed]="false">
-  <a clrVerticalNavLink routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-    <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
-    Home
-  </a>
-  <clr-vertical-nav-group routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-    <clr-icon shape="cog" clrVerticalNavIcon></clr-icon>
-    System
-    <clr-vertical-nav-group-children>
-      <a clrVerticalNavLink routerLink="failure-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
-        User
+  <ng-container *ngFor="let sideMenuItem of sideMenu" [ngSwitch]="!!sideMenuItem.child">
+    <clr-vertical-nav-group
+      *ngSwitchCase="true"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact:true}"
+    >
+      <clr-icon [attr.shape]="sideMenuItem.shape" clrVerticalNavIcon></clr-icon>
+      {{sideMenuItem.displayName}}
+
+      <clr-vertical-nav-group-children>
+        <ng-container
+          *ngFor="let item of sideMenuItem.child"
+          [ngTemplateOutlet]=sideMenuItemTemplate
+          [ngTemplateOutletContext]="{
+            routerLink: item.routerLink,
+            permission: item.permission,
+            shape: item.shape,
+            displayName: item.displayName
+          }"
+        ></ng-container>
+      </clr-vertical-nav-group-children>
+
+    </clr-vertical-nav-group>
+
+    <ng-container
+      *ngSwitchCase="false"
+      [ngTemplateOutlet]=sideMenuItemTemplate
+      [ngTemplateOutletContext]="{
+        routerLink: sideMenuItem.routerLink,
+        permission: sideMenuItem.permission,
+        shape: sideMenuItem.shape,
+        displayName: sideMenuItem.displayName
+      }"
+    ></ng-container>
+
+    <ng-template
+      #sideMenuItemTemplate
+      let-routerLink='routerLink'
+      let-permission='permission'
+      let-shape='shape'
+      let-displayName='displayName'
+    >
+      <a
+        routerLink="{{routerLink}}"
+        clrVerticalNavLink
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact:true}"
+        *permission="permission; operation: 'OR'"
+      >
+        <clr-icon clrVerticalNavIcon [attr.shape]="shape"></clr-icon>
+        {{displayName}}
       </a>
-    </clr-vertical-nav-group-children>
-  </clr-vertical-nav-group>
-  <a *permission="[Permission.SendGrid.FailureMail.Query, Permission.SendGrid.FailureMail.Unblock]; operation: 'OR'" clrVerticalNavLink routerLink="failure-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-    <clr-icon clrVerticalNavIcon shape="envelope"></clr-icon>
-    Failure Mails
-  </a>
+    </ng-template>
+  </ng-container>
 </clr-vertical-nav>
