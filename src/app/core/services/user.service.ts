@@ -32,22 +32,27 @@ export class UserService implements OnDestroy {
     @Inject(DOCUMENT) private document: Document
   ) {
     this.subscriptions.push(
-      this.currentUserSubject$.subscribe(() => {
+      this.currentUserSubject$.subscribe(u => {
         this.currentPermissionSubject$.next(this.getPermission());
-        this.isLoginSubject$.next(true);
+        if (u && u.token) {
+          this.isLoginSubject$.next(true);
+        }
       })
     );
   }
 
   private subscriptions: Subscription[] = [];
+
   private currentUserSubject$ = new BehaviorSubject<User>(this.getUser() ?? new User());
   private currentPermissionSubject$ = new BehaviorSubject<string[]>(this.getPermission() ?? []);
   private isLoginSubject$ = new BehaviorSubject<boolean>(this.hasToken());
 
   public currentUser = this.currentUserSubject$.asObservable().pipe(distinctUntilChanged());
   public currentPermission = this.currentPermissionSubject$.asObservable().pipe(distinctUntilChanged());
+  public isLoggedIn = this.isLoginSubject$.asObservable().pipe(distinctUntilChanged());
 
   private hasToken(): boolean {
+    console.log(`hasToken: ${!!this.getUser()}`);
     return !!this.getUser();
   }
 
@@ -82,10 +87,6 @@ export class UserService implements OnDestroy {
       url += 'path=';
     }
     this.document.location.href = url;
-  }
-
-  isLoggedIn(): Observable<boolean> {
-    return this.isLoginSubject$.asObservable();
   }
 
   ngOnDestroy(): void {

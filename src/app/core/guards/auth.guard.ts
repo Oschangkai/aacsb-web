@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate, CanLoad {
     private userService: UserService,
     private router: Router
   ) {
-    this.userService.isLoggedIn().subscribe(s => this.isLogin = s);
+    this.userService.isLoggedIn.subscribe(s => this.isLogin = s);
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot)
