@@ -8,6 +8,7 @@ import {
   Attribute
 } from '@angular/core';
 import {UserService} from '@service/user.service';
+import {Permission} from '@model/ApplicationPermission.model';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
@@ -62,6 +63,12 @@ export class PermissionDirective implements OnInit {
 
     if (this.currentPermission) {
       for (const checkPermission of this.permissions) {
+
+        if (checkPermission === Permission.ALL) {
+          hasPermission = true;
+          break;
+        }
+
         const permissionFound = this.currentPermission.find(x => x.toUpperCase() === checkPermission.toUpperCase());
 
         if (permissionFound) {
