@@ -3,7 +3,7 @@
     <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
     Home
   </a>
-  <a clrVerticalNavLink routerLink="failure-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+  <a *permission="[Permission.SendGrid.FailureMail.Query, Permission.SendGrid.FailureMail.Unblock]; operation: 'OR'" clrVerticalNavLink routerLink="failure-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
     <clr-icon clrVerticalNavIcon shape="envelope"></clr-icon>
     Failure Mails
   </a>

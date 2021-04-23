@@ -9,6 +9,7 @@ import {NgProgress} from 'ngx-progressbar';
 
 import { FailureMailEvents } from '@model/query.response.model';
 import { ResponseData } from '@model/response.model';
+import { Permission } from '@model/ApplicationPermission.model';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
 import { removeEmptyProperty } from '@utils/converter';
 
@@ -33,6 +34,7 @@ export class FailureMailPageComponent implements OnInit, OnDestroy {
   private httpStateSubscription: Subscription;
 
   // states
+  Permission = Permission;
   loadData = true;
   submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
   openModal = false;

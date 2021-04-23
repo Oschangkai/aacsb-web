@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Permission } from '@model/ApplicationPermission.model';
 
 @Component({
   selector: 'app-sidenav',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
+  Permission = Permission;
 
   constructor() { }
 
