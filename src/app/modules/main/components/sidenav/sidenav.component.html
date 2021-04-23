@@ -3,6 +3,16 @@
     <clr-icon clrVerticalNavIcon shape="home"></clr-icon>
     Home
   </a>
+  <clr-vertical-nav-group routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+    <clr-icon shape="cog" clrVerticalNavIcon></clr-icon>
+    System
+    <clr-vertical-nav-group-children>
+      <a clrVerticalNavLink routerLink="failure-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <clr-icon clrVerticalNavIcon shape="user"></clr-icon>
+        User
+      </a>
+    </clr-vertical-nav-group-children>
+  </clr-vertical-nav-group>
   <a *permission="[Permission.SendGrid.FailureMail.Query, Permission.SendGrid.FailureMail.Unblock]; operation: 'OR'" clrVerticalNavLink routerLink="failure-mail" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
     <clr-icon clrVerticalNavIcon shape="envelope"></clr-icon>
     Failure Mails
