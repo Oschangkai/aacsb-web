@@ -5,9 +5,13 @@ import { Observable } from 'rxjs';
 import { UserService } from '@service/user.service';
 import {environment} from '@environment/environment';
 
+let token: string | null = null;
+
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) {
+    this.userService.currentUser.subscribe(u => token = u.token);
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const headersConfig: any = {
@@ -15,7 +19,6 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       Accept: 'application/json'
     };
     const isApiUrl = req.url.startsWith(environment.api);
-    const token = this.userService.getToken();
 
     if (token && isApiUrl) {
       headersConfig.Authorization = `Bearer ${token}`;

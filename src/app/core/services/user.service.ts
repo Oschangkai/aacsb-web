@@ -1,12 +1,15 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, OnDestroy} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subscription} from 'rxjs';
 
+import jwtDecode from 'jwt-decode';
 import * as store from 'store';
 
 import {environment} from '@environment/environment';
 import {User} from '@model/User.model';
+import {distinctUntilChanged} from 'rxjs/operators';
+import {ApplicationToken} from '@model/ApplicationToken.model';
 
 
 const baseUrl = environment.api;
@@ -22,49 +25,52 @@ const ACCOUNT = 'Account';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService implements OnDestroy {
 
   constructor(
     private http: HttpClient,
-    @Inject(DOCUMENT) private document: Document) { }
-
-  getToken(): string {
-    return store.get('user.token');
-  }
-  setToken(token: any): void {
-    store.set('user.token', token);
-  }
-
-  getId(): string {
-    return store.get('user.id');
-  }
-  setId(id: string): void {
-    store.set('user.id', id);
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    this.subscriptions.push(
+      this.currentUserSubject$.subscribe(() => {
+        this.currentPermissionSubject$.next(this.getPermission());
+        this.isLoginSubject$.next(true);
+      })
+    );
   }
 
-  getUsername(): string {
-    return store.get('user.username');
-  }
-  setUsername(username: string): void {
-    store.set('user.username', username);
+  private subscriptions: Subscription[] = [];
+  private currentUserSubject$ = new BehaviorSubject<User>(this.getUser() ?? new User());
+  private currentPermissionSubject$ = new BehaviorSubject<string[]>(this.getPermission() ?? []);
+  private isLoginSubject$ = new BehaviorSubject<boolean>(this.hasToken());
+
+  public currentUser = this.currentUserSubject$.asObservable().pipe(distinctUntilChanged());
+  public currentPermission = this.currentPermissionSubject$.asObservable().pipe(distinctUntilChanged());
+
+  private hasToken(): boolean {
+    return !!this.getUser();
   }
 
-  getEmail(): string {
-    return store.get('user.email');
-  }
-  setEmail(email: string): void {
-    store.set('user.email', email);
-  }
-
-  getUser(): User {
+  private getUser(): User {
     return store.get('user');
   }
   setUser(user: User): void {
     store.set('user', user);
+    this.currentUserSubject$.next(user);
   }
 
-  clear(): void {
+  private getPermission(): string[] {
+    if (!this.getUser()) { return []; }
+
+    const token = this.getUser().token;
+    const tokenDecoded = jwtDecode<ApplicationToken>(token);
+
+    return tokenDecoded['MAYOBoardroom.Permission'];
+  }
+
+  logout(): void {
     store.clearAll();
+    this.isLoginSubject$.next(false);
   }
 
   signInWithMicrosoft(returnUrl?: string): void {
@@ -76,5 +82,13 @@ export class UserService {
       url += 'path=';
     }
     this.document.location.href = url;
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.isLoginSubject$.asObservable();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 }

@@ -17,7 +17,7 @@
   <div class="header-actions header-actions--overflow">
     <div class="dropdown bottom-left" [class.open]="openDropdown" >
       <button class="nav-text dropdown-toggle" aria-label="open user profile" (click)="openDropdown = !openDropdown">
-        {{email}}
+        {{user.email}}
         <clr-icon shape="angle" direction="up"></clr-icon>
       </button>
       <div class="dropdown-menu">

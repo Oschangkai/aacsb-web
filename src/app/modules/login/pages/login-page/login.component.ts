@@ -27,10 +27,6 @@ export class LoginComponent implements OnInit {
       if (params && params.token) {
         this.isCallback = true;
 
-        this.userService.setToken(params.token);
-        this.userService.setId(params.id);
-        this.userService.setUsername(params.username);
-        this.userService.setEmail(params.email);
         this.userService.setUser(new User({
           id: params.id,
           email: params.email,
@@ -44,7 +40,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         }
       } else {
-        this.userService.clear();
+        this.userService.logout();
       }
       this.message = params.message;
       this.success = params.success;

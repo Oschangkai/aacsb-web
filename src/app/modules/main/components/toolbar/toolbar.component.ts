@@ -1,28 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '@service/user.service';
 import {Router} from '@angular/router';
+import {Observable, Subscription} from 'rxjs';
+import {User} from '@model/User.model';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.scss']
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, OnDestroy {
 
   constructor(
-    private user: UserService,
+    private userService: UserService,
     private router: Router
-  ) { }
+  ) {
+    this.user = new User();
+    this.subscription = this.userService.currentUser.subscribe(u => this.user = u);
+  }
 
   openDropdown = false;
-  email: string|null = null;
+  subscription: Subscription;
+  user: User;
 
-  ngOnInit(): void {
-    this.email = this.user.getEmail();
+  ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   logout(): void {
-    this.user.clear();
+    this.userService.logout();
   }
 
 }

@@ -7,12 +7,12 @@ import {Observable} from 'rxjs';
 @Injectable()
 export class AuthGuard implements CanActivate, CanLoad {
 
-  isLogin: boolean;
+  isLogin = false;
   constructor(
     private userService: UserService,
     private router: Router
   ) {
-    this.isLogin = !!userService.getToken();
+    this.userService.isLoggedIn().subscribe(s => this.isLogin = s);
   }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot)
