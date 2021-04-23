@@ -26,6 +26,7 @@
     "@clr/angular": "^5.1.1",
     "@clr/icons": "^5.1.1",
     "@clr/ui": "^5.1.1",
+    "jwt-decode": "^3.1.2",
     "ngx-progressbar": "^6.1.0",
     "rxjs": "~6.6.0",
     "store": "^2.0.12",
