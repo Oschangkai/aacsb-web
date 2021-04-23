@@ -28,8 +28,15 @@ const routes: Routes = [
           {
             path: '',
             component: FailureMailPageComponent
-          }],
-      }],
+          }
+        ]
+      },
+      {
+        path: 'system',
+        loadChildren: () =>
+          import('@module/main-system/main-system.module').then(m => m.MainSystemModule),
+      }
+    ],
   }
 ];
 
