@@ -24,7 +24,7 @@
       Name
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column *permission="[Permission.Role.Edit, Permission.Role.Delete]">
+  <clr-dg-column *permission="[Permission.Role.Edit, Permission.Role.Delete]; operation: 'OR'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Action
     </ng-container>
@@ -34,9 +34,9 @@
   <clr-dg-row *clrDgItems="let role of roles.data" [clrDgItem]="role">
     <clr-dg-cell>{{role.id}}</clr-dg-cell>
     <clr-dg-cell>{{role.name}}</clr-dg-cell>
-    <clr-dg-cell *permission="[Permission.Role.Edit, Permission.Role.Delete]">
+    <clr-dg-cell *permission="[Permission.Role.Edit, Permission.Role.Delete]; operation: 'OR'">
       <span *permission="[Permission.Role.Edit]">Edit</span>
-      <span *permission="[Permission.Role.Edit]"> | </span>
+      <span *permission="[Permission.Role.Edit, Permission.Role.Delete]"> | </span>
       <span *permission="[Permission.Role.Delete]">Delete</span>
     </clr-dg-cell>
   </clr-dg-row>
