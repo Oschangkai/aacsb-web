@@ -1,2 +1,56 @@
 <h1>Groups</h1>
+<clr-datagrid [clrDgLoading]="loadData">
+  <!-- Action Bar -->
+  <clr-dg-action-bar>
+    <div class="btn-group" *permission="[Permission.Role.Add]">
+      <button
+        type="button"
+        class="btn btn-sm btn-secondary btn-outline-primary"
+        (click)="openModal = true"
+      >
+        <clr-icon shape="plus"></clr-icon> Add
+      </button>
+    </div>
+  </clr-dg-action-bar>
+
+  <!-- Columns -->
+  <clr-dg-column [clrDgField]="'id'">
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'name'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Name
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column *permission="[Permission.Role.Edit, Permission.Role.Delete]">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Action
+    </ng-container>
+  </clr-dg-column>
+
+  <!-- Row Data -->
+  <clr-dg-row *clrDgItems="let role of roles.data" [clrDgItem]="role">
+    <clr-dg-cell>{{role.id}}</clr-dg-cell>
+    <clr-dg-cell>{{role.name}}</clr-dg-cell>
+    <clr-dg-cell *permission="[Permission.Role.Edit, Permission.Role.Delete]">
+      <span *permission="[Permission.Role.Edit]">Edit</span>
+      <span *permission="[Permission.Role.Edit]"> | </span>
+      <span *permission="[Permission.Role.Delete]">Delete</span>
+    </clr-dg-cell>
+  </clr-dg-row>
+
+  <!-- Placeholder -->
+  <clr-dg-placeholder>There's no Group</clr-dg-placeholder>
+
+  <!-- Footer -->
+  <clr-dg-footer>
+    <clr-dg-pagination #groups> <!--[clrDgTotalItems]="total"-->
+      <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Groups per page</clr-dg-page-size>
+      {{groups.firstItem + 1}} - {{groups.lastItem + 1}} of {{groups.totalItems}} groups
+    </clr-dg-pagination>
+  </clr-dg-footer>
+
+</clr-datagrid>
 

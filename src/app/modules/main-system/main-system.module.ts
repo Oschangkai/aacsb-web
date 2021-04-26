@@ -12,13 +12,15 @@ import {
 } from '@clr/angular';
 
 // Pages
-import {UserPageComponent} from '@module/main-system/pages/user-page/user-page.component';
-import {RolePageComponent} from '@module/main-system/pages/role-page/role-page.component';
+import {UserPageComponent} from './pages/user-page/user-page.component';
+import {RolePageComponent} from './pages/role-page/role-page.component';
 
 // Resolver
+import {SystemService} from './service/system.service';
+import {UserResolver} from './service/user.resolver';
+import {RoleResolver} from './service/role.resolver';
 
 import { SharedModule } from '@shared/shared.module';
-import {AuthGuard} from '@core/guards/auth.guard';
 
 const Pages = [UserPageComponent, RolePageComponent];
 
@@ -38,6 +40,6 @@ const ClrModules = [
     ...ClrModules,
     SharedModule
   ],
-  providers: [AuthGuard]
+  providers: [SystemService, UserResolver, RoleResolver]
 })
 export class MainSystemModule {}
