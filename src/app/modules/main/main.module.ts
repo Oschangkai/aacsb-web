@@ -4,11 +4,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './main-routing.module';
 import {
-  ClarityModule,
   ClrDatagridModule,
   ClrDatalistModule,
   ClrDatepickerModule,
-  ClrIconModule,
   ClrInputModule,
   ClrLoadingModule, ClrModalModule, ClrSpinnerModule,
   ClrVerticalNavModule
@@ -39,7 +37,6 @@ const Components = [
   SidenavComponent, SubnavComponent
 ];
 const ClrModules = [
-  ClarityModule, ClrIconModule,
   ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule,
   ClrInputModule, ClrLoadingModule, ClrVerticalNavModule,
   ClrModalModule, ClrSpinnerModule

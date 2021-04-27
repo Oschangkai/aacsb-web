@@ -17,7 +17,8 @@ const ClrModules = [ClarityModule, ClrAlertModule, ClrIconModule];
   exports: [
     AppAlertComponent,
     StandardAlertComponent,
-    PermissionDirective
+    PermissionDirective,
+    ...ClrModules
   ]
 })
 export class SharedModule {}

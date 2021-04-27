@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainSystemRoutingModule } from './main-system-routing.module';
 import {
-  ClarityModule,
   ClrDatagridModule,
   ClrDatalistModule,
-  ClrIconModule,
   ClrInputModule,
   ClrLoadingModule, ClrModalModule
 } from '@clr/angular';
@@ -27,7 +24,6 @@ import { CdsTagModule } from '@cds/angular';
 const Pages = [UserPageComponent, RolePageComponent];
 
 const ClrModules = [
-  ClarityModule, ClrIconModule,
   ClrDatagridModule, ClrDatalistModule,
   ClrInputModule, ClrLoadingModule,
   ClrModalModule
@@ -40,7 +36,6 @@ const CdsModules = [
   declarations: [...Pages],
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     MainSystemRoutingModule,
     SharedModule,
     ...ClrModules,
