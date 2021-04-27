@@ -52,7 +52,6 @@ export class UserService implements OnDestroy {
   public isLoggedIn = this.isLoginSubject$.asObservable().pipe(distinctUntilChanged());
 
   private hasToken(): boolean {
-    console.log(`hasToken: ${!!this.getUser()}`);
     return !!this.getUser();
   }
 
