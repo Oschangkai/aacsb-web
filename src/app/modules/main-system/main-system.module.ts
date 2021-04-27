@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainSystemRoutingModule } from './main-system-routing.module';
 import {
+  ClarityModule,
   ClrDatagridModule,
   ClrDatalistModule,
   ClrIconModule,
@@ -21,14 +22,18 @@ import {UserResolver} from './service/user.resolver';
 import {RoleResolver} from './service/role.resolver';
 
 import { SharedModule } from '@shared/shared.module';
+import { CdsTagModule } from '@cds/angular';
 
 const Pages = [UserPageComponent, RolePageComponent];
 
 const ClrModules = [
-  ClrIconModule,
+  ClarityModule, ClrIconModule,
   ClrDatagridModule, ClrDatalistModule,
   ClrInputModule, ClrLoadingModule,
   ClrModalModule
+];
+const CdsModules = [
+  CdsTagModule
 ];
 
 @NgModule({
@@ -37,8 +42,9 @@ const ClrModules = [
     CommonModule,
     ReactiveFormsModule,
     MainSystemRoutingModule,
+    SharedModule,
     ...ClrModules,
-    SharedModule
+    ...CdsModules
   ],
   providers: [SystemService, UserResolver, RoleResolver]
 })

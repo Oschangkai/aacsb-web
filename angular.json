@@ -31,11 +31,16 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@cds/core/global.min.css",
+              "node_modules/@cds/core/styles/module.shims.min.css",
+              "node_modules/@cds/city/css/bundles/default.min.css",
               "node_modules/@clr/ui/clr-ui.min.css",
               "node_modules/@clr/icons/clr-icons.min.css",
               "src/styles.scss"
             ],
             "scripts": [
+              "node_modules/@webcomponents/webcomponentsjs/custom-elements-es5-adapter.js",
+              "node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
               "node_modules/@clr/icons/clr-icons.min.js"
             ]
           },

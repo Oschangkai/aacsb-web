@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './main-routing.module';
 import {
+  ClarityModule,
   ClrDatagridModule,
   ClrDatalistModule,
   ClrDatepickerModule,
@@ -28,6 +29,7 @@ import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail
 import { FailureMailResolver } from '@module/main/services/failure-mail.resolver';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
 import { SharedModule } from '@shared/shared.module';
+import {CdsIconModule} from '@cds/angular';
 
 const Pages = [
   MainPageComponent, FailureMailPageComponent
@@ -37,11 +39,12 @@ const Components = [
   SidenavComponent, SubnavComponent
 ];
 const ClrModules = [
-  ClrIconModule,
+  ClarityModule, ClrIconModule,
   ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule,
   ClrInputModule, ClrLoadingModule, ClrVerticalNavModule,
   ClrModalModule, ClrSpinnerModule
 ];
+const CdsModules = [CdsIconModule];
 
 @NgModule({
   declarations: [...Pages, ...Components],
@@ -49,8 +52,9 @@ const ClrModules = [
     CommonModule,
     ReactiveFormsModule,
     MainRoutingModule,
+    SharedModule,
     ...ClrModules,
-    SharedModule
+    ...CdsModules
   ],
   providers: [FailureMailService, FailureMailResolver]
 })
