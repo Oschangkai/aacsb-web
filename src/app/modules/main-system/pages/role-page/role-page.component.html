@@ -39,6 +39,19 @@
       <span *permission="[Permission.Role.Edit, Permission.Role.Delete]"> | </span>
       <span *permission="[Permission.Role.Delete]">Delete</span>
     </clr-dg-cell>
+
+    <!-- Detail -->
+    <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="true">
+      <clr-dg-row-detail clrIfExpanded (clrIfExpandedChange)="onDetailOpen($event, role)">
+        <div [clrLoading]="loadData" *ngIf="roleDetail[role.id] && roleDetail[role.id].claims.length; else nodata">
+          <div cds-layout="horizontal gap:sm">
+            <cds-tag [readonly]="true" *ngFor="let permission of roleDetail[role.id].claims">{{permission}}</cds-tag>
+          </div>
+        </div>
+        <ng-template #nodata>No Permission assigned to this group.</ng-template>
+      </clr-dg-row-detail>
+    </ng-container>
+
   </clr-dg-row>
 
   <!-- Placeholder -->
@@ -53,4 +66,3 @@
   </clr-dg-footer>
 
 </clr-datagrid>
-
