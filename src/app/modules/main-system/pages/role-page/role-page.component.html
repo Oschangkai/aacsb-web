@@ -6,7 +6,7 @@
       <button
         type="button"
         class="btn btn-sm btn-secondary btn-outline-primary"
-        (click)="openModal = true"
+        (click)="modalOpened.add = true"
       >
         <clr-icon shape="plus"></clr-icon> Add
       </button>
@@ -35,9 +35,9 @@
     <clr-dg-cell>{{role.id}}</clr-dg-cell>
     <clr-dg-cell>{{role.name}}</clr-dg-cell>
     <clr-dg-cell *permission="[Permission.Role.Edit, Permission.Role.Delete]; operation: 'OR'">
-      <span *permission="[Permission.Role.Edit]">Edit</span>
+      <a style="cursor: pointer" (click)="onEditClicked(role)" *permission="[Permission.Role.Edit]">Edit</a>
       <span *permission="[Permission.Role.Edit, Permission.Role.Delete]"> | </span>
-      <span *permission="[Permission.Role.Delete]">Delete</span>
+      <a style="cursor: pointer" *permission="[Permission.Role.Delete]">Delete</a>
     </clr-dg-cell>
 
     <!-- Detail -->
@@ -66,3 +66,10 @@
   </clr-dg-footer>
 
 </clr-datagrid>
+
+<app-role-edit-modal
+  *ngIf="modalOpened.edit"
+  [(opened)]="modalOpened.edit"
+  [role]="roleDetail[selected.id]"
+  (onSubmit)="onEditSubmit($event)"
+></app-role-edit-modal>

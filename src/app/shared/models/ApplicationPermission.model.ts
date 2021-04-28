@@ -22,3 +22,9 @@ export abstract class Permission {
     Delete: 'Role.Delete'
   };
 }
+
+export const PermissionList = [
+  ...Permission.SendGrid.FailureMail.ALL,
+  ...Permission.User.ALL,
+  ...Permission.Role.ALL
+];

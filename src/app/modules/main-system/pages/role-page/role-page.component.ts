@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 
-import { Permission } from '@model/ApplicationPermission.model';
+import {Permission, PermissionList} from '@model/ApplicationPermission.model';
 import {ActivatedRoute} from '@angular/router';
 import {NgProgress} from 'ngx-progressbar';
 import {Subscription} from 'rxjs';
@@ -28,11 +28,12 @@ export class RolePageComponent implements OnInit, OnDestroy {
   // states
   Permission = Permission;
   loadData = true;
-  openModal = false;
+  modalOpened = {edit: false, delete: false, add: false};
 
   // data
   roles: ResponseData<Roles> = { data: [], count: 0 };
-  roleDetail: {[x: string]: Role} = { '000': {id: '', name: '', claims: []} };
+  selected: Roles = {id: '', name: ''};
+  roleDetail: {[x: string]: Role} = { '': {id: '', name: '', claims: []} };
 
   onDetailOpen(open: boolean, role: Roles | null): void {
     // If closed, first loaded, or loaded before
@@ -42,6 +43,20 @@ export class RolePageComponent implements OnInit, OnDestroy {
     this.systemService.getRole(role.id).subscribe(response => {
       this.roleDetail[role.id] = response.data as Role;
     });
+  }
+  onEditClicked(role: Roles | null): void {
+    if (role === null) { return; }
+
+    this.modalOpened.edit = true;
+    this.selected = {...role};
+
+    this.systemService.getRole(role.id).subscribe(response => {
+      this.roleDetail[role.id] = response.data as Role;
+    });
+  }
+  onEditSubmit(role: Role): void {
+    this.modalOpened.edit = false;
+    this.load();
   }
 
   ngOnInit(): void {

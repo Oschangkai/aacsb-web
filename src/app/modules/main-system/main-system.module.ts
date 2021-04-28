@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {FormsModule} from '@angular/forms';
 
 import { MainSystemRoutingModule } from './main-system-routing.module';
 import {
@@ -13,6 +14,8 @@ import {
 import {UserPageComponent} from './pages/user-page/user-page.component';
 import {RolePageComponent} from './pages/role-page/role-page.component';
 
+import {EditRoleModalComponent} from './components/edit-role-modal.component';
+
 // Resolver
 import {SystemService} from './service/system.service';
 import {UserResolver} from './service/user.resolver';
@@ -22,6 +25,7 @@ import { SharedModule } from '@shared/shared.module';
 import { CdsTagModule } from '@cds/angular';
 
 const Pages = [UserPageComponent, RolePageComponent];
+const Modals = [EditRoleModalComponent];
 
 const ClrModules = [
   ClrDatagridModule, ClrDatalistModule,
@@ -33,13 +37,14 @@ const CdsModules = [
 ];
 
 @NgModule({
-  declarations: [...Pages],
+  declarations: [...Pages, ...Modals],
   imports: [
     CommonModule,
     MainSystemRoutingModule,
     SharedModule,
     ...ClrModules,
-    ...CdsModules
+    ...CdsModules,
+    FormsModule
   ],
   providers: [SystemService, UserResolver, RoleResolver]
 })
