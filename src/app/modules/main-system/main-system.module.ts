@@ -14,7 +14,9 @@ import {
 import {UserPageComponent} from './pages/user-page/user-page.component';
 import {RolePageComponent} from './pages/role-page/role-page.component';
 
+// Modals
 import {EditRoleModalComponent} from './components/edit-role-modal.component';
+import {DeleteRoleModalComponent} from './components/delete-role-modal.component';
 
 // Resolver
 import {SystemService} from './service/system.service';
@@ -25,7 +27,7 @@ import { SharedModule } from '@shared/shared.module';
 import { CdsTagModule } from '@cds/angular';
 
 const Pages = [UserPageComponent, RolePageComponent];
-const Modals = [EditRoleModalComponent];
+const Modals = [EditRoleModalComponent, DeleteRoleModalComponent];
 
 const ClrModules = [
   ClrDatagridModule, ClrDatalistModule,

@@ -7,7 +7,6 @@ import {takeWhile} from 'rxjs/operators';
 import {ClrLoadingState} from '@clr/angular';
 
 import {Role} from '@model/query.response.model';
-import {SystemService} from '@module/main-system/service/system.service';
 
 import {PermissionList} from '@model/ApplicationPermission.model';
 
@@ -19,7 +18,6 @@ export class EditRoleModalComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
-    private systemService: SystemService,
     private ngProgress: NgProgress
   ) {
     this.httpStateSubscription = this.ngProgress.ref('http-load').state.subscribe(state => {

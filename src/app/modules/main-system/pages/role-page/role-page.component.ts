@@ -54,8 +54,20 @@ export class RolePageComponent implements OnInit, OnDestroy {
       this.roleDetail[role.id] = response.data as Role;
     });
   }
+  onDeleteClicked(role: Roles | null): void {
+    if (role === null) { return; }
+
+    this.selected = {...role};
+    this.modalOpened.delete = true;
+  }
   onEditSubmit(role: Role): void {
+    // TODO: edit request
     this.modalOpened.edit = false;
+    this.load();
+  }
+  onDeleteSubmit(id: string): void {
+    // TODO: delete request
+    this.modalOpened.delete = false;
     this.load();
   }
 

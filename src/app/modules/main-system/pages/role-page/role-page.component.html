@@ -37,7 +37,7 @@
     <clr-dg-cell *permission="[Permission.Role.Edit, Permission.Role.Delete]; operation: 'OR'">
       <a style="cursor: pointer" (click)="onEditClicked(role)" *permission="[Permission.Role.Edit]">Edit</a>
       <span *permission="[Permission.Role.Edit, Permission.Role.Delete]"> | </span>
-      <a style="cursor: pointer" *permission="[Permission.Role.Delete]">Delete</a>
+      <a style="cursor: pointer" (click)="onDeleteClicked(role)" *permission="[Permission.Role.Delete]">Delete</a>
     </clr-dg-cell>
 
     <!-- Detail -->
@@ -73,3 +73,10 @@
   [role]="roleDetail[selected.id]"
   (onSubmit)="onEditSubmit($event)"
 ></app-role-edit-modal>
+
+<app-role-delete-modal
+  *ngIf="modalOpened.delete"
+  [(opened)]="modalOpened.delete"
+  [selected]="selected"
+  (onSubmit)="onDeleteSubmit($event)"
+></app-role-delete-modal>
