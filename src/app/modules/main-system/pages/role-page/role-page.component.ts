@@ -44,6 +44,9 @@ export class RolePageComponent implements OnInit, OnDestroy {
       this.roleDetail[role.id] = response.data as Role;
     });
   }
+  onAddClicked(): void {
+    this.modalOpened.add = true;
+  }
   onEditClicked(role: Roles | null): void {
     if (role === null) { return; }
 
@@ -59,6 +62,11 @@ export class RolePageComponent implements OnInit, OnDestroy {
 
     this.selected = {...role};
     this.modalOpened.delete = true;
+  }
+  onAddSubmit(role: Role): void {
+    // TODO: add request
+    this.modalOpened.add = false;
+    this.load();
   }
   onEditSubmit(role: Role): void {
     // TODO: edit request

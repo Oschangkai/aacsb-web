@@ -6,7 +6,7 @@
       <button
         type="button"
         class="btn btn-sm btn-secondary btn-outline-primary"
-        (click)="modalOpened.add = true"
+        (click)="onAddClicked()"
       >
         <clr-icon shape="plus"></clr-icon> Add
       </button>
@@ -80,3 +80,9 @@
   [selected]="selected"
   (onSubmit)="onDeleteSubmit($event)"
 ></app-role-delete-modal>
+
+<app-role-add-modal
+  *ngIf="modalOpened.add"
+  [(opened)]="modalOpened.add"
+  (onSubmit)="onAddSubmit($event)"
+></app-role-add-modal>
