@@ -12,6 +12,7 @@ import { ResponseData } from '@model/response.model';
 import { Permission } from '@model/ApplicationPermission.model';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
 import { removeEmptyProperty } from '@utils/converter';
+import {AlertService} from '@service/alert.service';
 
 @Component({
   selector: 'app-failure-mail-page',
@@ -24,6 +25,7 @@ export class FailureMailPageComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private ngProgress: NgProgress,
+    private alert: AlertService,
     private failureMailService: FailureMailService
   ) {
     this.httpStateSubscription = this.ngProgress.ref('http-load').state.subscribe(state => {
@@ -77,11 +79,13 @@ export class FailureMailPageComponent implements OnInit, OnDestroy {
       });
   }
   unblock(): void {
-    this.failureMailService.unblock([...this.unblockList()])
+    const unblockList = [...this.unblockList()];
+    this.failureMailService.unblock(unblockList)
       .subscribe(res => {
         this.selected = [];
         this.load();
         this.openModal = false;
+        this.alert.info(`Unblocked: ${unblockList.map(u => u.email)}`);
       });
   }
 
