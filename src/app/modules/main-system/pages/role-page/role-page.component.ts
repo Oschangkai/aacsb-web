@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs';
 import {Role, Roles} from '@model/query.response.model';
 import {ResponseData} from '@model/response.model';
 import {SystemService} from '@module/main-system/service/system.service';
+import {AlertService} from '@service/alert.service';
 
 @Component({
   selector: 'app-role-page',
@@ -16,6 +17,7 @@ export class RolePageComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private alert: AlertService,
     private systemService: SystemService,
     private ngProgress: NgProgress
   ) {
@@ -64,13 +66,16 @@ export class RolePageComponent implements OnInit, OnDestroy {
     this.modalOpened.delete = true;
   }
   onAddSubmit(role: Role): void {
-    // TODO: add request
-    this.modalOpened.add = false;
-    this.load();
+    this.systemService.addRole(role).subscribe(response => {
+      this.modalOpened.add = false;
+      this.alert.success(response.message);
+      this.load();
+    });
   }
   onEditSubmit(role: Role): void {
     this.systemService.editRole(role).subscribe(response => {
       this.modalOpened.edit = false;
+      this.alert.success(response.message);
       this.load();
     });
   }

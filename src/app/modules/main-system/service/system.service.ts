@@ -21,6 +21,11 @@ export class SystemService {
           .append('pageSize', '1000')
       });
   }
+  getUser(id: string): Observable<SimpleResponse<User>> {
+    return this.http
+      .get<SimpleResponse<User>>(`${accountUrl}/user/${id}`);
+  }
+
   getRoles(): Observable<SimpleResponse<Roles>> {
     return this.http
       .get<SimpleResponse<Roles>>(`${accountUrl}/role`, {
@@ -29,19 +34,17 @@ export class SystemService {
           .append('pageSize', '1000')
       });
   }
-
-  getUser(id: string): Observable<SimpleResponse<User>> {
-    return this.http
-      .get<SimpleResponse<User>>(`${accountUrl}/user/${id}`);
-  }
   getRole(id: string): Observable<SimpleResponse<Role>> {
     return this.http
       .get<SimpleResponse<Role>>(`${accountUrl}/role/${id}`);
   }
-
-  editRole(role: Role): Observable<SimpleResponse<Role>> {
+  editRole(role: Role): Observable<SimpleResponse<string>> {
     return this.http
-      .patch<SimpleResponse<Role>>(`${accountUrl}/role`, role);
+      .patch<SimpleResponse<string>>(`${accountUrl}/role`, role);
+  }
+  addRole(role: Role): Observable<SimpleResponse<string>> {
+    return this.http
+      .post<SimpleResponse<string>>(`${accountUrl}/role`, role);
   }
 
 }
