@@ -1,4 +1,4 @@
-<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="false">
+<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="false" [clrModalClosable]="false">
   <h3 class="modal-title">New Group</h3>
   <div class="modal-body">
     <form class="clr-form clr-form-horizontal" *ngIf="role" [clrLoading]="loadData">
