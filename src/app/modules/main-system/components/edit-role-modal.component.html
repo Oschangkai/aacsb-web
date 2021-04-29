@@ -1,4 +1,4 @@
-<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="false">
+<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="false" [clrModalClosable]="false">
   <h3 class="modal-title">Edit</h3>
   <div class="modal-body">
     <form class="clr-form clr-form-horizontal" *ngIf="role" [clrLoading]="loadData">
@@ -13,10 +13,10 @@
         <input clrInput type="text" name="name" [(ngModel)]="role.name" />
       </clr-input-container>
       <!-- Claims -->
-      <clr-checkbox-container clrInline>
+      <clr-checkbox-container clrInline="horizontal">
         <label>Permission</label>
         <clr-checkbox-wrapper *ngFor="let p of ObjectKeys(permissions)">
-          <input type="checkbox" clrCheckbox name="permissions" [(ngModel)]="permissions[p]" />
+          <input type="checkbox" clrCheckbox [name]="p" [value]="permissions[p]" [(ngModel)]="permissions[p]" />
           <label>{{p}}</label>
         </clr-checkbox-wrapper>
       </clr-checkbox-container>
