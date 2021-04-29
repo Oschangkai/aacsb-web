@@ -1,2 +1,113 @@
 <h1>Users</h1>
+<clr-datagrid [clrDgLoading]="loadData">
+  <!-- Action Bar -->
+  <clr-dg-action-bar>
+    <div class="btn-group" *permission="[Permission.User.Add]">
+      <button
+        type="button"
+        class="btn btn-sm btn-secondary btn-outline-primary"
+        (click)="onAddClicked()"
+      >
+        <clr-icon shape="plus"></clr-icon> Add
+      </button>
+    </div>
+  </clr-dg-action-bar>
 
+  <!-- Columns -->
+  <clr-dg-column [clrDgField]="'id'">
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Name
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'email'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Email
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'enabled'">
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      Enabled
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column *permission="[Permission.User.Edit, Permission.User.Delete]; operation: 'OR'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Action
+    </ng-container>
+  </clr-dg-column>
+
+  <!-- Row Data -->
+  <clr-dg-row *clrDgItems="let user of users.data" [clrDgItem]="user">
+    <clr-dg-cell>{{user.id}}</clr-dg-cell>
+    <clr-dg-cell>{{user.firstName + ' ' + user.lastName}}</clr-dg-cell>
+    <clr-dg-cell>{{user.email}}</clr-dg-cell>
+    <clr-dg-cell>{{user.enabled}}</clr-dg-cell>
+    <clr-dg-cell *permission="[Permission.User.Edit, Permission.User.Delete]; operation: 'OR'">
+      <a style="cursor: pointer" (click)="onEditClicked(user)" *permission="[Permission.User.Edit]">Edit</a>
+      <span *permission="[Permission.User.Edit, Permission.User.Delete]"> | </span>
+      <a style="cursor: pointer" (click)="onDeleteClicked(user)" *permission="[Permission.User.Delete]">Delete</a>
+    </clr-dg-cell>
+  </clr-dg-row>
+
+
+  <!-- Detail -->
+  <ng-template clrIfDetail let-detail (clrIfDetailChange)="onDetailOpen($event)">
+    <clr-dg-detail>
+      <clr-dg-detail-header>Detail</clr-dg-detail-header>
+      <clr-dg-detail-body [clrLoading]="loadData" style="padding-bottom: 16px;">
+        <ng-container *ngIf="userDetail[detail.id]; else nodata">
+          <span>{{detail.firstName + ' ' + detail.lastName}}</span>
+          <table class="table table-vertical">
+            <tbody>
+            <tr>
+              <th>ID</th>
+              <td>{{userDetail[detail.id].id}}</td>
+            </tr>
+            <tr>
+              <th>First Name</th>
+              <td>{{userDetail[detail.id].firstName}}</td>
+            </tr>
+            <tr>
+              <th>Last Name</th>
+              <td>{{userDetail[detail.id].lastName}}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{userDetail[detail.id].email}}</td>
+            </tr>
+            <tr>
+              <th>Enabled</th>
+              <td>{{userDetail[detail.id].enabled}}</td>
+            </tr>
+            <tr>
+              <th>Group</th>
+              <td>
+                <div cds-layout="horizontal gap:sm">
+                  <cds-tag [readonly]="true" *ngFor="let role of userDetail[detail.id].roles">{{role}}</cds-tag>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #nodata>No detail information for this user.</ng-template>
+      </clr-dg-detail-body>
+    </clr-dg-detail>
+  </ng-template>
+
+  <!-- Placeholder -->
+  <clr-dg-placeholder>There's no User</clr-dg-placeholder>
+
+  <!-- Footer -->
+  <clr-dg-footer>
+    <clr-dg-pagination #u>
+      <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Users per page</clr-dg-page-size>
+      {{u.firstItem + 1}} - {{u.lastItem + 1}} of {{u.totalItems}} users
+    </clr-dg-pagination>
+  </clr-dg-footer>
+
+</clr-datagrid>
