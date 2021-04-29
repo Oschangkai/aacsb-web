@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 
-import {Permission, PermissionList} from '@model/ApplicationPermission.model';
+import {Permission} from '@model/ApplicationPermission.model';
 import {ActivatedRoute} from '@angular/router';
 import {NgProgress} from 'ngx-progressbar';
 import {Subscription} from 'rxjs';

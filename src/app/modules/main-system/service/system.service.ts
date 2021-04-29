@@ -25,6 +25,18 @@ export class SystemService {
     return this.http
       .get<SimpleResponse<User>>(`${accountUrl}/user/${id}`);
   }
+  editUser(user: User): Observable<SimpleResponse<string>> {
+    return this.http
+      .patch<SimpleResponse<string>>(`${accountUrl}/user`, user);
+  }
+  addUser(user: User): Observable<SimpleResponse<string>> {
+    return this.http
+      .post<SimpleResponse<string>>(`${accountUrl}/user`, user);
+  }
+  deleteUser(userId: string): Observable<SimpleResponse<string>> {
+    return this.http
+      .delete<SimpleResponse<string>>(`${accountUrl}/user/${userId}`);
+  }
 
   getRoles(): Observable<SimpleResponse<Roles>> {
     return this.http

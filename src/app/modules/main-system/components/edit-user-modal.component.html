@@ -1,0 +1,49 @@
+<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="false" [clrModalClosable]="false">
+  <h3 class="modal-title">Edit</h3>
+  <div class="modal-body">
+    <form class="clr-form clr-form-horizontal" *ngIf="ObjectKeys(roles).length" [clrLoading]="loadData">
+      <!-- Id -->
+      <clr-input-container>
+        <label>Id</label>
+        <input clrInput type="text" name="id" [(ngModel)]="user.id" [disabled]="true" />
+      </clr-input-container>
+      <!-- First Name -->
+      <clr-input-container>
+        <label>First Name</label>
+        <input clrInput type="text" name="firstName" [(ngModel)]="user.firstName" />
+      </clr-input-container>
+      <!-- Last Name -->
+      <clr-input-container>
+        <label>Last Name</label>
+        <input clrInput type="text" name="lastName" [(ngModel)]="user.lastName" />
+      </clr-input-container>
+      <!-- Email -->
+      <clr-input-container>
+        <label>Email</label>
+        <input clrInput type="text" name="Email" [(ngModel)]="user.email" />
+      </clr-input-container>
+      <!-- Enabled -->
+      <clr-toggle-container>
+        <label>Enabled</label>
+        <clr-toggle-wrapper>
+          <input type="checkbox" clrToggle name="enabled" [(ngModel)]="user.enabled" />
+          <label>{{user.enabled}}</label>
+        </clr-toggle-wrapper>
+      </clr-toggle-container>
+      <!-- Roles -->
+      <clr-checkbox-container clrInline="horizontal">
+        <label>Groups</label>
+        <clr-checkbox-wrapper *ngFor="let r of ObjectKeys(roles)">
+          <input type="checkbox" clrCheckbox [name]="r" [value]="roles[r]" [(ngModel)]="roles[r]" />
+          <label>{{r}}</label>
+        </clr-checkbox-wrapper>
+      </clr-checkbox-container>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="this.openedChange.emit(false)">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmitClicked()" [clrLoading]="submitBtnState">Ok</button>
+  </div>
+</clr-modal>
+

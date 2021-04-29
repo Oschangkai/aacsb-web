@@ -111,3 +111,10 @@
   </clr-dg-footer>
 
 </clr-datagrid>
+
+<app-user-edit-modal
+  *ngIf="modalOpened.edit"
+  [(opened)]="modalOpened.edit"
+  [user]="userDetail[selected.id]"
+  (onSubmit)="onEditSubmit($event)"
+></app-user-edit-modal>
