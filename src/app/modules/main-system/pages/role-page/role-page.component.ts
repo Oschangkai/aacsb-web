@@ -80,9 +80,11 @@ export class RolePageComponent implements OnInit, OnDestroy {
     });
   }
   onDeleteSubmit(id: string): void {
-    // TODO: delete request
-    this.modalOpened.delete = false;
-    this.load();
+    this.systemService.deleteRole(id).subscribe(response => {
+      this.modalOpened.delete = false;
+      this.alert.info(response.message);
+      this.load();
+    });
   }
 
   ngOnInit(): void {

@@ -46,5 +46,9 @@ export class SystemService {
     return this.http
       .post<SimpleResponse<string>>(`${accountUrl}/role`, role);
   }
+  deleteRole(roleId: string): Observable<SimpleResponse<string>> {
+    return this.http
+      .delete<SimpleResponse<string>>(`${accountUrl}/role/${roleId}`);
+  }
 
 }
