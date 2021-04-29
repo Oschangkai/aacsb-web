@@ -18,6 +18,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     console.log(error);
     if (error instanceof HttpErrorResponse) {
       switch (error.status) {
+        case 400:
+          if (error.error && error.error.Message) {
+            this.alert.error(error.error.Message);
+          }
+          break;
         case 401:
           // TODO: try use refresh_token to get new token
 
