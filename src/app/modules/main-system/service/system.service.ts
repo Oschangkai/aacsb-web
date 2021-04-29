@@ -6,7 +6,7 @@ import {Role, Roles, User, Users} from '@model/query.response.model';
 import { environment } from '@environment/environment';
 
 const baseUrl = environment.api;
-const ACCOUNT = 'account';
+const accountUrl = `${environment.api}/account`;
 
 @Injectable()
 export class SystemService {
@@ -15,7 +15,7 @@ export class SystemService {
 
   getUsers(): Observable<SimpleResponse<Users>> {
     return this.http
-      .get<SimpleResponse<Users>>(`${baseUrl}/${ACCOUNT}/users`, {
+      .get<SimpleResponse<Users>>(`${accountUrl}/user`, {
         params: new HttpParams()
           .append('page', '1')
           .append('pageSize', '1000')
@@ -23,7 +23,7 @@ export class SystemService {
   }
   getRoles(): Observable<SimpleResponse<Roles>> {
     return this.http
-      .get<SimpleResponse<Roles>>(`${baseUrl}/${ACCOUNT}/roles`, {
+      .get<SimpleResponse<Roles>>(`${accountUrl}/role`, {
         params: new HttpParams()
           .append('page', '1')
           .append('pageSize', '1000')
@@ -32,11 +32,16 @@ export class SystemService {
 
   getUser(id: string): Observable<SimpleResponse<User>> {
     return this.http
-      .get<SimpleResponse<User>>(`${baseUrl}/${ACCOUNT}/user/${id}`);
+      .get<SimpleResponse<User>>(`${accountUrl}/user/${id}`);
   }
   getRole(id: string): Observable<SimpleResponse<Role>> {
     return this.http
-      .get<SimpleResponse<Role>>(`${baseUrl}/${ACCOUNT}/role/${id}`);
+      .get<SimpleResponse<Role>>(`${accountUrl}/role/${id}`);
+  }
+
+  editRole(role: Role): Observable<SimpleResponse<Role>> {
+    return this.http
+      .patch<SimpleResponse<Role>>(`${accountUrl}/role`, role);
   }
 
 }

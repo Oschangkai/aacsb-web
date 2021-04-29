@@ -69,9 +69,10 @@ export class RolePageComponent implements OnInit, OnDestroy {
     this.load();
   }
   onEditSubmit(role: Role): void {
-    // TODO: edit request
-    this.modalOpened.edit = false;
-    this.load();
+    this.systemService.editRole(role).subscribe(response => {
+      this.modalOpened.edit = false;
+      this.load();
+    });
   }
   onDeleteSubmit(id: string): void {
     // TODO: delete request
@@ -92,6 +93,7 @@ export class RolePageComponent implements OnInit, OnDestroy {
     this.systemService.getRoles().subscribe(response => {
       this.roles.data = [...response.data as Roles[]];
       this.roles.count = response.count;
+      this.roleDetail = {};
     });
   }
   ngOnDestroy(): void {
