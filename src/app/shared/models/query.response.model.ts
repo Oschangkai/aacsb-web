@@ -8,15 +8,14 @@ export interface FailureMailEvents {
 
 export interface Users {
   id: string;
-  userName: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  roles: string[];
   enabled: boolean;
 }
 
-// tslint:disable-next-line:no-empty-interface
 export interface User extends Users {
-
+  roles: string[];
 }
 
 export interface Roles {
