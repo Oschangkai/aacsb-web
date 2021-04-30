@@ -81,7 +81,7 @@
             </tr>
             <tr>
               <th>Enabled</th>
-              <td>{{userDetail[detail.id].enabled}}</td>
+              <td><span class="dot" [class]="userDetail[detail.id].enabled.toString()"></span> &nbsp;{{userDetail[detail.id].enabled}}</td>
             </tr>
             <tr>
               <th>Group</th>
