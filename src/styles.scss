@@ -38,3 +38,16 @@
 .ms-login-button:hover {
   background-color: rgba(94, 94, 94, 0.08)!important;
 }
+.dot {
+  height: 9px;
+  width: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  background-color: hsl(198, 0%, 80%);
+  &.true {
+    background-color: hsl(93, 100%, 26%);
+  }
+  &.false {
+    background-color: hsl(9, 100%, 43%);
+  }
+}
