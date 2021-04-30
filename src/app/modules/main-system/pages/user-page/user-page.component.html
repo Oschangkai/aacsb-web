@@ -118,3 +118,10 @@
   [user]="userDetail[selected.id]"
   (onSubmit)="onEditSubmit($event)"
 ></app-user-edit-modal>
+
+<app-user-delete-modal
+  *ngIf="modalOpened.delete"
+  [(opened)]="modalOpened.delete"
+  [selected]="selected"
+  (onSubmit)="onDeleteSubmit($event)"
+></app-user-delete-modal>

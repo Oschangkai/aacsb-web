@@ -13,6 +13,7 @@ import {AddRoleModalComponent} from './components/add-role-modal.component';
 import {EditRoleModalComponent} from './components/edit-role-modal.component';
 import {DeleteRoleModalComponent} from './components/delete-role-modal.component';
 import {EditUserModalComponent} from './components/edit-user-modal.component';
+import {DeleteUserModalComponent} from './components/delete-user-modal.component';
 
 // Resolver
 import {SystemService} from './service/system.service';
@@ -25,7 +26,7 @@ import { CdsTagModule } from '@cds/angular';
 const Pages = [UserPageComponent, RolePageComponent];
 const Modals = [
   AddRoleModalComponent, EditRoleModalComponent, DeleteRoleModalComponent,
-  EditUserModalComponent
+  EditUserModalComponent, DeleteUserModalComponent
 ];
 
 const CdsModules = [
