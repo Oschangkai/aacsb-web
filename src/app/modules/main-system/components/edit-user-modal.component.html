@@ -7,6 +7,11 @@
         <label>Id</label>
         <input clrInput type="text" name="id" [(ngModel)]="user.id" [disabled]="true" />
       </clr-input-container>
+      <!-- Email -->
+      <clr-input-container>
+        <label>Email</label>
+        <input clrInput type="text" name="Email" [(ngModel)]="user.email" [disabled]="true" />
+      </clr-input-container>
       <!-- First Name -->
       <clr-input-container>
         <label>First Name</label>
@@ -16,11 +21,6 @@
       <clr-input-container>
         <label>Last Name</label>
         <input clrInput type="text" name="lastName" [(ngModel)]="user.lastName" />
-      </clr-input-container>
-      <!-- Email -->
-      <clr-input-container>
-        <label>Email</label>
-        <input clrInput type="text" name="Email" [(ngModel)]="user.email" />
       </clr-input-container>
       <!-- Enabled -->
       <clr-toggle-container>
