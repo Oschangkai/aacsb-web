@@ -3,14 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MainRoutingModule } from './main-routing.module';
-import {
-  ClrDatagridModule,
-  ClrDatalistModule,
-  ClrDatepickerModule,
-  ClrInputModule,
-  ClrLoadingModule, ClrModalModule, ClrSpinnerModule,
-  ClrVerticalNavModule
-} from '@clr/angular';
 import { MainComponent } from './main.component';
 
 // Components
@@ -36,11 +28,6 @@ const Components = [
   MainComponent, ToolbarComponent, FooterComponent,
   SidenavComponent, SubnavComponent
 ];
-const ClrModules = [
-  ClrDatagridModule, ClrDatalistModule, ClrDatepickerModule,
-  ClrInputModule, ClrLoadingModule, ClrVerticalNavModule,
-  ClrModalModule, ClrSpinnerModule
-];
 const CdsModules = [CdsIconModule];
 
 @NgModule({
@@ -50,7 +37,6 @@ const CdsModules = [CdsIconModule];
     ReactiveFormsModule,
     MainRoutingModule,
     SharedModule,
-    ...ClrModules,
     ...CdsModules
   ],
   providers: [FailureMailService, FailureMailResolver]

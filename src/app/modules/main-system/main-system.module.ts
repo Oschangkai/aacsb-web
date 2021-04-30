@@ -3,12 +3,6 @@ import { CommonModule } from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 import { MainSystemRoutingModule } from './main-system-routing.module';
-import {
-  ClrDatagridModule,
-  ClrDatalistModule,
-  ClrInputModule,
-  ClrLoadingModule, ClrModalModule
-} from '@clr/angular';
 
 // Pages
 import {UserPageComponent} from './pages/user-page/user-page.component';
@@ -34,11 +28,6 @@ const Modals = [
   EditUserModalComponent
 ];
 
-const ClrModules = [
-  ClrDatagridModule, ClrDatalistModule,
-  ClrInputModule, ClrLoadingModule,
-  ClrModalModule
-];
 const CdsModules = [
   CdsTagModule
 ];
@@ -49,7 +38,6 @@ const CdsModules = [
     CommonModule,
     MainSystemRoutingModule,
     SharedModule,
-    ...ClrModules,
     ...CdsModules,
     FormsModule
   ],
