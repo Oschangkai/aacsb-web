@@ -11,7 +11,7 @@ variables:
     branchName: $[ replace(variables['Build.SourceBranch'], 'refs/heads/', '') ]
   ${{ if startsWith(variables['Build.SourceBranch'], 'refs/pull/') }}:
     branchName: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
-  ${{ if eq(variables['branchName'], 'master') }}:
+  $[if eq(variables['branchName'], 'master')]:
     branchName: 'prod'
 
 stages:
@@ -41,8 +41,8 @@ stages:
           yarn global add @angular/cli@11
           yarn install
         displayName: 'yarn install'
-      - script: yarn build:${{ variables.branchName }}
-        displayName: 'Build app ${{ variables.branchName }}'
+      - script: yarn build:$(branchName)
+        displayName: 'Build app $(branchName)'
       - task: ArchiveFiles@2
         inputs:
           rootFolderOrFile: '$(Build.SourcesDirectory)/dist'
