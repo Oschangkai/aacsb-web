@@ -28,7 +28,8 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/web.config"
             ],
             "styles": [
               "node_modules/@cds/core/global.min.css",
@@ -128,7 +129,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "web.config"
+              "src/web.config"
             ],
             "styles": [
               "src/styles.scss"
