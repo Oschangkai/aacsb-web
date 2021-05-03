@@ -7,15 +7,20 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 variables:
-  DOCKER_BUILDKIT: 1
+  ${{ if startsWith(variables['Build.SourceBranch'], 'refs/heads/') }}:
+    branchName: $[ replace(variables['Build.SourceBranch'], 'refs/heads/', '') ]
+  ${{ if startsWith(variables['Build.SourceBranch'], 'refs/pull/') }}:
+    branchName: $[ replace(variables['System.PullRequest.TargetBranch'], 'refs/heads/', '') ]
+  ${{ if eq(variables['branchName'], 'master') }}:
+    branchName: 'prod'
 
 stages:
   - stage: Build
-    displayName: 'Build and Publish Docker'
+    displayName: 'Build and Publish WebApp'
     dependsOn: []
     jobs:
-    - job: Docker
-      displayName: Build and Publish docker image
+    - job: BuildPublish
+      displayName: Build and Publish WebApp
       steps:
       - script: |
           echo $buildNumber
@@ -28,26 +33,31 @@ stages:
           echo "##vso[task.setvariable variable=commitHash]$commitHash" ## Set variable for using in other tasks.
         env: { sourceVersion: $(Build.SourceVersion), buildNumber: $(Build.BuildNumber) }
         displayName: Generate Variables
-      - template: pipeline/template/docker.yml
-        parameters:
-          version: $(version)
-          ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/dev') }}:
-            profile: dev
-            tags: |
-              latest
-              dev
-              dev-latest
-          ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/staging') }}:
-            profile: staging
-            tags: |
-              staging
-              staging-latest
-          ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
-            profile: prod
-            tags: |
-              stable
-              stable-latest
-          ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/devops') }}:
-            profile: dev
-            tags: |
-              devops
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '14.x'
+        displayName: 'Install Node.js'
+      - script: |
+          yarn global add @angular/cli@11
+          yarn install
+        displayName: 'yarn install'
+      - script: yarn build:${{ variables.branchName }}
+        displayName: 'Build app ${{ variables.branchName }}'
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.SourcesDirectory)/dist'
+          includeRootFolder: false
+          archiveType: zip
+          archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        displayName: 'Copy files to artifact folder'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          artifactName: boardroom-portal
+        displayName: 'Publish artifact'
+      - task: AzureWebApp@1
+        inputs:
+          azureSubscription: 'Azure MPN'
+          appName: '-boardroom-portal'
+          package: $(Build.ArtifactStagingDirectory)/**/*.zip
+        displayName: 'publish to webapp'
