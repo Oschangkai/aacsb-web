@@ -18,7 +18,7 @@
     <div class="dropdown bottom-left" [class.open]="openDropdown" >
       <button class="nav-text dropdown-toggle" aria-label="open user profile" (click)="openDropdown = !openDropdown">
         {{user.email}}
-        <cds-icon shape="angle" [direction]="openDropdown? 'up' : 'down'"></cds-icon>
+        <cds-icon style="top: 45%!important;" shape="angle" [direction]="openDropdown? 'up' : 'down'"></cds-icon>
       </button>
       <div class="dropdown-menu">
         <a routerLink="/login" [queryParams]="{success: 'Successfully Logout!'}" class="dropdown-item" (click)="logout()">Log out</a>
