@@ -21,9 +21,17 @@ export abstract class Permission {
     Edit: 'Role.Edit',
     Delete: 'Role.Delete'
   };
+  public static Azure = {
+    WebApps: {
+      ALL: ['Azure.WebApps.Query', 'Azure.WebApps.Reboot'],
+      Query: 'Azure.WebApps.Query',
+      Reboot: 'Azure.WebApps.Reboot'
+    }
+  };
 }
 
 export const PermissionList = [
+  ...Permission.Azure.WebApps.ALL,
   ...Permission.SendGrid.FailureMail.ALL,
   ...Permission.User.ALL,
   ...Permission.Role.ALL

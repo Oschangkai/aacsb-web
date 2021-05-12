@@ -43,6 +43,12 @@ export class SidenavComponent implements OnInit {
       shape: 'envelope',
       displayName: 'Failure Mails',
       permission: [...Permission.SendGrid.FailureMail.ALL]
+    },
+    {
+      routerLink: 'azure/webapps',
+      shape: 'world',
+      displayName: 'WebApp Insights',
+      permission: [...Permission.Azure.WebApps.ALL]
     }
   ];
 
