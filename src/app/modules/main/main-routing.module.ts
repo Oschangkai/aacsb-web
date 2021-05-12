@@ -35,6 +35,11 @@ const routes: Routes = [
         path: 'system',
         loadChildren: () =>
           import('@module/main-system/main-system.module').then(m => m.MainSystemModule),
+      },
+      {
+        path: 'azure',
+        loadChildren: () =>
+          import('@module/main-azure/main-azure.module').then(m => m.MainAzureModule),
       }
     ],
   }
