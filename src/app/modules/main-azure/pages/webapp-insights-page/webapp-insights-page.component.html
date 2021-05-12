@@ -1,0 +1,111 @@
+<h1>WebApp Insights</h1>
+<!-- Search -->
+<div style="margin-bottom: 24px;">
+  <form class="clr-form-compact" clrForm clrLayout="horizontal">
+    <clr-input-container>
+      <label>WebApp Name</label>
+      <input clrInput name="name" />
+    </clr-input-container>
+  </form>
+  <button class="btn btn-primary" style="margin-top: 16px;">
+    <clr-icon shape="search"></clr-icon>
+    Query
+  </button>
+</div>
+
+<!-- Empty App List -->
+<div style="margin-top: 2rem; display: flex; justify-content: center;">
+  <clr-spinner [clrMedium]="true"></clr-spinner>
+<!--  <p style="text-align: center">No WebApps Found</p>-->
+</div>
+<!-- App List -->
+<div class="clr-row">
+  <!-- Loading Instances -->
+  <div class="clr-col-xl-3 clr-col-lg-4 clr-col-md-6 clr-col-12">
+    <div class="card card-block">
+      <h3 class="card-title">alpha-AsiaDashboard-BE</h3>
+      <span class="p3">SEA_UAT_AsiaTube (Plan)</span>
+      <!-- Basic Info -->
+      <p class="p4" style="margin-top: 0.4rem">Resource Group</p>
+      <span class="card-text">SEA-UAT-AsiaALL</span>
+      <p class="p4" style="margin-top: 0.4rem">Region</p>
+      <span class="card-text">Southeast Asia</span>
+      <!-- Instances -->
+      <p class="p4" style="margin-top: 0.4rem">Instances</p>
+      <p class="card-text">
+        <clr-spinner [clrSmall]="true"></clr-spinner>
+      </p>
+    </div>
+  </div>
+  <!-- Differ loading CPU -->
+  <div class="clr-col-xl-3 clr-col-lg-4 clr-col-md-6 clr-col-12">
+    <div class="card card-block">
+    <h3 class="card-title">alpha-AsiaDashboard-BE</h3>
+    <span class="p3">SEA_UAT_AsiaTube (Plan)</span>
+    <!-- Basic Info -->
+    <p class="p4" style="margin-top: 0.4rem">Resource Group</p>
+    <span class="card-text">SEA-UAT-AsiaALL</span>
+    <p class="p4" style="margin-top: 0.4rem">Region</p>
+    <span class="card-text">Southeast Asia</span>
+    <!-- Instances -->
+    <p class="p4" style="margin-top: 0.4rem">Instances</p>
+    <p class="card-text">
+      RD281878707B36 <button style="float: right;" class="btn btn-link btn-sm">Restart</button>
+      <br><button class="btn btn-link btn-sm">Click to Load Data</button>
+    </p>
+    <p class="card-text">
+      RD0003FF7C09C0 <button style="float: right;" class="btn btn-link btn-sm">Restart</button>
+      <br><button class="btn btn-link btn-sm">Click to Load Data</button>
+    </p>
+  </div>
+  </div>
+  <!-- loading CPU -->
+  <div class="clr-col-xl-3 clr-col-lg-4 clr-col-md-6 clr-col-12">
+    <div class="card card-block">
+    <h3 class="card-title">alpha-AsiaDashboard-BE</h3>
+    <span class="p3">SEA_UAT_AsiaTube (Plan)</span>
+    <!-- Basic Info -->
+    <p class="p4" style="margin-top: 0.4rem">Resource Group</p>
+    <span class="card-text">SEA-UAT-AsiaALL</span>
+    <p class="p4" style="margin-top: 0.4rem">Region</p>
+    <span class="card-text">Southeast Asia</span>
+    <!-- Instances -->
+    <p class="p4" style="margin-top: 0.4rem">Instances</p>
+    <p class="card-text">
+      RD281878707B36 <button style="float: right;" class="btn btn-link btn-sm">Restart</button>
+      <br><clr-spinner [clrSmall]="true"></clr-spinner>
+    </p>
+    <p class="card-text">
+      RD0003FF7C09C0 <button style="float: right;" class="btn btn-link btn-sm">Restart</button>
+      <br><clr-spinner [clrSmall]="true"></clr-spinner>
+    </p>
+  </div>
+  </div>
+  <!-- All -->
+  <div class="clr-col-xl-3 clr-col-lg-4 clr-col-md-6 clr-col-12">
+    <div class="card card-block">
+      <h3 class="card-title">alpha-AsiaDashboard-BE</h3>
+      <span class="p3">SEA_UAT_AsiaTube (Plan)</span>
+      <!-- Basic Info -->
+      <p class="p4" style="margin-top: 0.4rem">Resource Group</p>
+      <span class="card-text">SEA-UAT-AsiaALL</span>
+      <p class="p4" style="margin-top: 0.4rem">Region</p>
+      <span class="card-text">Southeast Asia</span>
+      <!-- Instances -->
+      <p class="p4" style="margin-top: 0.4rem">Instances</p>
+      <p class="card-text">
+        RD281878707B36 <button style="float: right;" class="btn btn-link btn-sm">Restart</button>
+        <br><span class="p6">CPU (%) </span><span class="p7 warning"> 100%</span>
+        <br><span class="p6">MEM (%) </span><span class="p7 warning"> 100%</span>
+        <br><span class="p6">MEM (MB) </span><span class="p7"> 100MB</span>
+      </p>
+      <span class="card-text">
+        RD0003FF7C09C0 <button style="float: right;" class="btn btn-link btn-sm">Restart</button>
+        <br><span class="p6">CPU (%) </span><span class="p7 warning"> 100%</span>
+        <br><span class="p6">MEM (%) </span><span class="p7 warning"> 100%</span>
+        <br><span class="p6">MEM (MB) </span><span class="p7"> 100MB</span>
+      </span>
+    </div>
+  </div>
+</div>
+
