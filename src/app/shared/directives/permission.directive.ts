@@ -1,14 +1,9 @@
 import {
-  Directive,
-  Input,
-  TemplateRef,
-  ViewContainerRef,
-  ElementRef,
-  OnInit,
-  Attribute
+  Directive, Input,
+  TemplateRef, ViewContainerRef, ElementRef, OnInit,
 } from '@angular/core';
-import {UserService} from '@service/user.service';
-import {Permission} from '@model/ApplicationPermission.model';
+import { UserService } from '@service/user.service';
+import { Permission } from '@model/ApplicationPermission.model';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
