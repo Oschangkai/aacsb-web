@@ -1,0 +1,55 @@
+<div class="card card-block">
+  <h3 class="card-title">{{getNameById(webapp.id)}}</h3>
+  <span class="p3">{{getNameById(webapp.serverFarmId)}} (Plan)</span>
+  <!-- Basic Info -->
+  <p class="p4" style="margin-top: 0.4rem">Resource Group</p>
+  <span class="card-text">{{webapp.resourceGroupName}}</span>
+  <p class="p4" style="margin-top: 0.4rem">Region</p>
+  <span class="card-text">{{webapp.regionName}}</span>
+  <!-- Instances -->
+  <p class="p4" style="margin-top: 0.4rem">Instances</p>
+  <!-- No instance -->
+  <p class="card-text" *ngIf="!showDetail; else detail">
+    <button class="btn btn-link btn-sm" (click)="onLoadClicked()">Click to Load Data</button>
+  </p>
+  <ng-template #detail>
+    <p class="card-text" *ngIf="!instances">
+      <clr-spinner [clrSmall]="true"></clr-spinner>
+    </p>
+    <ng-container *ngIf="instances">
+      <ng-container *ngFor="let instance of instances">
+        <p class="card-text">
+          {{instance.machineName}}
+          <button
+            class="btn btn-link btn-sm"
+            style="float: right;"
+            (click)="onRestartClicked(webapp.serverFarmId, instance.machineName)"
+          >
+            Restart
+          </button>
+          <br>
+          <ng-container *ngIf="!instanceStatus; else status">
+            <clr-spinner [clrSmall]="true"></clr-spinner>
+          </ng-container>
+          <ng-template #status>
+            <span class="p6">CPU (%)&nbsp;&nbsp;</span>
+            <span class="p7" [class.warning]="getCpu(instance .machineName).overallCPUPercent > 80 || false">
+               {{(getCpu(instance.machineName)?.overallCPUPercent | number: '1.1-2') || ''}}%
+            </span>
+            <br>
+            <span class="p6">MEM (%)&nbsp;&nbsp;</span>
+            <span class="p7" [class.warning]="getMemory(instance.machineName).percentPhysicalMemoryUsed > 80 || false">
+               {{(getMemory(instance.machineName)?.percentPhysicalMemoryUsed | number: '1.1-2') || ''}}%
+            </span>
+            <br>
+            <span class="p6">MEM (MB)&nbsp;&nbsp;</span>
+            <span class="p7">
+              {{(getMemory(instance.machineName)?.privateBytes | number: '1.1-2') || ''}}MB
+            </span>
+          </ng-template>
+        </p>
+      </ng-container>
+    </ng-container>
+
+  </ng-template>
+</div>

@@ -1,3 +1,38 @@
+export interface WebAppInstanceStatus {
+  cpu: { id: string, records: WebAppInstanceCpuRecord[] };
+  memory: { id: string, records: WebAppInstanceMemoryRecord[] };
+  location: string;
+  queryDateTimeRange: { startTime: string, endTime: string };
+}
+export interface WebAppInstanceCpuRecord {
+  timestamp: string;
+  machineName: string;
+  overallCPUPercent: number;
+}
+export interface WebAppInstanceMemoryRecord {
+  timestamp: string;
+  machineName: string;
+  percentPhysicalMemoryUsed: number;
+  privateBytes: number;
+}
+export interface WebAppInstance {
+  id: string;
+  name: string;
+  location: string;
+  state: string;
+  machineName: string;
+}
+export interface WebApps {
+  id: string;
+  regionName: string;
+  resourceGroupName: string;
+  serverFarmId: string;
+}
+export interface AzureStatusMessage {
+  code: string;
+  message: string;
+}
+
 export interface FailureMailEvents {
   reason: string;
   created: number;

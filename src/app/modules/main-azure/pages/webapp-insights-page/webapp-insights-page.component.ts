@@ -1,27 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import {Permission} from '@model/ApplicationPermission.model';
-import {ActivatedRoute} from '@angular/router';
-import {NgProgress} from 'ngx-progressbar';
-import {Subscription} from 'rxjs';
-import {AlertService} from '@service/alert.service';
+import { ActivatedRoute } from '@angular/router';
+
+import { WebApps } from '@model/query.response.model';
+import { Permission } from '@model/ApplicationPermission.model';
 
 @Component({
   selector: 'app-webapp-insights-page',
   templateUrl: './webapp-insights-page.component.html'
 })
-export class WebappInsightsPageComponent implements OnInit, OnDestroy {
+export class WebappInsightsPageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private alert: AlertService,
-    private ngProgress: NgProgress
-  ) {
-    this.httpStateSubscription = this.ngProgress.ref('http-load').state.subscribe(state => {
-      this.loadData = state.active;
-    });
-  }
-  private httpStateSubscription: Subscription;
+  ) { }
 
   // states
   Permission = Permission;
@@ -29,13 +21,37 @@ export class WebappInsightsPageComponent implements OnInit, OnDestroy {
   modalOpened = {reboot: false};
 
   // data
+  webapps: WebApps[] = [];
+  appList: WebApps[] = [];
+  query = '';
 
   ngOnInit(): void {
+    this.route.data.subscribe(
+      ({ response }) => {
+        this.webapps = response;
+        this.load();
+      }
+    );
   }
 
   load(): void {
+    this.loadData = true;
+    if (this.query !== '') {
+      this.appList = this.webapps
+        .filter(app =>
+          app.id.split(/[\s\/]+/)
+            .reverse()[0]
+            .includes(this.query)
+        );
+      this.loadData = false;
+      return;
+    }
+    this.appList = [];
+    this.loadData = false;
   }
-  ngOnDestroy(): void {
-    this.httpStateSubscription.unsubscribe();
+
+  search(): void {
+    this.loadData = true;
+    this.load();
   }
 }
