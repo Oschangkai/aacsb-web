@@ -49,7 +49,7 @@
               {{(getMemory(instance.machineName)?.privateBytes | number: '1.1-2') || ''}}MB
             </span>
             <br>
-            <span class="p8">Updated: {{(getMemory(instance.machineName).timestamp + 'Z' | date: 'short') || 'no data'}}</span>
+            <span class="p8">Updated: {{ getMemory(instance.machineName).timestamp ? (getMemory(instance.machineName).timestamp + 'Z' | date: 'short') : 'no data'}}</span>
           </ng-template>
         </p>
       </ng-container>
