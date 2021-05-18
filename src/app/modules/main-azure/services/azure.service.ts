@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AzureStatusMessage, WebAppInstance, WebAppInstanceStatus, WebApps } from '@model/query.response.model';
 import { environment } from '@environment/environment';
+import {tap} from 'rxjs/operators';
 
 const baseUrl = environment.api;
 const webappUrl = `${environment.api}/azure/webapp`;
@@ -30,8 +31,6 @@ export class AzureService {
   }
 
   rebootInstance(params: {farmId: string, workerName: string}): Observable<AzureStatusMessage> {
-    return this.http.post<AzureStatusMessage>(`${webappUrl}/instance/status`, {
-      params: new HttpParams({ fromObject: params })
-    });
+    return this.http.post<AzureStatusMessage>(`${webappUrl}/instance/reboot`, params);
   }
 }

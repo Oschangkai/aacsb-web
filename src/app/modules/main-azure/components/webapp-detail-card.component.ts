@@ -9,6 +9,7 @@ import {
   WebApps
 } from '@model/query.response.model';
 import { AzureService } from '@module/main-azure/services/azure.service';
+import { AlertService } from '@service/alert.service';
 
 @Component({
   selector: 'app-webapp-detail-card',
@@ -16,11 +17,12 @@ import { AzureService } from '@module/main-azure/services/azure.service';
 })
 export class WebappDetailCardComponent implements OnInit {
 
-  constructor(private azureService: AzureService) {
+  constructor(private azureService: AzureService, private alert: AlertService) {
   }
 
   // states
   showDetail = false;
+  restarting = false;
   submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
 
   // data
@@ -30,9 +32,11 @@ export class WebappDetailCardComponent implements OnInit {
 
   getNameById = (id: string) => id.split(/[\s\/]+/).pop();
   getCpu = (machineName: string): WebAppInstanceCpuRecord =>
-    this.instanceStatus?.cpu.records.filter(r => r.machineName === machineName)[0] || {timestamp: '', machineName: '', overallCPUPercent: 0}
+    this.instanceStatus?.cpu.records.filter(r => r.machineName === machineName)[0]
+    || {timestamp: '', machineName: '', overallCPUPercent: 0}
   getMemory = (machineName: string): WebAppInstanceMemoryRecord =>
-    this.instanceStatus?.memory.records.filter(r => r.machineName === machineName)[0] || {timestamp: '' , percentPhysicalMemoryUsed: 0, privateBytes: 0, machineName: ''}
+    this.instanceStatus?.memory.records.filter(r => r.machineName === machineName)[0]
+    || {timestamp: '' , percentPhysicalMemoryUsed: 0, privateBytes: 0, machineName: ''}
 
   ngOnInit(): void {
   }
@@ -44,6 +48,14 @@ export class WebappDetailCardComponent implements OnInit {
   }
 
   onRestartClicked(farmId: string, workerName: string): void {
-    console.log(farmId, workerName);
+    this.restarting = true;
+    this.azureService.rebootInstance({farmId, workerName}).subscribe(response => {
+      if (response.code === 'OK') {
+        this.alert.success(response.message);
+      } else {
+        this.alert.error(response.message);
+      }
+      this.restarting = false;
+    });
   }
 }

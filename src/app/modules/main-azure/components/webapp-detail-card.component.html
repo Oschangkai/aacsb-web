@@ -21,12 +21,14 @@
         <p class="card-text">
           {{instance.machineName}}
           <button
+            *ngIf="!restarting"
             class="btn btn-link btn-sm"
             style="float: right;"
             (click)="onRestartClicked(webapp.serverFarmId, instance.machineName)"
           >
             Restart
           </button>
+          <clr-spinner *ngIf="restarting" style="float: right;" [clrSmall]="true"></clr-spinner>
           <br>
           <ng-container *ngIf="!instanceStatus; else status">
             <clr-spinner [clrSmall]="true"></clr-spinner>
@@ -47,7 +49,7 @@
               {{(getMemory(instance.machineName)?.privateBytes | number: '1.1-2') || ''}}MB
             </span>
             <br>
-            <span class="p8">Updated: {{getMemory(instance.machineName).timestamp + 'Z' | date: 'short'}}</span>
+            <span class="p8">Updated: {{(getMemory(instance.machineName).timestamp + 'Z' | date: 'short') || 'no data'}}</span>
           </ng-template>
         </p>
       </ng-container>
