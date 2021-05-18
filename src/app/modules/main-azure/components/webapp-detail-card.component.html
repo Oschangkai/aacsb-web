@@ -46,6 +46,8 @@
             <span class="p7">
               {{(getMemory(instance.machineName)?.privateBytes | number: '1.1-2') || ''}}MB
             </span>
+            <br>
+            <span class="p8">Updated: {{getMemory(instance.machineName).timestamp + 'Z' | date: 'short'}}</span>
           </ng-template>
         </p>
       </ng-container>
