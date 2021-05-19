@@ -2,10 +2,13 @@
 <!-- Search -->
 <div style="margin-bottom: 24px;">
   <form class="clr-form-compact" clrForm clrLayout="horizontal">
-    <clr-input-container>
+    <clr-datalist-container>
       <label>WebApp Name</label>
-      <input clrInput name="name" [(ngModel)]="query" />
-    </clr-input-container>
+      <input clrDatalistInput name="name" [(ngModel)]="query" />
+      <datalist>
+        <option *ngFor="let item of appNameList" [value]="item"></option>
+      </datalist>
+    </clr-datalist-container>
   </form>
   <button class="btn btn-primary" style="margin-top: 16px;" (click)="search()">
     <clr-icon shape="search"></clr-icon>

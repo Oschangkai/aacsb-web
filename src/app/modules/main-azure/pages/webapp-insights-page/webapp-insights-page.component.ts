@@ -23,12 +23,14 @@ export class WebappInsightsPageComponent implements OnInit {
   // data
   webapps: WebApps[] = [];
   appList: WebApps[] = [];
+  appNameList: string[] = [];
   query = '';
 
   ngOnInit(): void {
     this.route.data.subscribe(
       ({ response }) => {
         this.webapps = response;
+        this.appNameList = this.webapps.map(el => el.id.split(/[\s\/]+/).reverse()[0]);
         this.load();
       }
     );
