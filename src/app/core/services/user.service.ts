@@ -67,9 +67,9 @@ export class UserService implements OnDestroy {
     if (!this.getUser()) { return []; }
 
     const token = this.getUser().token;
-    const tokenDecoded = jwtDecode<ApplicationToken>(token);
+    const permission = jwtDecode<ApplicationToken>(token)['MAYOBoardroom.Permission'];
 
-    return tokenDecoded['MAYOBoardroom.Permission'];
+    return Array.isArray(permission) ? permission : [permission];
   }
 
   logout(): void {
