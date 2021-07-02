@@ -28,6 +28,18 @@ export interface WebApps {
   resourceGroupName: string;
   serverFarmId: string;
 }
+export interface VM {
+  subscriptionId: string;
+  computerName: string;
+  resourceGroup: string;
+  region: string;
+  id: string;
+  vmId: string;
+  powerState: string;
+  size: string;
+  osType: string;
+  ipAddress: string;
+}
 export interface AzureStatusMessage {
   code: string;
   message: string;
