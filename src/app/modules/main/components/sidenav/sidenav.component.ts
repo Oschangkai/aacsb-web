@@ -49,6 +49,12 @@ export class SidenavComponent implements OnInit {
       shape: 'world',
       displayName: 'WebApp Insights',
       permission: [...Permission.Azure.WebApps.ALL]
+    },
+    {
+      routerLink: 'azure/vm',
+      shape: 'vm',
+      displayName: 'Virtual Machine',
+      permission: [...Permission.Azure.VM.ALL]
     }
   ];
 

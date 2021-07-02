@@ -22,6 +22,15 @@ export abstract class Permission {
     Delete: 'Role.Delete'
   };
   public static Azure = {
+    Resource: {
+      ALL: ['Azure.Resource.Query'],
+      Query: 'Azure.Resource.Query'
+    },
+    VM: {
+      ALL: ['Azure.VM.Query', 'Azure.VM.Operate'],
+      Query: 'Azure.VM.Query',
+      Operate: 'Azure.VM.Operate'
+    },
     WebApps: {
       ALL: ['Azure.WebApps.Query', 'Azure.WebApps.Reboot'],
       Query: 'Azure.WebApps.Query',
@@ -31,6 +40,8 @@ export abstract class Permission {
 }
 
 export const PermissionList = [
+  ...Permission.Azure.Resource.ALL,
+  ...Permission.Azure.VM.ALL,
   ...Permission.Azure.WebApps.ALL,
   ...Permission.SendGrid.FailureMail.ALL,
   ...Permission.User.ALL,
