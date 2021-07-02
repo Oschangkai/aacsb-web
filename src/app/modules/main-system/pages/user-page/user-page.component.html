@@ -14,11 +14,6 @@
   </clr-dg-action-bar>
 
   <!-- Columns -->
-  <clr-dg-column [clrDgField]="'id'">
-    <ng-container *clrDgHideableColumn="{hidden: true}">
-      ID
-    </ng-container>
-  </clr-dg-column>
   <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Name
@@ -27,6 +22,11 @@
   <clr-dg-column [clrDgField]="'email'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Email
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'id'">
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      ID
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'enabled'">
@@ -42,9 +42,9 @@
 
   <!-- Row Data -->
   <clr-dg-row *clrDgItems="let user of users.data" [clrDgItem]="user">
-    <clr-dg-cell>{{user.id}}</clr-dg-cell>
     <clr-dg-cell>{{user.firstName + ' ' + user.lastName}}</clr-dg-cell>
     <clr-dg-cell>{{user.email}}</clr-dg-cell>
+    <clr-dg-cell>{{user.id}}</clr-dg-cell>
     <clr-dg-cell><span class="dot" [class]="user.enabled.toString()"></span> &nbsp;{{user.enabled}}</clr-dg-cell>
     <clr-dg-cell *permission="[Permission.User.Edit, Permission.User.Delete]; operation: 'OR'">
       <a style="cursor: pointer" (click)="onEditClicked(user)" *permission="[Permission.User.Edit]">Edit</a>
