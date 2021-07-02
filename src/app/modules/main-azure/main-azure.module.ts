@@ -6,6 +6,7 @@ import { MainAzureRoutingModule } from './main-azure-routing.module';
 
 // Pages
 import { WebappInsightsPageComponent } from './pages/webapp-insights-page/webapp-insights-page.component';
+import { VmPageComponent } from './pages/vm-page/vm-page.component';
 
 // Components
 import { WebappDetailCardComponent } from './components/webapp-detail-card.component';
@@ -15,10 +16,12 @@ import { WebappDetailCardComponent } from './components/webapp-detail-card.compo
 // Resolver
 import { AzureService } from './services/azure.service';
 import { WebappInsightsResolver } from './services/webapp-insights.resolver';
+import { VmResolver } from './services/vm.resolver';
 
 import { SharedModule } from '@shared/shared.module';
 
-const Pages = [WebappInsightsPageComponent];
+const Pages = [WebappInsightsPageComponent, VmPageComponent];
+const Resolvers = [WebappInsightsResolver, VmResolver];
 const Components = [WebappDetailCardComponent];
 
 const CdsModules = [];
@@ -31,6 +34,6 @@ const CdsModules = [];
     SharedModule,
     FormsModule
   ],
-  providers: [AzureService, WebappInsightsResolver]
+  providers: [AzureService, ...Resolvers]
 })
 export class MainAzureModule {}

@@ -1,0 +1,125 @@
+<h1>VMs</h1>
+<clr-datagrid [clrDgLoading]="loadData"  [(clrDgSingleSelected)]="selected">
+  <!-- Action Bar -->
+  <clr-dg-action-bar>
+    <div class="btn-group" *permission="[Permission.Azure.VM.Operate]">
+      <ng-container *ngIf="selected && selected.id">
+        <button
+          type="button"
+          class="btn btn-sm btn-secondary btn-outline-primary"
+          [class.disabled]="selected.powerState === PowerState.Running || selected.powerState === PowerState.Unknown"
+          (click)="onOperationClicked(PowerOperation.Start, selected)"
+        >
+          <clr-icon shape="play"></clr-icon> Start
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-secondary btn-outline-danger"
+          [class.disabled]="selected.powerState !== PowerState.Running && selected.powerState !== PowerState.Stopped"
+          (click)="onOperationClicked(PowerOperation.Deallocate, selected)"
+        >
+          <clr-icon shape="stop"></clr-icon> Deallocate
+        </button>
+        <button
+          type="button"
+          class="btn btn-sm btn-secondary btn-outline-primary"
+          [class.disabled]="selected.powerState !== PowerState.Running"
+          (click)="onOperationClicked(PowerOperation.Reboot, selected)"
+        >
+          <clr-icon shape="refresh"></clr-icon> Reboot
+        </button>
+      </ng-container>
+    </div>
+  </clr-dg-action-bar>
+
+  <!-- Columns -->
+  <clr-dg-column [clrDgField]="'computerName'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Computer Name
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'resourceGroup'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Resource Group
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'region'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Region
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'powerState'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Power
+    </ng-container>
+  </clr-dg-column>
+
+  <!-- Row Data -->
+  <clr-dg-row *clrDgItems="let vm of vms" [clrDgItem]="vm">
+    <clr-dg-cell>{{vm.computerName}}</clr-dg-cell>
+    <clr-dg-cell>{{vm.resourceGroup}}</clr-dg-cell>
+    <clr-dg-cell>{{vm.region}}</clr-dg-cell>
+    <clr-dg-cell><span class="dot" [ngClass]="vm.powerState === PowerState.Running ? 'true' : 'false'"></span> &nbsp;{{vm.powerState}}</clr-dg-cell>
+  </clr-dg-row>
+
+
+  <!-- Detail -->
+  <ng-template clrIfDetail let-detail (clrIfDetailChange)="onDetailOpen($event)">
+    <clr-dg-detail>
+      <clr-dg-detail-header>VM Detail</clr-dg-detail-header>
+      <clr-dg-detail-body [clrLoading]="loadData" style="padding-bottom: 16px;">
+        <ng-container *ngIf="vmDetail[detail.id]; else nodata">
+          <table class="table table-vertical">
+            <tbody>
+            <tr>
+              <th>Computer Name</th>
+              <td>{{vmDetail[detail.id].computerName}}</td>
+            </tr>
+            <tr>
+              <th>Subscription ID</th>
+              <td>{{vmDetail[detail.id].subscriptionId}}</td>
+            </tr>
+            <tr>
+              <th>Resource Group</th>
+              <td>{{vmDetail[detail.id].resourceGroup}}</td>
+            </tr>
+            <tr>
+              <th>Region</th>
+              <td>{{vmDetail[detail.id].region}}</td>
+            </tr>
+            <tr>
+              <th>Power State</th>
+              <td><span class="dot" [ngClass]="vmDetail[detail.id].powerState === PowerState.Running ? 'true' : 'false'"></span> &nbsp;{{vmDetail[detail.id].powerState}}</td>
+            </tr>
+            <tr>
+              <th>Size</th>
+              <td>{{vmDetail[detail.id].size}}</td>
+            </tr>
+            <tr>
+              <th>OS Type</th>
+              <td>{{vmDetail[detail.id].osType}}</td>
+            </tr>
+            <tr>
+              <th>IP Address</th>
+              <td>{{vmDetail[detail.id].ipAddress}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #nodata>No detail information for this VM.</ng-template>
+      </clr-dg-detail-body>
+    </clr-dg-detail>
+  </ng-template>
+
+  <!-- Placeholder -->
+  <clr-dg-placeholder>There's no VM here.</clr-dg-placeholder>
+
+  <!-- Footer -->
+  <clr-dg-footer>
+    <clr-dg-pagination #v>
+      <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">VMs per page</clr-dg-page-size>
+      {{v.firstItem + 1}} - {{v.lastItem + 1}} of {{v.totalItems}} VMs
+    </clr-dg-pagination>
+  </clr-dg-footer>
+
+</clr-datagrid>

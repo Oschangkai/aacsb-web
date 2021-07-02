@@ -3,9 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Component
 import { WebappInsightsPageComponent } from './pages/webapp-insights-page/webapp-insights-page.component';
-import { WebappInsightsResolver } from './services/webapp-insights.resolver';
+import { VmPageComponent } from '@module/main-azure/pages/vm-page/vm-page.component';
 
 // Resolver
+import { WebappInsightsResolver } from './services/webapp-insights.resolver';
+import { VmResolver } from '@module/main-azure/services/vm.resolver';
 
 const routes: Routes = [
   {
@@ -17,8 +19,19 @@ const routes: Routes = [
         resolve: { response: WebappInsightsResolver },
         children: [
           {
-            path: 'insights',
+            path: '',
             component: WebappInsightsPageComponent
+          }
+        ]
+      },
+      {
+        path: 'vm',
+        component: VmPageComponent,
+        resolve: { response: VmResolver },
+        children: [
+          {
+            path: '',
+            component: VmPageComponent
           }
         ]
       }
