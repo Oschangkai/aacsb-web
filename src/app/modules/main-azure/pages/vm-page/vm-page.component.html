@@ -26,11 +26,11 @@
             More
           </button>
           <clr-dropdown-menu clrPosition="right-top" *clrIfOpen>
-            <div (click)="onOperationClicked(PowerOperation.Reboot)" clrDropdownItem>
+            <div (click)="onOperationClicked(PowerOperation.Reboot)" [clrDisabled]="selected.vm.powerState !== PowerState.Running" clrDropdownItem>
               <clr-icon shape="refresh"></clr-icon>
               Reboot
             </div>
-            <div (click)="onOperationClicked(PowerOperation.Stop)" clrDropdownItem>
+            <div (click)="onOperationClicked(PowerOperation.Stop)" [clrDisabled]="selected.vm.powerState !== PowerState.Running" clrDropdownItem>
               <clr-icon shape="stop"></clr-icon>
               Stop
             </div>
