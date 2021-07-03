@@ -114,8 +114,17 @@ export class VmPageComponent implements OnInit, OnDestroy {
 
     const query$ = this.azureService.getVmDetail(query).pipe(
       tap(response => {
+        // Set state on page
         const index = this.vms.findIndex(vm => vm.id === response.vmId);
         this.vms[index].powerState = response.powerState;
+
+        // Show dialog when operation finished
+        if (response.powerState === PowerState.Running
+          || response.powerState === PowerState.Stopped
+          || response.powerState === PowerState.Deallocated
+        ) {
+          this.alert.success(`${response.computerName} is ${response.powerState}`);
+        }
       }),
       delay(35000)
     );
