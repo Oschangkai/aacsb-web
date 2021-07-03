@@ -1,33 +1,41 @@
 <h1>VMs</h1>
-<clr-datagrid [clrDgLoading]="loadData"  [(clrDgSingleSelected)]="selected">
+<clr-datagrid [clrDgLoading]="loadData"  [(clrDgSingleSelected)]="selected.vm">
   <!-- Action Bar -->
   <clr-dg-action-bar>
     <div class="btn-group" *permission="[Permission.Azure.VM.Operate]">
-      <ng-container *ngIf="selected && selected.id">
+      <ng-container *ngIf="selected && selected.vm && selected.vm.id">
         <button
           type="button"
           class="btn btn-sm btn-secondary btn-outline-primary"
-          [class.disabled]="selected.powerState === PowerState.Running || selected.powerState === PowerState.Unknown"
-          (click)="onOperationClicked(PowerOperation.Start, selected)"
+          [class.disabled]="selected.vm.powerState === PowerState.Running || selected.vm.powerState === PowerState.Unknown"
+          (click)="onOperationClicked(PowerOperation.Start)"
         >
           <clr-icon shape="play"></clr-icon> Start
         </button>
         <button
           type="button"
           class="btn btn-sm btn-secondary btn-outline-danger"
-          [class.disabled]="selected.powerState !== PowerState.Running && selected.powerState !== PowerState.Stopped"
-          (click)="onOperationClicked(PowerOperation.Deallocate, selected)"
+          [class.disabled]="selected.vm.powerState !== PowerState.Running && selected.vm.powerState !== PowerState.Stopped"
+          (click)="onOperationClicked(PowerOperation.Deallocate)"
         >
           <clr-icon shape="stop"></clr-icon> Deallocate
         </button>
-        <button
-          type="button"
-          class="btn btn-sm btn-secondary btn-outline-primary"
-          [class.disabled]="selected.powerState !== PowerState.Running"
-          (click)="onOperationClicked(PowerOperation.Reboot, selected)"
-        >
-          <clr-icon shape="refresh"></clr-icon> Reboot
-        </button>
+        <clr-dropdown class="btn-group-overflow">
+          <button class="btn btn-sm" [class.disabled]="selected.vm.powerState !== PowerState.Running" clrDropdownTrigger>
+            <clr-icon shape="ellipsis-horizontal"></clr-icon>
+            More
+          </button>
+          <clr-dropdown-menu clrPosition="right-top" *clrIfOpen>
+            <div (click)="onOperationClicked(PowerOperation.Reboot)" clrDropdownItem>
+              <clr-icon shape="refresh"></clr-icon>
+              Reboot
+            </div>
+            <div (click)="onOperationClicked(PowerOperation.Stop)" clrDropdownItem>
+              <clr-icon shape="stop"></clr-icon>
+              Stop
+            </div>
+          </clr-dropdown-menu>
+        </clr-dropdown>
       </ng-container>
     </div>
   </clr-dg-action-bar>
@@ -59,7 +67,9 @@
     <clr-dg-cell>{{vm.computerName}}</clr-dg-cell>
     <clr-dg-cell>{{vm.resourceGroup}}</clr-dg-cell>
     <clr-dg-cell>{{vm.region}}</clr-dg-cell>
-    <clr-dg-cell><span class="dot" [ngClass]="vm.powerState === PowerState.Running ? 'true' : 'false'"></span> &nbsp;{{vm.powerState}}</clr-dg-cell>
+    <clr-dg-cell>
+      <span class="dot" [ngClass]="vm.powerState === PowerState.Running ? 'true' : vm.powerState.includes('ing') ? 'pending' : 'false'"></span> &nbsp;{{vm.powerState}}
+    </clr-dg-cell>
   </clr-dg-row>
 
 
@@ -69,6 +79,11 @@
       <clr-dg-detail-header>VM Detail</clr-dg-detail-header>
       <clr-dg-detail-body [clrLoading]="loadData" style="padding-bottom: 16px;">
         <ng-container *ngIf="vmDetail[detail.id]; else nodata">
+          <div style="margin-bottom: -20px; padding-top: 12px;">
+            <button class="btn btn-info btn-sm" (click)="onDetailOpen(detail, true)">
+              <clr-icon shape="refresh"></clr-icon> Refresh
+            </button>
+          </div>
           <table class="table table-vertical">
             <tbody>
             <tr>
@@ -89,7 +104,9 @@
             </tr>
             <tr>
               <th>Power State</th>
-              <td><span class="dot" [ngClass]="vmDetail[detail.id].powerState === PowerState.Running ? 'true' : 'false'"></span> &nbsp;{{vmDetail[detail.id].powerState}}</td>
+              <td>
+                <span class="dot" [ngClass]="vmDetail[detail.id].powerState === PowerState.Running ? 'true' : vmDetail[detail.id].powerState.includes('ing') ? 'pending' : 'false'"></span> &nbsp;{{vmDetail[detail.id].powerState}}
+              </td>
             </tr>
             <tr>
               <th>Size</th>
@@ -123,3 +140,11 @@
   </clr-dg-footer>
 
 </clr-datagrid>
+
+<app-vm-operation-confirm-modal
+  *ngIf="modalOpened"
+  [opened]="modalOpened"
+  [selected]="selected"
+  (onSubmit)="onOperationSubmit($event)"
+  (onCancel)="onOperationCancelled()"
+></app-vm-operation-confirm-modal>

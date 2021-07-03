@@ -2,12 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { NgProgress } from 'ngx-progressbar';
-import { Subscription } from 'rxjs';
+import { EMPTY, of, Subscription } from 'rxjs';
+import { delay, expand, tap } from 'rxjs/operators';
 
 import { AlertService } from '@service/alert.service';
 
 import { Permission } from '@model/ApplicationPermission.model';
 import { AzureStatusMessage, VM } from '@model/query.response.model';
+import { PowerOperation, PowerState } from '@model/VMPower.model';
 import { AzureService } from '@module/main-azure/services/azure.service';
 
 @Component({
@@ -36,13 +38,13 @@ export class VmPageComponent implements OnInit, OnDestroy {
 
   // data
   vms: Partial<VM>[] = [{}];
-  selected: Partial<VM> = {};
+  selected: { operation: PowerOperation, vm: Partial<VM> } = {operation: PowerOperation.None, vm: {}};
   vmDetail: {[x: string]: VM} = { '': {} as VM };
 
-  onDetailOpen(vm: VM): void {
+  onDetailOpen(vm: VM, force: boolean = false): void {
     // If first loaded, or loaded before
     // not processing this function
-    if (vm === null || this.vmDetail[vm.id]) { return; }
+    if (vm === null || (this.vmDetail[vm.id] && !force)) { return; }
 
     const query = {
       vmName: vm.computerName,
@@ -52,24 +54,30 @@ export class VmPageComponent implements OnInit, OnDestroy {
 
     this.azureService.getVmDetail(query).subscribe(response => {
       this.vmDetail[vm.id] = response;
+      const index = this.vms.findIndex(v => v.id === response.vmId);
+      this.vms[index].powerState = response.powerState;
     });
   }
-  onOperationClicked(operation: PowerOperation, vm: Partial<VM>): void {
-    if (vm === null) { return; }
+  onOperationClicked(operation: PowerOperation): void {
+    if (this.selected === null) { return; }
 
+    this.selected.operation = operation;
     this.modalOpened = true;
-    this.selected = {...vm};
   }
-  onAddSubmit(operation: PowerOperation, vm: Partial<VM>): void {
+  onOperationCancelled(): void {
+    this.selected = {operation: PowerOperation.None, vm: {}};
+    this.modalOpened = false;
+  }
+  onOperationSubmit(operation: PowerOperation): void {
     const query = {
-      vmName: vm.computerName ?? '',
-      resourceGroup: vm.resourceGroup ?? '',
-      subscriptionId: vm.subscriptionId ?? ''
+      vmName: this.selected.vm.computerName ?? '',
+      resourceGroup: this.selected.vm.resourceGroup ?? '',
+      subscriptionId: this.selected.vm.subscriptionId ?? ''
     };
     const next = (response: AzureStatusMessage) => {
       this.modalOpened = false;
       this.alert.info(response.message);
-      this.load();
+      of('').pipe(delay(4250)).subscribe(() => this.watch(query));
     };
     switch (operation){
       case PowerOperation.Start:
@@ -98,29 +106,31 @@ export class VmPageComponent implements OnInit, OnDestroy {
   load(): void {
     this.azureService.getVms().subscribe(response => {
       this.vms = [...response];
-      this.selected = {};
+      this.selected = {operation: PowerOperation.None, vm: {}};
       this.vmDetail = {};
     });
+  }
+  watch(query: {vmName: string, subscriptionId: string, resourceGroup: string}): void {
+
+    const query$ = this.azureService.getVmDetail(query).pipe(
+      tap(response => {
+        const index = this.vms.findIndex(vm => vm.id === response.vmId);
+        this.vms[index].powerState = response.powerState;
+      }),
+      delay(35000)
+    );
+
+    const polling$ = query$.pipe(
+      expand(response =>
+        response.powerState !== PowerState.Running
+        && response.powerState !== PowerState.Stopped
+        && response.powerState !== PowerState.Deallocated ? query$ : EMPTY
+      )
+    );
+
+    polling$.subscribe();
   }
   ngOnDestroy(): void {
     this.httpStateSubscription.unsubscribe();
   }
-}
-
-
-enum PowerOperation {
-  Deallocate = 'deallocate',
-  Reboot = 'reboot',
-  Start = 'start',
-  Stop = 'stop'
-}
-
-enum PowerState {
-  Running = 'running',
-  Deallocating = 'deallocating',
-  Deallocated = 'deallocated',
-  Starting = 'starting',
-  Stopped = 'stopped',
-  Stopping = 'stopping',
-  Unknown = 'unknown'
 }

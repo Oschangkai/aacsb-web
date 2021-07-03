@@ -50,6 +50,9 @@
   &.false {
     background-color: hsl(9, 100%, 43%);
   }
+  &.pending {
+    background-color: hsl(48, 95%, 48%);
+  }
 }
 .warning {
   color: hsl(9, 100%, 43%)!important;

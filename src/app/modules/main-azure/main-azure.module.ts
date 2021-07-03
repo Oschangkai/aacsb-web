@@ -10,6 +10,7 @@ import { VmPageComponent } from './pages/vm-page/vm-page.component';
 
 // Components
 import { WebappDetailCardComponent } from './components/webapp-detail-card.component';
+import { VmOperationConfirmModalComponent } from './components/vm-operation-confirm-modal.component';
 
 // Modals
 
@@ -22,7 +23,7 @@ import { SharedModule } from '@shared/shared.module';
 
 const Pages = [WebappInsightsPageComponent, VmPageComponent];
 const Resolvers = [WebappInsightsResolver, VmResolver];
-const Components = [WebappDetailCardComponent];
+const Components = [WebappDetailCardComponent, VmOperationConfirmModalComponent];
 
 const CdsModules = [];
 
