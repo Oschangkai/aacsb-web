@@ -20,12 +20,13 @@ import { WebappInsightsResolver } from './services/webapp-insights.resolver';
 import { VmResolver } from './services/vm.resolver';
 
 import { SharedModule } from '@shared/shared.module';
+import { CdsDividerModule } from '@cds/angular';
 
 const Pages = [WebappInsightsPageComponent, VmPageComponent];
 const Resolvers = [WebappInsightsResolver, VmResolver];
 const Components = [WebappDetailCardComponent, VmOperationConfirmModalComponent];
 
-const CdsModules = [];
+const CdsModules = [CdsDividerModule];
 
 @NgModule({
   declarations: [...Pages, ...Components],
@@ -33,7 +34,8 @@ const CdsModules = [];
     CommonModule,
     MainAzureRoutingModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    ...CdsModules
   ],
   providers: [AzureService, ...Resolvers]
 })
