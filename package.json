@@ -4,9 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:prod": "ng build --configuration production --aot=true --build-optimizer=true --optimization=true",
-    "build:staging": "ng build --configuration=staging --aot=true --build-optimizer=true --optimization=true",
-    "build:dev": "ng build --configuration=staging --aot=true --build-optimizer=true --optimization=true",
+    "build:prod": "ng build --configuration production",
+    "build:staging": "ng build --configuration=staging",
+    "build:dev": "ng build --configuration=staging",
     "analyze": "ng build --stats-json=true && npx webpack-bundle-analyzer ./dist/MAYO-Boardroom/stats.json",
     "test": "ng test",
     "lint": "ng lint",
