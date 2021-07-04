@@ -111,6 +111,14 @@ export class VmPageComponent implements OnInit, OnDestroy {
     });
   }
   watch(query: {vmName: string, subscriptionId: string, resourceGroup: string}): void {
+    const isStable = (vm: Partial<VM>) => {
+      const index = this.vms.findIndex(v => v.id === vm.vmId);
+      const isStableStatus = vm.powerState === PowerState.Running
+      || vm.powerState === PowerState.Stopped
+      || vm.powerState === PowerState.Deallocated;
+      const statusChanged = this.vms[index].powerState !== vm.powerState;
+      return statusChanged && isStableStatus;
+    };
 
     const query$ = this.azureService.getVmDetail(query).pipe(
       tap(response => {
@@ -119,10 +127,7 @@ export class VmPageComponent implements OnInit, OnDestroy {
         this.vms[index].powerState = response.powerState;
 
         // Show dialog when operation finished
-        if (response.powerState === PowerState.Running
-          || response.powerState === PowerState.Stopped
-          || response.powerState === PowerState.Deallocated
-        ) {
+        if (isStable(response)) {
           this.alert.success(`${response.computerName} is ${response.powerState}`);
         }
       }),
@@ -131,9 +136,7 @@ export class VmPageComponent implements OnInit, OnDestroy {
 
     const polling$ = query$.pipe(
       expand(response =>
-        response.powerState !== PowerState.Running
-        && response.powerState !== PowerState.Stopped
-        && response.powerState !== PowerState.Deallocated ? query$ : EMPTY
+        !isStable(response) ? query$ : EMPTY
       )
     );
 
