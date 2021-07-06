@@ -10,16 +10,22 @@ import { StandardAlertComponent } from '@component/standard-alert/standard-alert
 import { PermissionDirective } from '@shared/directives/permission.directive';
 import { LazyForDirective } from '@shared/directives/lazy-for.directive';
 
+// Pipe
+import { AsPipe } from '@shared/pipes/as.pipe';
+
+
 const ClrModules = [ClarityModule];
 const Directives = [PermissionDirective, LazyForDirective];
+const Pipes = [AsPipe];
 
 @NgModule({
-  declarations: [AppAlertComponent, StandardAlertComponent, ...Directives],
+  declarations: [AppAlertComponent, StandardAlertComponent, ...Directives, ...Pipes],
   imports: [CommonModule, ...ClrModules],
   exports: [
     AppAlertComponent,
     StandardAlertComponent,
     ...Directives,
+    ...Pipes,
     ...ClrModules
   ]
 })
