@@ -1,0 +1,82 @@
+<h1>Audit Logs</h1>
+<!-- Search -->
+<div style="margin-bottom: 24px;">
+  <form class="clr-form-compact" clrForm clrLayout="horizontal" [formGroup]="filterForm">
+      <clr-date-container>
+        <label>Start Date</label>
+        <input formControlName="StartDateTime" type="date" clrDate name="StartDateTime" [disabled]="loadData" />
+      </clr-date-container>
+      <clr-date-container>
+        <label>End Date</label>
+        <input formControlName="EndDateTime" type="date" clrDate name="EndDateTime" [disabled]="loadData" />
+      </clr-date-container>
+      <clr-datalist-container>
+        <label>Operator</label>
+        <input formControlName="Operator" clrDatalistInput name="Operator" />
+        <datalist>
+  <!--        <option *ngFor="let item of appNameList" [value]="item"></option>-->
+        </datalist>
+      </clr-datalist-container>
+    </form>
+  <button class="btn btn-primary" [clrLoading]="submitBtnState"  style="margin-top: 16px;" (click)="submit()">
+    <clr-icon shape="search"></clr-icon>
+    Query
+  </button>
+</div>
+
+<!-- Data List -->
+<clr-datagrid [clrDgLoading]="loadData">
+
+  <!-- Columns -->
+  <clr-dg-column [clrDgField]="'operator'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Operator
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'resource'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Resource
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'operation'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Operation
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'command'">
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      Command
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'response'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Response
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'created'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Created
+    </ng-container>
+  </clr-dg-column>
+
+  <!-- Row Data -->
+  <clr-dg-row *clrDgItems="let log of logs.data" [clrDgItem]="log">
+    <clr-dg-cell>{{log.operator}}</clr-dg-cell>
+    <clr-dg-cell>{{log.resource}}</clr-dg-cell>
+    <clr-dg-cell>{{log.operation}}</clr-dg-cell>
+    <clr-dg-cell>{{log.command}}</clr-dg-cell>
+    <clr-dg-cell>{{log.response}}</clr-dg-cell>
+    <clr-dg-cell>{{log.created | date:'short':'+1600'}}</clr-dg-cell>
+  </clr-dg-row>
+
+  <!-- Placeholder -->
+  <clr-dg-placeholder>There's no Logs</clr-dg-placeholder>
+
+  <!-- Footer -->
+  <clr-dg-footer>
+    <clr-dg-pagination #l> <!--[clrDgTotalItems]="total"-->
+      <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Events per page</clr-dg-page-size>
+      {{l.firstItem + 1}} - {{l.lastItem + 1}} of {{logs.count}} events
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>
