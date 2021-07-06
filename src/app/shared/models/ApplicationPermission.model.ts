@@ -7,6 +7,10 @@ export abstract class Permission {
       Unblock: 'SendGrid.FailureMail.Unblock'
     }
   };
+  public static AuditLog = {
+    ALL: ['AuditLog.Query'],
+    Query: 'AuditLog.Query',
+  };
   public static User = {
     ALL: ['User.Read', 'User.Add', 'User.Edit', 'User.Delete'],
     Read: 'User.Read',
@@ -40,6 +44,7 @@ export abstract class Permission {
 }
 
 export const PermissionList = [
+  ...Permission.AuditLog.ALL,
   ...Permission.Azure.Resource.ALL,
   ...Permission.Azure.VM.ALL,
   ...Permission.Azure.WebApps.ALL,

@@ -35,6 +35,12 @@ export class SidenavComponent implements OnInit {
           shape: 'users',
           displayName: 'Group',
           permission: [...Permission.Role.ALL]
+        },
+        {
+          routerLink: 'system/log',
+          shape: 'list',
+          displayName: 'Audit Logs',
+          permission: [...Permission.AuditLog.ALL]
         }
       ]
     },
