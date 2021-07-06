@@ -40,6 +40,14 @@ export interface VM {
   osType: string;
   ipAddress: string;
 }
+export interface AuditLog {
+  operator: string;
+  resource: string;
+  operation: string;
+  command: string;
+  response: number;
+  created: string;
+}
 export interface AzureStatusMessage {
   code: string;
   message: string;

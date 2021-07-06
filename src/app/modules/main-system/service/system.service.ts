@@ -63,5 +63,10 @@ export class SystemService {
     return this.http
       .delete<SimpleResponse<string>>(`${accountUrl}/role/${roleId}`);
   }
+  getAuditLog(query: Partial<AuditLogQuery>): Observable<PaginationResponse<AuditLog[]>> {
+    return this.http.get<PaginationResponse<AuditLog[]>>(`${logUrl}`, {
+      params: new HttpParams({fromObject: query})
+    });
+  }
 
 }
