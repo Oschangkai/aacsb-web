@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { CdsIconModule } from '@cds/angular';
+
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 
@@ -19,7 +21,6 @@ import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail
 import { FailureMailResolver } from '@module/main/services/failure-mail.resolver';
 import { FailureMailService } from '@module/main/services/failure-mail.service';
 import { SharedModule } from '@shared/shared.module';
-import {CdsIconModule} from '@cds/angular';
 
 const Pages = [
   MainPageComponent, FailureMailPageComponent

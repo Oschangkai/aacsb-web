@@ -75,7 +75,7 @@ export class FailureMailPageComponent implements OnInit, OnDestroy {
 
     this.failureMailService.query(new HttpParams({fromObject: params}))
       .subscribe(res => {
-        this.failureMailEvents = res.data as ResponseData<FailureMailEvents>;
+        this.failureMailEvents = res.data;
       });
   }
   unblock(): void {

@@ -4,7 +4,7 @@ export type BaseResponse = {
 };
 export type SimpleResponse<T> = {
   errors?: string;
-  data: ResponseData<T> | T[] | T;
+  data: T;
   count: number;
 } & BaseResponse;
 

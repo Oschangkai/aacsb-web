@@ -99,7 +99,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
   load(): void {
     this.systemService.getUsers().subscribe(response => {
-      this.users.data = [...response.data as Users[]];
+      this.users.data = [...response.data];
       this.users.count = response.count;
       this.userDetail = {};
     });

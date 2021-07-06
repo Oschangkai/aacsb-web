@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {SimpleResponse} from '@model/response.model';
+import {ResponseData, SimpleResponse} from '@model/response.model';
 import {FailureMailEvents} from '@model/query.response.model';
 import { environment } from '@environment/environment';
 
@@ -18,9 +18,9 @@ export class FailureMailService {
       .get<SimpleResponse<FailureMailEvents>>(`${baseUrl}/${MANAGEMENT}/failureMails`, {params: new HttpParams().append('page', '1').append('pageSize', '1000')});
   }
 
-  query(params: HttpParams = new HttpParams()): Observable<SimpleResponse<FailureMailEvents>> {
+  query(params: HttpParams = new HttpParams()): Observable<SimpleResponse<ResponseData<FailureMailEvents>>> {
     return this.http
-      .get<SimpleResponse<FailureMailEvents>>(`${baseUrl}/${MANAGEMENT}/failureMails`, { params });
+      .get<SimpleResponse<ResponseData<FailureMailEvents>>>(`${baseUrl}/${MANAGEMENT}/failureMails`, { params });
   }
 
   unblock(list: {email: string, category: string}[]): Observable<any> {

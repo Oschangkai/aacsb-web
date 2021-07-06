@@ -98,7 +98,7 @@ export class RolePageComponent implements OnInit, OnDestroy {
 
   load(): void {
     this.systemService.getRoles().subscribe(response => {
-      this.roles.data = [...response.data as Roles[]];
+      this.roles.data = [...response.data];
       this.roles.count = response.count;
       this.roleDetail = {};
     });
