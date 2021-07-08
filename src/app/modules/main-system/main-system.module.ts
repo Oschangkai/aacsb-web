@@ -9,7 +9,6 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { RolePageComponent } from './pages/role-page/role-page.component';
 import { AuditLogPageComponent } from './pages/audit-log-page/audit-log-page.component';
 
-
 // Modals
 import { AddRoleModalComponent } from './components/add-role-modal.component';
 import { EditRoleModalComponent } from './components/edit-role-modal.component';

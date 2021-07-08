@@ -10,8 +10,8 @@ import { SystemService } from '@module/main-system/service/system.service';
 import { AlertService } from '@service/alert.service';
 import { AuditLogQuery } from '@model/query.model';
 import { FormControl, FormGroup } from '@angular/forms';
-import {removeEmptyProperty} from '@utils/converter';
-import {ClrLoadingState} from '@clr/angular';
+import { removeEmptyProperty } from '@utils/converter';
+import { ClrDatagridStateInterface, ClrLoadingState } from '@clr/angular';
 
 @Component({
   selector: 'app-audit-log-page',
@@ -44,13 +44,12 @@ export class AuditLogPageComponent implements OnInit, OnDestroy {
     Operator: new FormControl()
   });
   filter: Partial<AuditLogQuery> = { ...this.filterForm.value, PageNumber: 1, PageSize: 10 };
-  logs: PaginationResponse<AuditLog[]> = { data: [] as AuditLog[], count: 0, pageNumber: 1, pageSize: 10, succeeded: false, message: '' };
+  logs: PaginationResponse<AuditLog[]> = { data: [], count: 0, pageNumber: 1, pageSize: 10, succeeded: false, message: '' };
 
   ngOnInit(): void {
     this.route.data.subscribe(
       ({ response }) => {
         this.logs = {...response};
-        this.logs.count = response.data.length;
       }
     );
   }
@@ -67,8 +66,21 @@ export class AuditLogPageComponent implements OnInit, OnDestroy {
     params = removeEmptyProperty({...params});
     this.systemService.getAuditLog(params).subscribe(response => {
       this.logs = {...response};
-      this.logs.count = response.data.length;
     });
+  }
+  refresh(state: ClrDatagridStateInterface): void {
+    if (this.filter.PageSize === state.page?.size && this.filter.PageNumber === state.page?.current) {
+      return;
+    }
+    // const filters: { [prop: string]: any[] } = {};
+    // if (state.filters) {
+    //   for (const filter of state.filters) {
+    //     const { property, value } = filter as { property: string; value: string };
+    //     filters[property] = [value];
+    //   }
+    // }
+    this.filter = { ...this.filter, PageNumber: state.page?.current, PageSize: state.page?.size };
+    this.load();
   }
   ngOnDestroy(): void {
     this.httpStateSubscription.unsubscribe();

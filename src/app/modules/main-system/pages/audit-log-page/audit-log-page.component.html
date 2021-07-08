@@ -25,7 +25,7 @@
 </div>
 
 <!-- Data List -->
-<clr-datagrid [clrDgLoading]="loadData">
+<clr-datagrid [clrDgLoading]="loadData" (clrDgRefresh)="refresh($event)">
 
   <!-- Columns -->
   <clr-dg-column [clrDgField]="'operator'">
@@ -60,7 +60,7 @@
   </clr-dg-column>
 
   <!-- Row Data -->
-  <clr-dg-row *clrDgItems="let log of logs.data" [clrDgItem]="log">
+  <clr-dg-row *ngFor="let log of logs.data">
     <clr-dg-cell>{{log.operator}}</clr-dg-cell>
     <clr-dg-cell>{{log.resource}}</clr-dg-cell>
     <clr-dg-cell>{{log.operation}}</clr-dg-cell>
@@ -74,9 +74,8 @@
 
   <!-- Footer -->
   <clr-dg-footer>
-    <clr-dg-pagination #l> <!--[clrDgTotalItems]="total"-->
-      <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Events per page</clr-dg-page-size>
-      {{l.firstItem + 1}} - {{l.lastItem + 1}} of {{logs.count}} events
+    <clr-dg-pagination #pagination [clrDgTotalItems]="logs.count">
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} Logs
     </clr-dg-pagination>
   </clr-dg-footer>
 </clr-datagrid>
