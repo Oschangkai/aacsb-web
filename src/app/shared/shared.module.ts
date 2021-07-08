@@ -13,6 +13,9 @@ import { LazyForDirective } from '@shared/directives/lazy-for.directive';
 // Pipe
 import { AsPipe } from '@shared/pipes/as.pipe';
 
+// prototypes
+import './utils/prototypes/Date.prototype';
+
 
 const ClrModules = [ClarityModule];
 const Directives = [PermissionDirective, LazyForDirective];

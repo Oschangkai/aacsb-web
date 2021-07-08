@@ -9,7 +9,7 @@ import { CoreModule } from '@core/core.module';
 
 import { NgProgressModule } from 'ngx-progressbar';
 import { NgProgressRouterModule } from 'ngx-progressbar/router';
-import {NgProgressHttpModule} from 'ngx-progressbar/http';
+import { NgProgressHttpModule } from 'ngx-progressbar/http';
 
 @NgModule({
   declarations: [
