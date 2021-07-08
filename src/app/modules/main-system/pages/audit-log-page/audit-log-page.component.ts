@@ -61,7 +61,7 @@ export class AuditLogPageComponent implements OnInit, OnDestroy {
   load(): void {
     let params: any = {...this.filter};
     params.StartDateTime = params.StartDateTime ? new Date(params.StartDateTime).toISOString() : null;
-    params.EndDateTime = params.EndDateTime ? new Date(params.EndDateTime).toISOString() : null;
+    params.EndDateTime = params.EndDateTime ? new Date(params.EndDateTime).addDays(1).toISOString() : null;
 
     params = removeEmptyProperty({...params});
     this.systemService.getAuditLog(params).subscribe(response => {

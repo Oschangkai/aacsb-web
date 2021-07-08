@@ -70,7 +70,7 @@ export class FailureMailPageComponent implements OnInit, OnDestroy {
   load(): void {
     let params: any = {...this.query};
     params.startTimestamp = Math.floor(new Date(params.startTimestamp).getTime() / 1000) || null;
-    params.endTimestamp = Math.floor(new Date(params.endTimestamp).getTime() / 1000) || null;
+    params.endTimestamp = Math.floor(new Date(params.endTimestamp).addDays(1).getTime() / 1000) || null;
     params = removeEmptyProperty({...params});
 
     this.failureMailService.query(new HttpParams({fromObject: params}))
