@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Permission } from '@model/ApplicationPermission.model';
-import {SideMenu} from '@model/SideMenu.model';
+import { SideMenu } from '@model/SideMenu.model';
 
 @Component({
   selector: 'app-sidenav',

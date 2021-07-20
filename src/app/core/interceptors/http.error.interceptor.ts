@@ -1,12 +1,12 @@
-import {Injectable, Injector} from '@angular/core';
-import {Router} from '@angular/router';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   HttpInterceptor, HttpRequest,
   HttpHandler, HttpEvent, HttpErrorResponse
 } from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import {AlertService} from '@service/alert.service';
+import { AlertService } from '@service/alert.service';
 
 
 @Injectable()

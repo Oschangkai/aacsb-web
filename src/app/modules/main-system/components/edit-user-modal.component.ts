@@ -1,13 +1,13 @@
-import {Component, Input, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {NgProgress} from 'ngx-progressbar';
-import {BehaviorSubject, Subscription} from 'rxjs';
-import {takeWhile} from 'rxjs/operators';
-import {ClrLoadingState} from '@clr/angular';
+import { NgProgress } from 'ngx-progressbar';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
+import { ClrLoadingState } from '@clr/angular';
 
-import {Roles, User} from '@model/query.response.model';
-import {SystemService} from '@module/main-system/service/system.service';
+import { Roles, User } from '@model/query.response.model';
+import { SystemService } from '@module/main-system/service/system.service';
 
 @Component({
   selector: 'app-user-edit-modal',

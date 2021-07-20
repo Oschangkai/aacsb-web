@@ -1,14 +1,14 @@
-import {Component, Input, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {NgProgress} from 'ngx-progressbar';
-import {BehaviorSubject, Subscription} from 'rxjs';
-import {takeWhile} from 'rxjs/operators';
-import {ClrLoadingState} from '@clr/angular';
+import { NgProgress } from 'ngx-progressbar';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
+import { ClrLoadingState } from '@clr/angular';
 
-import {Role} from '@model/query.response.model';
+import { Role } from '@model/query.response.model';
 
-import {PermissionList} from '@model/ApplicationPermission.model';
+import { PermissionList } from '@model/ApplicationPermission.model';
 
 @Component({
   selector: 'app-role-edit-modal',

@@ -1,8 +1,8 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Alert, AlertDuration, AlertType} from '@model/alert.model';
-import {Subscription} from 'rxjs';
-import {NavigationStart, Router} from '@angular/router';
-import {AlertService} from '@service/alert.service';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Alert } from '@model/alert.model';
+import { Subscription } from 'rxjs';
+import { NavigationStart, Router } from '@angular/router';
+import { AlertService } from '@service/alert.service';
 
 @Component({
   selector: 'app-standard-alert',

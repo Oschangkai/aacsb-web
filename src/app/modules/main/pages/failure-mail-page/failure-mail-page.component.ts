@@ -1,18 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
-import {HttpParams} from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 
-import {Subscription} from 'rxjs';
-import {ClrDatagridStateInterface, ClrLoadingState} from '@clr/angular';
-import {NgProgress} from 'ngx-progressbar';
+import { Subscription } from 'rxjs';
+import { ClrDatagridStateInterface, ClrLoadingState } from '@clr/angular';
+import { NgProgress } from 'ngx-progressbar';
+
+import { FailureMailService } from '@module/main/services/failure-mail.service';
+import { AlertService } from '@service/alert.service';
 
 import { FailureMailEvents } from '@model/query.response.model';
 import { ResponseData } from '@model/response.model';
 import { Permission } from '@model/ApplicationPermission.model';
-import { FailureMailService } from '@module/main/services/failure-mail.service';
 import { removeEmptyProperty } from '@utils/converter';
-import {AlertService} from '@service/alert.service';
 
 @Component({
   selector: 'app-failure-mail-page',

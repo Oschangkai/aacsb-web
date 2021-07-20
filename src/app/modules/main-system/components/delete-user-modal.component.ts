@@ -1,11 +1,11 @@
-import {Component, Input, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, Input, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {NgProgress} from 'ngx-progressbar';
-import {Subscription} from 'rxjs';
-import {ClrLoadingState} from '@clr/angular';
+import { NgProgress } from 'ngx-progressbar';
+import { Subscription } from 'rxjs';
+import { ClrLoadingState } from '@clr/angular';
 
-import {Users} from '@model/query.response.model';
+import { Users } from '@model/query.response.model';
 
 @Component({
   selector: 'app-user-delete-modal',

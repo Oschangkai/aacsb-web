@@ -1,15 +1,15 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import {NgProgress} from 'ngx-progressbar';
-import {Subscription} from 'rxjs';
+import { NgProgress } from 'ngx-progressbar';
+import { Subscription } from 'rxjs';
 
-import {AlertService} from '@service/alert.service';
-import {SystemService} from '@module/main-system/service/system.service';
+import { AlertService } from '@service/alert.service';
+import { SystemService } from '@module/main-system/service/system.service';
 
-import {Permission} from '@model/ApplicationPermission.model';
-import {ResponseData} from '@model/response.model';
-import {User, Users} from '@model/query.response.model';
+import { Permission } from '@model/ApplicationPermission.model';
+import { ResponseData } from '@model/response.model';
+import { User, Users } from '@model/query.response.model';
 
 @Component({
   selector: 'app-user',
@@ -57,7 +57,7 @@ export class UserPageComponent implements OnInit, OnDestroy {
     this.selected = {...user};
 
     this.systemService.getUser(user.id).subscribe(response => {
-      this.userDetail[user.id] = response.data as User;
+      this.userDetail[user.id] = response.data;
     });
   }
   onDeleteClicked(user: Users): void {

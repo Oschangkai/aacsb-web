@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {ResponseData, SimpleResponse} from '@model/response.model';
-import {FailureMailEvents} from '@model/query.response.model';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ResponseData, SimpleResponse } from '@model/response.model';
+import { FailureMailEvents } from '@model/query.response.model';
 import { environment } from '@environment/environment';
 
 const baseUrl = environment.api;

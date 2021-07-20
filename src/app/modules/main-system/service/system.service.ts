@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {PaginationResponse, SimpleResponse} from '@model/response.model';
-import {AuditLog, Role, Roles, User, Users} from '@model/query.response.model';
+import { PaginationResponse, SimpleResponse } from '@model/response.model';
+import { AuditLog, Role, Roles, User, Users } from '@model/query.response.model';
 import { environment } from '@environment/environment';
-import {AuditLogQuery} from '@model/query.model';
+import { AuditLogQuery } from '@model/query.model';
 
 const accountUrl = `${environment.api}/account`;
 const logUrl = `${environment.api}/System/AuditLog`;

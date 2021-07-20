@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {AzureStatusMessage, VM, WebAppInstance, WebAppInstanceStatus, WebApps} from '@model/query.response.model';
+import { AzureStatusMessage, VM, WebAppInstance, WebAppInstanceStatus, WebApps } from '@model/query.response.model';
 import { environment } from '@environment/environment';
-import {tap} from 'rxjs/operators';
 
 const baseUrl = `${environment.api}/azure`;
 const webappUrl = `${baseUrl}/webapp`;

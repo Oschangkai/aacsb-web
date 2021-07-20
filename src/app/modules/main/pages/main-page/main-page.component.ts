@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {AlertService} from '@service/alert.service';
 
 @Component({
   selector: 'app-main-page',

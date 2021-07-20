@@ -1,9 +1,9 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { UserService } from '@service/user.service';
-import {environment} from '@environment/environment';
+import { environment } from '@environment/environment';
 
 let token: string | null = null;
 
