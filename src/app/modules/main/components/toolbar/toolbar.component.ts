@@ -1,8 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {UserService} from '@service/user.service';
-import {Router} from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
-import {User} from '@model/User.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { UserService } from '@service/user.service';
+import { User } from '@model/User.model';
 
 @Component({
   selector: 'app-toolbar',
@@ -11,22 +13,26 @@ import {User} from '@model/User.model';
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
 
+  private destroy$: Subject<void> = new Subject<void>();
+
   constructor(
     private userService: UserService,
     private router: Router
   ) {
     this.user = new User();
-    this.subscription = this.userService.currentUser.subscribe(u => this.user = u);
+    this.userService.currentUser
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(u => this.user = u);
   }
 
   openDropdown = false;
-  subscription: Subscription;
   user: User;
 
   ngOnInit(): void { }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   logout(): void {
