@@ -53,7 +53,10 @@ export class UserService implements OnDestroy {
   public isLoggedIn = this.isLoginSubject$.asObservable().pipe(distinctUntilChanged());
 
   private hasValidToken(): boolean {
-    return this.getUser() && this.getUser().expiredOn > (new Date().getTime() / 1000);
+    return this.getUser() &&
+      !!this.getUser().token &&
+      !!this.getUser().refreshToken &&
+      this.getUser().expiredOn > (new Date().getTime() / 1000);
   }
 
   private getUser(): User {
