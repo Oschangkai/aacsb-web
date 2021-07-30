@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
           id: params.id,
           email: params.email,
           token: params.token,
+          refreshToken: params.refresh_token,
+          expiredOn: params.expired_on,
           username: params.username
         }));
 

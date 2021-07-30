@@ -18,9 +18,14 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       'Content-Type': 'application/json',
       Accept: 'application/json'
     };
-    const isApiUrl = req.url.startsWith(environment.api);
+    const urlPath = req.url.split(environment.api)[1];
 
-    if (token && isApiUrl) {
+    // WhiteList
+    const isApiUrl = req.url.startsWith(environment.api);
+    // BlackList
+    const isLogoutPath = urlPath.includes('/logout');
+
+    if (token && isApiUrl && !isLogoutPath) {
       headersConfig.Authorization = `Bearer ${token}`;
     }
 
