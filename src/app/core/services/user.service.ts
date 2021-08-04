@@ -84,7 +84,7 @@ export class UserService implements OnDestroy {
   refreshToken(): Observable<SimpleResponse<AuthenticateInformation>> {
     const body = {
       type: TokenExchangeTypes.RefreshToken,
-      token: this.getUser().refreshToken
+      token: this.getUser()?.refreshToken
     };
     return this.http
       .post<SimpleResponse<AuthenticateInformation>>(`${accountUrl}/token`, { ...body })
