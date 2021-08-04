@@ -61,6 +61,17 @@ export interface FailureMailEvents {
   status: string;
 }
 
+export interface AuthenticateInformation {
+  id: string;
+  userName: string;
+  email: string;
+  roles: string[];
+  isVerified: boolean;
+  jwToken: string;
+  refreshToken: string;
+  expireOn: number;
+}
+
 export interface Users {
   id: string;
   firstName: string;
