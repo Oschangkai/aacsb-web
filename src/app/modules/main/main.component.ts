@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {NgProgress, NgProgressRef} from 'ngx-progressbar';
+import { NgProgress, NgProgressRef} from 'ngx-progressbar';
+import { UserService } from '@service/user.service';
 
 @Component({
   selector: 'app-main',
@@ -8,10 +9,11 @@ import {NgProgress, NgProgressRef} from 'ngx-progressbar';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private ngProgress: NgProgress) { }
+  constructor(private userService: UserService, private ngProgress: NgProgress) { }
   progressRef: NgProgressRef = this.ngProgress.ref('http-load');
 
   ngOnInit(): void {
+    this.userService.deleteAllCookies();
   }
 
 }
