@@ -1,14 +1,18 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {UserService} from '@service/user.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {User} from '@model/User.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
+
+import { User } from '@model/User.model';
+import { UserService } from '@service/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
@@ -20,9 +24,12 @@ export class LoginComponent implements OnInit {
   message: string|null = null;
   params: any;
   isCallback = false;
+  isLoggedIn = false;
+
+  private destroy$: Subject<void> = new Subject<void>();
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.pipe(takeUntil(this.destroy$)).subscribe(params => {
       this.params = params;
       if (params && params.token) {
         this.isCallback = true;
@@ -35,13 +42,22 @@ export class LoginComponent implements OnInit {
           expiredOn: params.expired_on,
           username: params.username
         }));
-
-        if (params.path) {
-          this.router.navigate([params.path]);
-        } else {
-          this.router.navigate(['/']);
-        }
+        this.userService.isLoggedIn
+          .pipe(
+            takeUntil(this.destroy$),
+            filter(state => state)
+          )
+          .subscribe(ev => {
+            if (params.path) {
+              this.router.navigate([params.path]);
+            } else {
+              this.router.navigate(['/']);
+            }
+        });
       } else {
+        this.userService.isLoggedIn
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(state => this.isLoggedIn = state);
         this.userService.logout();
       }
       this.message = params.message;
@@ -55,4 +71,8 @@ export class LoginComponent implements OnInit {
     return false; // Avoid NS_BINDING_ABORTED
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

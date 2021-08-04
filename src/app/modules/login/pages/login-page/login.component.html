@@ -3,16 +3,19 @@
     <section class="title">
       <h3 class="welcome">Welcome to</h3>
       MAYO Boardroom
-      <h5 class="hint" *ngIf="!isCallback">Use your Microsoft account to sign in</h5>
+      <h5 class="hint" *ngIf="!isCallback && !isLoggedIn">Use your Microsoft account to sign in</h5>
       <h5 class="hint" *ngIf="isCallback">
         Hello {{params.username}},<br/>
         We're Logging you in, please wait...
       </h5>
+      <h5 class="hint" *ngIf="isLoggedIn">
+        We're Logging you out, please wait...
+      </h5>
     </section>
-    <div class="login-group" *ngIf="isCallback">
-      <clr-spinner *ngIf="isCallback"></clr-spinner>
+    <div class="login-group" *ngIf="isCallback || isLoggedIn">
+      <clr-spinner *ngIf="isCallback || isLoggedIn"></clr-spinner>
     </div>
-    <div class="login-group" *ngIf="!isCallback">
+    <div class="login-group" *ngIf="!isCallback && !isLoggedIn">
       <div class="error active" *ngIf="message">
         {{message}}
       </div>
