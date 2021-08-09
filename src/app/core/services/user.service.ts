@@ -89,12 +89,6 @@ export class UserService implements OnDestroy {
     return this.http
       .post<SimpleResponse<AuthenticateInformation>>(`${accountUrl}/token`, { ...body })
       .pipe(
-        catchError(err => {
-          this.router.navigate(['login'],{
-            queryParams: { message: 'Please Login Again.', path: this.router.url }
-          });
-          throw err;
-        }),
         tap(response => {
           const authInfo = response && response.data;
           if (!authInfo) { return; }
