@@ -120,24 +120,22 @@ export class VmPageComponent implements OnInit, OnDestroy {
       return statusChanged && isStableStatus;
     };
 
-    const query$ = this.azureService.getVmDetail(query).pipe(
-      tap(response => {
+    const query$ = this.azureService.getVmDetail(query).pipe(delay(35000));
+
+    const polling$ = query$.pipe(
+      expand(response => {
+        const stable = isStable(response);
         // Set state on page
         const index = this.vms.findIndex(vm => vm.id === response.vmId);
         this.vms[index].powerState = response.powerState;
-
-        // Show dialog when operation finished
-        if (isStable(response)) {
+        if (!stable) {
+          return query$;
+        } else {
+          // Show dialog when operation finished
           this.alert.success(`${response.computerName} is ${response.powerState}`);
+          return EMPTY;
         }
-      }),
-      delay(35000)
-    );
-
-    const polling$ = query$.pipe(
-      expand(response =>
-        !isStable(response) ? query$ : EMPTY
-      )
+      })
     );
 
     polling$.subscribe();
