@@ -2,7 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Alert } from '@model/alert.model';
 import { Subscription } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
+
 import { AlertService } from '@service/alert.service';
+import { GlobalStoreService } from '@service/global-store.service';
 
 @Component({
   selector: 'app-standard-alert',
@@ -18,7 +20,8 @@ export class StandardAlertComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    public alertService: AlertService
+    public alertService: AlertService,
+    public storage: GlobalStoreService
   ) { }
 
   ngOnInit(): void {
@@ -51,6 +54,7 @@ export class StandardAlertComponent implements OnInit, OnDestroy {
     this.routeSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.alertService.clear(this.id);
+        this.storage.setRoutingDestination(event.url);
       }
     });
   }

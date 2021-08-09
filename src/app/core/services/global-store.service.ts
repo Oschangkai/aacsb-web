@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 
+import * as store from 'store';
+
 /**
  * This service was created for:
  *  - store caches
@@ -22,6 +24,14 @@ export class GlobalStoreService {
 
   getHttp(url: string): HttpResponse<any> | undefined {
     return this.requests[url];
+  }
+
+  setRoutingDestination(url: string): void {
+    store.set('routingDestination', url);
+  }
+
+  getRoutingDestination(): string {
+    return store.get('routingDestination');
   }
 
   clearHttp(): void {

@@ -9,21 +9,20 @@ import { catchError, switchMap } from 'rxjs/operators';
 
 import { AlertService } from '@service/alert.service';
 import { UserService } from '@service/user.service';
+import { GlobalStoreService } from '@service/global-store.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
   constructor(
+    private storage: GlobalStoreService,
     private alert: AlertService,
     private user: UserService,
     private router: Router
   ) { }
 
   handle400Error = (error: any): Observable<any> => {
-    if (error.error && error.error.Message) {
-      this.alert.error(error.error.Message);
-    }
-    return of(null);
+    return this.handle400SeriesError(error);
   }
   handle401Error = (error: any, req: HttpRequest<any>, next: HttpHandler): Observable<any> => {
     // If error code provided
@@ -34,7 +33,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
             this.router.navigate(['/login'], {
               queryParams: {
                 message: 'Login Expired, Please Login Again.',
-                path: this.router.url
+                path: this.storage.getRoutingDestination() ?? '/'
               }
             });
           }
@@ -49,16 +48,22 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           );
         case 'NOT_AUTH':
         default:
-          this.router.navigate(['/login'], {
-            queryParams: {
-              message: error.error.Message,
-              path: this.router.url
-            }
-          });
-          return of(null);
+          return this.handle400SeriesError(error);
       }
     }
 
+    return this.handle400SeriesError(error);
+  }
+  handle400SeriesError = (error: any): Observable<any> => {
+    // If url provided
+    if (error.url) {
+      this.router.navigate(['/login'], {
+        queryParams: {
+          message: error.error.Message,
+          path: this.storage.getRoutingDestination() ?? '/'
+        }
+      });
+    }
     // If message provided
     if (error.error && error.error.Message) {
       this.alert.error(`${error.error.Message}`);
@@ -82,7 +87,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       case 500:
       case 0:
       default:
-        this.alert.error(`HTTP error with status code ${error.status} ${error.statusText}.\n${error.url}`);
+        if (error.error && error.error.Message) {
+          this.alert.error(`${error.error.Message}`);
+        } else {
+          this.alert.error(`HTTP error with status code ${error.status} ${error.statusText}.\n${error.url}`);
+        }
     }
     return of(null);
   }
