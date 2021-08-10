@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ClarityModule } from '@clr/angular';
 
 // Components
+import { AppVersionComponent } from '@component/app-version/app-version.component';
 import { AppAlertComponent } from '@component/app-alert/app-alert.component';
 import { StandardAlertComponent } from '@component/standard-alert/standard-alert.component';
 
@@ -22,9 +23,10 @@ const Directives = [PermissionDirective, LazyForDirective];
 const Pipes = [AsPipe];
 
 @NgModule({
-  declarations: [AppAlertComponent, StandardAlertComponent, ...Directives, ...Pipes],
+  declarations: [AppVersionComponent, AppAlertComponent, StandardAlertComponent, ...Directives, ...Pipes],
   imports: [CommonModule, ...ClrModules],
   exports: [
+    AppVersionComponent,
     AppAlertComponent,
     StandardAlertComponent,
     ...Directives,

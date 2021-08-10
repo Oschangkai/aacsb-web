@@ -40,6 +40,7 @@ stages:
       - script: |
           yarn global add @angular/cli@11
           yarn install
+          yarn generate
         displayName: 'yarn install'
       - script: yarn build:$(branchName)
         displayName: 'Build app $(branchName)'
