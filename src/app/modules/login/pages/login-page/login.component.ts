@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClrLoadingState } from '@clr/angular';
 
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 import { User } from '@model/User.model';
 import { UserService } from '@service/user.service';
+import { NgProgress } from 'ngx-progressbar';
 
 @Component({
   selector: 'app-login',
@@ -17,14 +19,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    private activatedRoute: ActivatedRoute,
+    private ngProgress: NgProgress
+  ) {
+    this.ngProgress.ref('http-load').state.pipe(takeUntil(this.destroy$)).subscribe(state => {
+      this.submitBtnState = state.active ? ClrLoadingState.LOADING : ClrLoadingState.DEFAULT;
+    });
+  }
 
   success: string|null = null;
   message: string|null = null;
   params: any;
   isCallback = false;
   isLoggedIn = false;
+  submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -66,6 +74,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   msSignIn(): boolean {
+    this.submitBtnState = ClrLoadingState.LOADING;
     this.userService.signInWithMicrosoft(this.params.path ?? '/');
     // https://stackoverflow.com/questions/275092/windows-location-href-not-working-on-firefox3
     return false; // Avoid NS_BINDING_ABORTED

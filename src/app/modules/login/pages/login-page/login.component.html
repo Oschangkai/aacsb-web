@@ -22,7 +22,7 @@
       <clr-alert clrAlertIcon="check-circle" [clrAlertClosable]="false" clrAlertType="success" *ngIf="success">
         {{success}}
       </clr-alert>
-      <button class="btn btn-outline ms-login-button" (click)="msSignIn()" #msSignInBtn>
+      <button class="btn btn-outline ms-login-button" (click)="msSignIn()" [clrLoading]="submitBtnState" #msSignInBtn>
         <span><img src="./assets/logos/ms.svg" alt="microsoft logo"></span>
         Sign in with Microsoft
       </button>
