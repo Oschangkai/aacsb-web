@@ -2,12 +2,12 @@
   <button
     class="btn btn-link btn-sm data-loading"
     *ngIf="alerts.length > 1"
-    (click)="alertService.clear()"
+    (click)="clearAlert()"
   >
     Clear All
   </button>
   <clr-alerts *ngFor="let alert of alerts" style="clear: both;">
-    <clr-alert [clrAlertType]=alert.type>
+    <clr-alert [clrAlertType]=alert.type (clrAlertClosedChange)="removeAlert(alert)">
       <clr-alert-item style="white-space: pre-line;">{{alert.message}}</clr-alert-item>
     </clr-alert>
   </clr-alerts>

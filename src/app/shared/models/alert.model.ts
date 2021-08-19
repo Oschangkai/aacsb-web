@@ -6,6 +6,7 @@ export class Alert {
   keepAfterRouteChange = false;
   fade = true;
   duration?: AlertDuration = AlertDuration.Default;
+  uid?: string;
   constructor(init?: Partial<Alert>) {
     Object.assign(this, init);
   }

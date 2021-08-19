@@ -1,17 +1,19 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Alert } from '@model/alert.model';
 import { Subscription } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
 
 import { AlertService } from '@service/alert.service';
 import { GlobalStoreService } from '@service/global-store.service';
 
+import { Alert, defaultId } from '@model/alert.model';
+import { uuidv4 } from '@utils/generator';
+
 @Component({
   selector: 'app-standard-alert',
   templateUrl: './standard-alert.component.html'
 })
 export class StandardAlertComponent implements OnInit, OnDestroy {
-  @Input() id = 'default-alert';
+  @Input() id = defaultId;
   @Input() fade = true;
 
   alerts: Alert[] = [];
@@ -27,17 +29,14 @@ export class StandardAlertComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // subscribe to new alert notifications
     this.alertSubscription = this.alertService.onAlert(this.id)
-      .subscribe(alert => {
+      .subscribe(a => {
+        const alert = new Alert({...a});
+        alert.uid = uuidv4();
         // clear alerts when an empty alert is received
         if (!alert.message) {
           // filter out alerts without 'keepAfterRouteChange' flag
           this.alerts = this.alerts.filter(x => x.keepAfterRouteChange);
 
-          // remove 'keepAfterRouteChange' flag on the rest
-          this.alerts.forEach(x => {
-            // @ts-ignore
-            delete x.keepAfterRouteChange;
-          });
           return;
         }
 
@@ -85,5 +84,9 @@ export class StandardAlertComponent implements OnInit, OnDestroy {
       this.alerts = this.alerts.filter(x => x !== alert);
     }
     return true;
+  }
+
+  clearAlert(): void {
+    this.alerts = [];
   }
 }

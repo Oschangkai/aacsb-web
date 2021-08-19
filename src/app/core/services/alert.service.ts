@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Alert, AlertDuration, AlertType, defaultId} from '@model/alert.model';
-import {Observable, Subject} from 'rxjs';
-import {filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Alert, AlertDuration, AlertType, defaultId } from '@model/alert.model';
+import { Observable, Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 /**
  * This service was created for handling global notifications:
@@ -68,8 +68,9 @@ export class AlertService {
   }
 
   // main alert method
-  private alert(alert: Alert): void {
-    alert.id = alert.id || this.defaultId;
+  private alert(a: Alert): void {
+    const alert = new Alert({...a});
+    alert.id = a.id || this.defaultId;
     this.subject.next(alert);
   }
 
