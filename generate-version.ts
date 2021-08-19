@@ -1,7 +1,7 @@
 const file = require('fs');
 
 const targetPath = './src/app/shared/components/app-version/app-version.component.html';
-const envConfigFile = `<span style="color: rgb(230, 230, 230); font-size: 12px;">
+const envConfigFile = `<span style="color: rgb(236, 236, 236); font-size: 12px; cursor: default;">
   ${process.env.version}
 </span>
 `;
