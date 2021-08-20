@@ -44,6 +44,7 @@ stages:
       - script: |
           yarn generate
           yarn build:$(branchName)
+        env: { version: $(version) }
         displayName: 'Build app $(branchName)'
       - task: ArchiveFiles@2
         inputs:
