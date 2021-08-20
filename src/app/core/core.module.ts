@@ -23,7 +23,7 @@ registerLocaleData(localeZhHant);
     AuthGuard,
     {
       provide: APP_INITIALIZER,
-      useFactory: (init: InitializerService) => () => init.wakeUpSql(3800).toPromise(),
+      useFactory: (init: InitializerService) => () => init.wakeUpSql(9870).toPromise(),
       deps: [InitializerService],
       multi: true
     },
