@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+import { catchError, timeout } from 'rxjs/operators';
+
 import { environment } from '@environment/environment';
 import { GlobalStoreService } from '@service/./global-store.service';
+import { of, Observable } from 'rxjs';
 
 const apiDomain = environment.api.replace('/api', '');
 
@@ -15,10 +18,12 @@ export class InitializerService {
     private store: GlobalStoreService
   ) { }
 
-  wakeUpSql(): Promise<void> {
+  wakeUpSql(wait: number = 100000): Observable<void> {
     return this.http.get<void>(`${apiDomain}/wake`)
-      .pipe()
-      .toPromise();
+      .pipe(
+        timeout(wait),
+        catchError(err => of(void 0))
+      );
   }
 
   checkTokenExpiration(): Promise<void> {

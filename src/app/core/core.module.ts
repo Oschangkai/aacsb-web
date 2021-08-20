@@ -2,6 +2,8 @@ import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, Optional, SkipSelf 
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeZhHant from '@angular/common/locales/zh-Hant';
 
+import {catchError, timeout} from 'rxjs/operators';
+
 import { EnsureModuleLoadedOnceGuard } from './ensureModuleLoadedOnceGuard';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -21,7 +23,7 @@ registerLocaleData(localeZhHant);
     AuthGuard,
     {
       provide: APP_INITIALIZER,
-      useFactory: (init: InitializerService) => () => init.wakeUpSql(),
+      useFactory: (init: InitializerService) => () => init.wakeUpSql(3800).toPromise(),
       deps: [InitializerService],
       multi: true
     },
