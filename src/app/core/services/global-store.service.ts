@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 
 import * as store from 'store';
+import { User } from '@model/User.model';
 
 /**
  * This service was created for:
@@ -37,4 +38,13 @@ export class GlobalStoreService {
   clearHttp(): void {
     this.requests = { };
   }
+
+  getUser(): User {
+    return store.get('user');
+  }
+
+  clearAll(): void {
+    store.clearAll();
+  }
+
 }

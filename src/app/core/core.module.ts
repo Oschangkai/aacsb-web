@@ -1,4 +1,4 @@
-import {ErrorHandler, LOCALE_ID, NgModule, Optional, SkipSelf} from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeZhHant from '@angular/common/locales/zh-Hant';
 
@@ -8,8 +8,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpTokenInterceptor } from './interceptors/http.token.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http.error.interceptor';
 import { HttpCacheInterceptor } from './interceptors/http.cache.interceptor';
+import { InitializerService } from '@service/initializer.service';
 import { ErrorService } from '@service/error.service';
-import {AuthGuard} from '@core/guards/auth.guard';
+import { AuthGuard } from '@core/guards/auth.guard';
 
 // set zh-hant
 registerLocaleData(localeZhHant);
@@ -18,6 +19,18 @@ registerLocaleData(localeZhHant);
   declarations: [],
   providers: [
     AuthGuard,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (init: InitializerService) => () => init.wakeUpSql(),
+      deps: [InitializerService],
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (init: InitializerService) => () => init.checkTokenExpiration(),
+      deps: [InitializerService],
+      multi: true
+    },
     { provide: ErrorHandler, useClass: ErrorService },
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
