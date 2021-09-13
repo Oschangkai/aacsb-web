@@ -42,7 +42,7 @@ export class UserService implements OnDestroy {
       .subscribe(u => {
         this.currentPermissionSubject$.next(this.getPermission());
         if (u && u.token) {
-          this.isLoginSubject$.next(this.hasValidToken() && !!this.currentPermission);
+          this.isLoginSubject$.next(this.hasValidToken());
         }
       });
   }
@@ -50,7 +50,7 @@ export class UserService implements OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
 
   private currentUserSubject$ = new BehaviorSubject<User>(this.getUser() ?? new User());
-  private currentPermissionSubject$ = new BehaviorSubject<string[]>(this.getPermission() ?? undefined);
+  private currentPermissionSubject$ = new BehaviorSubject<string[]>(this.getPermission() ?? []);
   private isLoginSubject$ = new BehaviorSubject<boolean>(this.hasValidToken());
 
   public currentUser = this.currentUserSubject$.asObservable().pipe(distinctUntilChanged());
@@ -78,7 +78,13 @@ export class UserService implements OnDestroy {
     const token = this.getUser().token;
     const permission = jwtDecode<ApplicationToken>(token)[ApplicationClaimTypes.Permission];
 
-    return Array.isArray(permission) ? permission : [permission];
+    if (Array.isArray(permission)) {
+      return permission;
+    } else if (!permission) {
+      return [];
+    } else {
+      return [permission];
+    }
   }
 
   refreshToken(): Observable<SimpleResponse<AuthenticateInformation>> {

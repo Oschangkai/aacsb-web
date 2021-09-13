@@ -56,14 +56,13 @@ export class PermissionDirective implements OnInit {
   private checkPermission(): boolean {
     let hasPermission = false;
 
-    if (this.currentPermission) {
-      for (const checkPermission of this.permissions) {
+    for (const checkPermission of this.permissions) {
+      if (checkPermission === Permission.ALL) {
+        hasPermission = true;
+        break;
+      }
 
-        if (checkPermission === Permission.ALL) {
-          hasPermission = true;
-          break;
-        }
-
+      if (this.currentPermission.length) {
         const permissionFound = this.currentPermission.find(x => x.toUpperCase() === checkPermission.toUpperCase());
 
         if (permissionFound) {
