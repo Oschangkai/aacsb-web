@@ -11,7 +11,5 @@ export class AppComponent implements OnInit{
 
   constructor(private init: InitializerService) { }
 
-  ngOnInit(): void {
-    this.init.wakeUpSql().subscribe();
-  }
+  ngOnInit(): void { }
 }
