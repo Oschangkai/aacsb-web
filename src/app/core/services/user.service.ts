@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { catchError, distinctUntilChanged, takeUntil, tap } from 'rxjs/operators';
+import { distinctUntilChanged, takeUntil, tap } from 'rxjs/operators';
 
 import jwtDecode from 'jwt-decode';
 import * as store from 'store';

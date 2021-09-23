@@ -2,8 +2,6 @@ import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, Optional, SkipSelf 
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeZhHant from '@angular/common/locales/zh-Hant';
 
-import {catchError, timeout} from 'rxjs/operators';
-
 import { EnsureModuleLoadedOnceGuard } from './ensureModuleLoadedOnceGuard';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -12,6 +10,8 @@ import { HttpErrorInterceptor } from './interceptors/http.error.interceptor';
 import { HttpCacheInterceptor } from './interceptors/http.cache.interceptor';
 import { InitializerService } from '@service/initializer.service';
 import { ErrorService } from '@service/error.service';
+import { EnvironmentService } from '@service/environment.service';
+import { EnvironmentServiceFactory } from '@service/environment.service.factory';
 import { AuthGuard } from '@core/guards/auth.guard';
 
 // set zh-hant
@@ -37,7 +37,8 @@ registerLocaleData(localeZhHant);
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpCacheInterceptor, multi: true },
-    { provide: LOCALE_ID, useValue: 'zh-Hant' }
+    { provide: LOCALE_ID, useValue: 'zh-Hant' },
+    { provide: EnvironmentService, useFactory: EnvironmentServiceFactory }
   ],
   imports: [CommonModule, HttpClientModule],
 })
