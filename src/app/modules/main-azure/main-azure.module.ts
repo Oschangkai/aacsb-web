@@ -11,6 +11,7 @@ import { VmPageComponent } from './pages/vm-page/vm-page.component';
 // Components
 import { WebappDetailCardComponent } from './components/webapp-detail-card.component';
 import { VmOperationConfirmModalComponent } from './components/vm-operation-confirm-modal.component';
+import { RestartWebappInstanceModalComponent } from './components/restart-webapp-instance-modal.component';
 
 // Modals
 
@@ -24,7 +25,7 @@ import { CdsDividerModule } from '@cds/angular';
 
 const Pages = [WebappInsightsPageComponent, VmPageComponent];
 const Resolvers = [WebappInsightsResolver, VmResolver];
-const Components = [WebappDetailCardComponent, VmOperationConfirmModalComponent];
+const Components = [WebappDetailCardComponent, RestartWebappInstanceModalComponent, VmOperationConfirmModalComponent];
 
 const CdsModules = [CdsDividerModule];
 

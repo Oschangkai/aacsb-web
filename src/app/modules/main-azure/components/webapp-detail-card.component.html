@@ -7,7 +7,12 @@
   <p class="p4" style="margin-top: 0.4rem">Region</p>
   <span class="card-text">{{webapp.regionName}}</span>
   <!-- Instances -->
-  <p class="p4" style="margin-top: 0.4rem">Instances</p>
+  <p class="p4" style="margin-top: 0.4rem">
+    Instances
+    <span style="float: right;" *ngIf="showDetail">
+      <clr-icon size="13" shape="refresh" style="margin-top: -0.1rem; cursor: pointer" (click)="onReloadClicked()"></clr-icon>
+    </span>
+  </p>
   <!-- No instance -->
   <p class="card-text" *ngIf="!showDetail; else detail">
     <button class="btn btn-link btn-sm" (click)="onLoadClicked()">Click to Load Data</button>
@@ -57,3 +62,10 @@
 
   </ng-template>
 </div>
+
+<app-restart-webapp-instance-modal
+  *ngIf="modalOpened"
+  [(opened)]="modalOpened"
+  [selected]="selected"
+  (onSubmit)="restart()">
+</app-restart-webapp-instance-modal>

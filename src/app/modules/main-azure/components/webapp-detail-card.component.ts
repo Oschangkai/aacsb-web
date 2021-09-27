@@ -23,6 +23,8 @@ export class WebappDetailCardComponent implements OnInit {
   // states
   showDetail = false;
   restarting = false;
+  modalOpened = false;
+  selected: {farmId: string, workerName: string} = {farmId: '', workerName: ''};
   submitBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
 
   // data
@@ -47,15 +49,29 @@ export class WebappDetailCardComponent implements OnInit {
     this.azureService.getInstanceStatus(this.webapp.id).subscribe(s => this.instanceStatus = s);
   }
 
+  onReloadClicked(): void {
+    this.instances = undefined;
+    this.instanceStatus = undefined;
+    this.azureService.getInstances(this.webapp.id).subscribe(i => this.instances = i);
+    this.azureService.getInstanceStatus(this.webapp.id).subscribe(s => this.instanceStatus = s);
+  }
+
   onRestartClicked(farmId: string, workerName: string): void {
+    this.selected = {farmId, workerName};
+    this.modalOpened = true;
+  }
+
+  restart(): void {
+    this.modalOpened = false;
     this.restarting = true;
-    this.azureService.rebootInstance({farmId, workerName}).subscribe(response => {
-      if (response.code === 'OK') {
-        this.alert.success(response.message);
-      } else {
-        this.alert.error(response.message);
-      }
-      this.restarting = false;
+    this.azureService.rebootInstance({farmId: this.selected.farmId, workerName: this.selected.workerName})
+      .subscribe(response => {
+        if (response.code === 'OK') {
+          this.alert.success(response.message);
+        } else {
+          this.alert.error(response.message);
+        }
+        this.restarting = false;
     });
   }
 }

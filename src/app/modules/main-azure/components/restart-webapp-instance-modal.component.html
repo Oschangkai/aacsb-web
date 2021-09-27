@@ -1,0 +1,11 @@
+<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="false" [clrModalClosable]="false">
+  <h3 class="modal-title">Restart</h3>
+  <div class="modal-body">
+    Are you sure to restart instance <b>{{selected.workerName}}</b>?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="this.openedChange.emit(false)">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmitClicked()">Ok</button>
+  </div>
+</clr-modal>
+
