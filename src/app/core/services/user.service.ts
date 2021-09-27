@@ -8,16 +8,13 @@ import { distinctUntilChanged, takeUntil, tap } from 'rxjs/operators';
 import jwtDecode from 'jwt-decode';
 import * as store from 'store';
 
-import { environment } from '@environment/environment';
-
 import { User } from '@model/User.model';
 import { ApplicationToken } from '@model/ApplicationToken.model';
 import { ApplicationClaimTypes } from '@model/ApplicationClaimTypes.enum';
 import { SimpleResponse } from '@model/response.model';
 import { AuthenticateInformation } from '@model/query.response.model';
 import { TokenExchangeTypes } from '@model/TokenExchangeTypes.enum';
-
-const accountUrl = `${environment.api}/Account`;
+import { EnvironmentService } from '@service/environment.service';
 
 /**
  * This service was created for:
@@ -35,6 +32,7 @@ export class UserService implements OnDestroy {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private environment: EnvironmentService,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.currentUserSubject$
@@ -46,6 +44,8 @@ export class UserService implements OnDestroy {
         }
       });
   }
+
+  accountUrl = `${this.environment.api}/Account`;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -93,7 +93,7 @@ export class UserService implements OnDestroy {
       token: this.getUser()?.refreshToken
     };
     return this.http
-      .post<SimpleResponse<AuthenticateInformation>>(`${accountUrl}/token`, { ...body })
+      .post<SimpleResponse<AuthenticateInformation>>(`${this.accountUrl}/token`, { ...body })
       .pipe(
         tap(response => {
           const authInfo = response && response.data;
@@ -117,7 +117,7 @@ export class UserService implements OnDestroy {
     };
 
     if (this.hasValidToken()) {
-      this.http.post(`${accountUrl}/logout`, {}, {
+      this.http.post(`${this.accountUrl}/logout`, {}, {
         params: new HttpParams()
           .append('token', this.getUser().refreshToken)
       }).subscribe(clearLocal);
@@ -128,7 +128,7 @@ export class UserService implements OnDestroy {
 
   signInWithMicrosoft(returnUrl?: string): void {
     // https://stackoverflow.com/questions/54694466/google-login-in-angular-7-with-net-core-api
-    let url = `${accountUrl}/login/microsoft?returnUrl=${this.document.location.origin}/login?`;
+    let url = `${this.accountUrl}/login/microsoft?returnUrl=${this.document.location.origin}/login?`;
     if (returnUrl) {
       url += `path=${returnUrl}`;
     } else {
