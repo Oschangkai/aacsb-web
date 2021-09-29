@@ -3,13 +3,13 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 
 import { UserService } from '@service/user.service';
-import { environment } from '@environment/environment';
+import { EnvironmentService } from '@service/environment.service';
 
 let token: string | null = null;
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private environment: EnvironmentService) {
     this.userService.currentUser.subscribe(u => token = u.token);
   }
 
@@ -19,14 +19,14 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       Accept: 'application/json'
     };
     // WhiteList
-    const isApiUrl = req.url.startsWith(environment.api);
+    const isApiUrl = req.url.startsWith(this.environment.api);
 
     if (!isApiUrl) {
       return next.handle(req);
     }
 
     // == Authorize token attachment ==
-    const urlPath = req.url.split(environment.api)[1];
+    const urlPath = req.url.split(this.environment.api)[1];
 
     // BlackList
     const isLogoutPath = urlPath.includes('/logout');
