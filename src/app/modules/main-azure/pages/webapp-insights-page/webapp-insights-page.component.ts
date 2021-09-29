@@ -30,7 +30,7 @@ export class WebappInsightsPageComponent implements OnInit {
     this.route.data.subscribe(
       ({ response }) => {
         this.webapps = response;
-        this.appNameList = this.webapps.map(el => el.id.split(/[\s\/]+/).reverse()[0]);
+        this.appNameList = this.webapps.map(el => el.id.split(/[\s\/]+/).reverse()[0]).sort();
         this.load();
       }
     );
@@ -44,7 +44,14 @@ export class WebappInsightsPageComponent implements OnInit {
           app.id.split(/[\s\/]+/)
             .reverse()[0]
             .includes(this.query)
-        );
+        )
+        .sort((a, b) => {
+          const an = a.id.split(/[\s\/]+/).reverse()[0];
+          const bn = b.id.split(/[\s\/]+/).reverse()[0];
+          if (an > bn) { return 1; }
+          if (an < bn) { return -1; }
+          return 0;
+        });
       this.loadData = false;
       return;
     }
