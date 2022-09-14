@@ -1,4 +1,4 @@
 export enum ApplicationClaimTypes {
-  Permission = 'MAYOBoardroom.Permission',
-  Role = 'MAYOBoardroom.Role'
+  Permission = 'AACSB.Permission',
+  Role = 'AACSB.Role'
 }

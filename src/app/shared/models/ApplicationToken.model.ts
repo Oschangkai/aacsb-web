@@ -4,6 +4,6 @@ export type ApplicationToken = {
   'ip': string;
   'email': string;
   'uid': string;
-  'MAYOBoardroom.Role': string[];
-  'MAYOBoardroom.Permission': string[];
+  'AACSB.Role': string[];
+  'AACSB.Permission': string[];
 } & JwtPayload;

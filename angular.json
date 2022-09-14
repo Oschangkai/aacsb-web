@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MAYO-Boardroom": {
+    "AACSB-Portal": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -129,18 +129,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "MAYO-Boardroom:build"
+            "browserTarget": "AACSB-Portal:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "MAYO-Boardroom:build:production"
+              "browserTarget": "AACSB-Portal:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MAYO-Boardroom:build"
+            "browserTarget": "AACSB-Portal:build"
           }
         },
         "test": {
@@ -179,18 +179,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "MAYO-Boardroom:serve"
+            "devServerTarget": "AACSB-Portal:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "MAYO-Boardroom:serve:production"
+              "devServerTarget": "AACSB-Portal:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "MAYO-Boardroom",
+  "defaultProject": "AACSB-Portal",
   "cli": {
     "analytics": "dfa4b1a2-e710-40e7-8831-161c789ee80d"
   }

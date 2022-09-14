@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/MAYO-Boardroom'),
+      dir: require('path').join(__dirname, './coverage/AACSB-Portal'),
       subdir: '.',
       reporters: [
         { type: 'html' },

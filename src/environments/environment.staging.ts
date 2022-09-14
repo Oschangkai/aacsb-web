@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api: 'https://api.example.com/api'
+  api: 'https://AACSB-Portal-api.azurewebsites.net/api'
 };

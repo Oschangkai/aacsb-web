@@ -61,6 +61,6 @@ stages:
       - task: AzureWebApp@1
         inputs:
           azureSubscription: 'Azure MPN'
-          appName: '-boardroom-portal'
+          appName: 'AACSB-Portal-portal'
           package: $(Build.ArtifactStagingDirectory)/**/*.zip
         displayName: 'publish to webapp'
