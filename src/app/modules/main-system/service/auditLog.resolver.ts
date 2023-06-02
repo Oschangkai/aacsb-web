@@ -1,5 +1,5 @@
 import { Injectable, } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { AuditLog } from '@model/query.response.model';
@@ -7,7 +7,7 @@ import { PaginationResponse } from '@model/response.model';
 import { SystemService } from '@module/main-system/service/system.service';
 
 @Injectable()
-export class AuditLogResolver implements Resolve<PaginationResponse<AuditLog[]>> {
+export class AuditLogResolver  {
   constructor(
     private systemService: SystemService,
     private router: Router

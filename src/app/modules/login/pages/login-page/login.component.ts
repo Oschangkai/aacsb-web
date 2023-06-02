@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { ClrLoadingState } from '@clr/angular';
 
 import { Subject } from 'rxjs';
@@ -39,10 +39,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
 
   // form
-  loginForm: FormGroup = new FormGroup({
-    tenant: new FormControl(),
-    username: new FormControl(),
-    password: new FormControl()
+  loginForm: UntypedFormGroup = new UntypedFormGroup({
+    tenant: new UntypedFormControl(),
+    username: new UntypedFormControl(),
+    password: new UntypedFormControl()
   });
   user: User = new User();
 

@@ -37,7 +37,7 @@
           <label class="clr-sr-only">Password</label>
           <input type="password" autocomplete="current-password" name="password" clrPassword placeholder="Password" formControlName="password"/>
       </clr-password-container>
-      <button class="btn btn-outline ms-login-button" (click)="usernamePasswordSignIn()" [clrLoading]="submitBtnState" #msSignInBtn>
+      <button class="btn" (click)="usernamePasswordSignIn()" [clrLoading]="submitBtnState" #msSignInBtn>
         <cds-icon shape="login"></cds-icon>
         Sign in
       </button>

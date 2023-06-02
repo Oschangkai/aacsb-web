@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { CdsIconModule } from '@cds/angular';
+import { ClarityIcons, homeIcon, cogIcon, userIcon, usersIcon, listIcon, envelopeIcon } from '@cds/core/icon';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
@@ -15,21 +16,21 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 // Pages
 import { MainPageComponent } from './pages/main-page/main-page.component';
-import { FailureMailPageComponent } from './pages/failure-mail-page/failure-mail-page.component';
 
 // Resolver
-import { FailureMailResolver } from '@module/main/services/failure-mail.resolver';
-import { FailureMailService } from '@module/main/services/failure-mail.service';
 import { SharedModule } from '@shared/shared.module';
 
 const Pages = [
-  MainPageComponent, FailureMailPageComponent
+  MainPageComponent
 ];
 const Components = [
   MainComponent, ToolbarComponent, FooterComponent,
   SidenavComponent, SubnavComponent
 ];
 const CdsModules = [CdsIconModule];
+
+import '@cds/core/icon/register.js';
+ClarityIcons.addIcons(homeIcon, cogIcon, userIcon, usersIcon, listIcon, envelopeIcon);
 
 @NgModule({
   declarations: [...Pages, ...Components],
@@ -40,6 +41,6 @@ const CdsModules = [CdsIconModule];
     SharedModule,
     ...CdsModules
   ],
-  providers: [FailureMailService, FailureMailResolver]
+  providers: []
 })
 export class MainModule {}

@@ -6,7 +6,7 @@
         routerLinkActive="active"
         [routerLinkActiveOptions]="{exact:true}"
       >
-        <clr-icon [attr.shape]="sideMenuItem.shape" clrVerticalNavIcon></clr-icon>
+        <cds-icon [attr.shape]="sideMenuItem.shape" clrVerticalNavIcon></cds-icon>
         {{sideMenuItem.displayName}}
 
         <clr-vertical-nav-group-children>
@@ -50,7 +50,7 @@
         [routerLinkActiveOptions]="{exact:true}"
         *permission="permission; operation: 'OR'"
       >
-        <clr-icon clrVerticalNavIcon [attr.shape]="shape"></clr-icon>
+        <cds-icon clrVerticalNavIcon [attr.shape]="shape"></cds-icon>
         {{displayName}}
       </a>
     </ng-template>

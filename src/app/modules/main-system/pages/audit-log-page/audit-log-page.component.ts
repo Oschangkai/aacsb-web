@@ -9,7 +9,7 @@ import { PaginationResponse } from '@model/response.model';
 import { SystemService } from '@module/main-system/service/system.service';
 import { AlertService } from '@service/alert.service';
 import { AuditLogQuery } from '@model/query.model';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { removeEmptyProperty } from '@utils/converter';
 import { ClrDatagridStateInterface, ClrLoadingState } from '@clr/angular';
 
@@ -38,10 +38,10 @@ export class AuditLogPageComponent implements OnInit, OnDestroy {
   loadData = true;
 
   // data
-  filterForm: FormGroup = new FormGroup({
-    StartDateTime: new FormControl(),
-    EndDateTime: new FormControl(),
-    Operator: new FormControl()
+  filterForm: UntypedFormGroup = new UntypedFormGroup({
+    StartDateTime: new UntypedFormControl(),
+    EndDateTime: new UntypedFormControl(),
+    Operator: new UntypedFormControl()
   });
   filter: Partial<AuditLogQuery> = { ...this.filterForm.value, PageNumber: 1, PageSize: 10 };
   logs: PaginationResponse<AuditLog[]> = { data: [], count: 0, pageNumber: 1, pageSize: 10, succeeded: false, message: '' };

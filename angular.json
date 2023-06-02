@@ -33,7 +33,6 @@
             ],
             "styles": [
               "node_modules/@cds/core/global.min.css",
-              "node_modules/@cds/core/styles/module.shims.min.css",
               "node_modules/@cds/city/css/bundles/default.min.css",
               "node_modules/@clr/ui/clr-ui.min.css",
               "node_modules/@clr/icons/clr-icons.min.css",
@@ -162,19 +161,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -190,7 +176,6 @@
       }
     }
   },
-  "defaultProject": "AACSB-Portal",
   "cli": {
     "analytics": "dfa4b1a2-e710-40e7-8831-161c789ee80d"
   }
