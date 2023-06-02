@@ -15,6 +15,7 @@ import { uuidv4 } from '@utils/generator';
 export class StandardAlertComponent implements OnInit, OnDestroy {
   @Input() id = defaultId;
   @Input() fade = true;
+  @Input() paddingTop = false;
 
   alerts: Alert[] = [];
   alertSubscription: Subscription = new Subscription();

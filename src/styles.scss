@@ -16,6 +16,9 @@ app-root:empty::after {
   right: 24px;
   width: 45%;
   z-index: 999;
+  &.without-toolbar {
+    top: 5px;
+  }
 }
 .data-loading {
   position: relative;

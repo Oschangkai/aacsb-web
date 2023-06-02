@@ -1,4 +1,4 @@
-<div class="alert-area">
+<div class="alert-area" [class.without-toolbar]="paddingTop">
   <button
     class="btn btn-link btn-sm data-loading"
     *ngIf="alerts.length > 1"
