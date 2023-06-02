@@ -2,30 +2,50 @@
   <form class="login">
     <section class="title">
       <h3 class="welcome">Welcome to</h3>
-      AACSB Portal
-      <h5 class="hint" *ngIf="!isCallback && !isLoggedIn">Use your Microsoft account to sign in</h5>
+      NTUST SoM Portal
+      <h5 class="hint" *ngIf="!isCallback && !isLoggedIn">Use your Account to sign in</h5>
       <h5 class="hint" *ngIf="isCallback">
-        Hello {{params.username}},<br/>
+        Hello {{ params.username ?? user.email }},<br/>
         We're Logging you in, please wait...
       </h5>
-      <h5 class="hint" *ngIf="isLoggedIn">
+      <h5 class="hint" *ngIf="!isCallback && isLoggedIn">
         We're Logging you out, please wait...
       </h5>
     </section>
     <div class="login-group" *ngIf="isCallback || isLoggedIn">
       <clr-spinner *ngIf="isCallback || isLoggedIn"></clr-spinner>
     </div>
-    <div class="login-group" *ngIf="!isCallback && !isLoggedIn">
+    <div class="login-group" *ngIf="!isCallback && !isLoggedIn" [formGroup]="loginForm">
       <div class="error active" *ngIf="message">
         {{message}}
       </div>
       <clr-alert clrAlertIcon="check-circle" [clrAlertClosable]="false" clrAlertType="success" *ngIf="success">
         {{success}}
       </clr-alert>
-      <button class="btn btn-outline ms-login-button" (click)="msSignIn()" [clrLoading]="submitBtnState" #msSignInBtn>
+      <!-- Username & Password Login -->
+      <clr-select-container>
+          <label>Tenant</label>
+          <select clrSelect name="type" formControlName="tenant">
+              <option value="root" selected>Default</option>
+          </select>
+      </clr-select-container>
+      <clr-input-container>
+          <label class="clr-sr-only">Username</label>
+          <input type="text" autocomplete="username" name="username" clrInput placeholder="Username" formControlName="username"/>
+      </clr-input-container>
+      <clr-password-container>
+          <label class="clr-sr-only">Password</label>
+          <input type="password" autocomplete="current-password" name="password" clrPassword placeholder="Password" formControlName="password"/>
+      </clr-password-container>
+      <button class="btn btn-outline ms-login-button" (click)="usernamePasswordSignIn()" [clrLoading]="submitBtnState" #msSignInBtn>
+        <cds-icon shape="login"></cds-icon>
+        Sign in
+      </button>
+      <!-- MS Login -->
+      <!-- <button class="btn btn-outline ms-login-button" (click)="msSignIn()" [clrLoading]="submitBtnState" #msSignInBtn>
         <span><img src="./assets/logos/ms.svg" alt="microsoft logo"></span>
         Sign in with Microsoft
-      </button>
+      </button> -->
     </div>
     <app-version></app-version>
   </form>

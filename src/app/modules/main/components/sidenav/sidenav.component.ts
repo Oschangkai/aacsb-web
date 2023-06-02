@@ -20,7 +20,7 @@ export class SidenavComponent implements OnInit {
       shape: 'cog',
       displayName: 'System',
       permission: [
-        ...Permission.User.ALL,
+        ...Permission.Users.ALL,
         ...Permission.Role.ALL
       ],
       child: [
@@ -28,7 +28,7 @@ export class SidenavComponent implements OnInit {
           routerLink: 'system/user',
           shape: 'user',
           displayName: 'User',
-          permission: [...Permission.User.ALL]
+          permission: [...Permission.Users.ALL]
         },
         {
           routerLink: 'system/role',
@@ -40,27 +40,15 @@ export class SidenavComponent implements OnInit {
           routerLink: 'system/log',
           shape: 'list',
           displayName: 'Audit Logs',
-          permission: [...Permission.AuditLog.ALL]
+          permission: [...Permission.ALL]
         }
       ]
     },
     {
-      routerLink: 'failure-mail',
+      routerLink: 'report',
       shape: 'envelope',
-      displayName: 'Failure Mails',
-      permission: [...Permission.SendGrid.FailureMail.ALL]
-    },
-    {
-      routerLink: 'azure/webapps',
-      shape: 'world',
-      displayName: 'WebApp Insights',
-      permission: [...Permission.Azure.WebApps.ALL]
-    },
-    {
-      routerLink: 'azure/vm',
-      shape: 'vm',
-      displayName: 'Virtual Machine',
-      permission: [...Permission.Azure.VM.ALL]
+      displayName: 'Reports',
+      permission: [...Permission.ALL]
     }
   ];
 

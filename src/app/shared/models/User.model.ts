@@ -1,6 +1,7 @@
 export class User {
   id!: string;
   username!: string;
+  tenant!: string;
   email!: string;
   token!: string;
   refreshToken!: string;

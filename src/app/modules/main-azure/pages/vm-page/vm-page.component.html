@@ -2,7 +2,7 @@
 <clr-datagrid [clrDgLoading]="loadData"  [(clrDgSingleSelected)]="selected.vm">
   <!-- Action Bar -->
   <clr-dg-action-bar>
-    <div class="btn-group" *permission="[Permission.Azure.VM.Operate]">
+    <div class="btn-group" *permission="[Permission.ALL]">
       <ng-container *ngIf="selected && selected.vm && selected.vm.id">
         <button
           type="button"

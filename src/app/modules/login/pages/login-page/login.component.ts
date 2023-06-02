@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ClrLoadingState } from '@clr/angular';
 
 import { Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { delay, filter, takeUntil } from 'rxjs/operators';
 
 import { User } from '@model/User.model';
 import { UserService } from '@service/user.service';
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
+  // states
   success: string|null = null;
   message: string|null = null;
   params: any;
@@ -36,19 +38,28 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
 
+  // form
+  loginForm: FormGroup = new FormGroup({
+    tenant: new FormControl(),
+    username: new FormControl(),
+    password: new FormControl()
+  });
+  user: User = new User();
+
   ngOnInit(): void {
+    this.userService.currentUser
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(u => this.user = u);
     this.activatedRoute.queryParams.pipe(takeUntil(this.destroy$)).subscribe(params => {
+      // Sign-in with Microsoft acocunt callback flow
       this.params = params;
       if (params && params.token) {
         this.isCallback = true;
 
         this.userService.setUser(new User({
-          id: params.id,
-          email: params.email,
           token: params.token,
           refreshToken: params.refresh_token,
-          expiredOn: params.expired_on,
-          username: params.username
+          expiredOn: params.expired_on
         }));
         this.userService.isLoggedIn
           .pipe(
@@ -68,9 +79,39 @@ export class LoginComponent implements OnInit, OnDestroy {
           .subscribe(state => this.isLoggedIn = state);
         this.userService.logout();
       }
+      // set default tenant on login page
+      this.loginForm.get("tenant")?.setValue("root");
       this.message = params.message;
       this.success = params.success;
     });
+  }
+
+  usernamePasswordSignIn() {
+    this.submitBtnState = ClrLoadingState.LOADING;
+    this.userService.login({...this.loginForm.value})
+      .subscribe(response => {
+        this.isCallback = true;
+
+        this.userService.setUser(new User({
+          token: response.token,
+          refreshToken: response.refreshToken,
+          expiredOn: response.expireOn
+        }));
+
+        this.userService.isLoggedIn
+          .pipe(
+            takeUntil(this.destroy$),
+            delay(1000),
+            filter(state => state)
+          )
+          .subscribe(_ => {
+            if (this.params.path) {
+              this.router.navigate([this.params.path]);
+            } else {
+              this.router.navigate(['/']);
+            }
+        });
+      });
   }
 
   msSignIn(): boolean {

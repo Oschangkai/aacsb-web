@@ -7,7 +7,7 @@ import { InitializerService } from '@service/initializer.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  title = 'AACSB Portal';
+  title = 'NTUST SoM Portal';
 
   constructor(private init: InitializerService) { }
 

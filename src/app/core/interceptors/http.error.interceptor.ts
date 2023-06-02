@@ -26,9 +26,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
   handle401Error = (error: any, req: HttpRequest<any>, next: HttpHandler): Observable<any> => {
     // If error code provided
-    if (error.error && error.error.Code) {
-      switch (error.error.Code) {
-        case 'IDX10223':
+    if (error.error && error.error.errorId) {
+      switch (error.exception) {
+        case 'Login Timeout, Please Login Again.':
           if (!this.user.isLoggedIn) {
             this.router.navigate(['/login'], {
               queryParams: {
@@ -40,13 +40,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           return this.user.refreshToken().pipe(
             switchMap(res => {
               const headersConfig: any = {
-                Authorization: `Bearer ${res.data.jwToken}`
+                Authorization: `Bearer ${res.token}`,
+                tenant: req.headers.get('tenant')
               };
               const request = req.clone({ setHeaders: headersConfig });
               return next.handle(request);
             })
           );
-        case 'NOT_AUTH':
+        case 'Authentication Failed.':
         default:
           return this.handle400SeriesError(error);
       }
@@ -59,14 +60,29 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     if (error.url) {
       this.router.navigate(['/login'], {
         queryParams: {
-          message: error.error.Message,
+          message: error.error.messages[0],
           path: this.storage.getRoutingDestination() ?? '/'
         }
       });
     }
     // If message provided
-    if (error.error && error.error.Message) {
-      this.alert.error(`${error.error.Message}`);
+    let errorMessage = "";
+    // TODO: error.errors
+    // "errors": {
+    //     "Token": [
+    //         "'Token' must not be empty."
+    //     ]
+    // }
+    if (error.error.errorId) {
+      errorMessage += `Error ID: ${error.error.errorId}\n`;
+    }
+    if (error.error.requestUrl) {
+      errorMessage += `Endpoint: ${error.error.requestUrl}\n`;
+    }
+    if (error.error.messages) {
+      error.error.messages.forEach((message: string) => {
+        this.alert.error(`${errorMessage}Message: ${message}`);
+      })
     } else {
       this.alert.error(`HTTP error with status code ${error.status} ${error.statusText}.\n${error.url}`);
     }

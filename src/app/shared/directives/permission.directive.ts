@@ -12,7 +12,7 @@ import { Permission } from '@model/ApplicationPermission.model';
 export class PermissionDirective implements OnInit {
   private currentPermission: string[] = [];
   private permissions: string[] = [];
-  private logicalOp = 'AND';
+  private logicalOp : ('OR' | 'AND') = 'AND';
   private isHidden = true;
 
   constructor(
@@ -36,7 +36,7 @@ export class PermissionDirective implements OnInit {
   }
 
   @Input()
-  set permissionOperation(op: string) {
+  set permissionOperation(op: ('OR' | 'AND')) {
     this.logicalOp = op;
     this.updateView();
   }

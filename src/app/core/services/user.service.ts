@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, takeUntil, tap } from 'rxjs/operators';
 
@@ -11,7 +11,6 @@ import * as store from 'store';
 import { User } from '@model/User.model';
 import { ApplicationToken } from '@model/ApplicationToken.model';
 import { ApplicationClaimTypes } from '@model/ApplicationClaimTypes.enum';
-import { SimpleResponse } from '@model/response.model';
 import { AuthenticateInformation } from '@model/query.response.model';
 import { TokenExchangeTypes } from '@model/TokenExchangeTypes.enum';
 import { EnvironmentService } from '@service/environment.service';
@@ -45,7 +44,7 @@ export class UserService implements OnDestroy {
       });
   }
 
-  accountUrl = `${this.environment.api}/Account`;
+  accountUrl = `${this.environment.api}`;
 
   private destroy$: Subject<void> = new Subject<void>();
 
@@ -68,8 +67,16 @@ export class UserService implements OnDestroy {
     return store.get('user');
   }
   setUser(user: User): void {
-    store.set('user', user);
-    this.currentUserSubject$.next(user);
+    let u = { ...user };
+    if (!!user.token) {
+      let userInfoFromToken = jwtDecode<ApplicationToken>(user.token);
+      u.id = userInfoFromToken.sub!;
+      u.username = userInfoFromToken.fullName;
+      u.tenant = userInfoFromToken.tenant;
+      u.email = userInfoFromToken.email;
+    }
+    store.set('user', u);
+    this.currentUserSubject$.next(u);
   }
 
   private getPermission(): string[] {
@@ -87,27 +94,42 @@ export class UserService implements OnDestroy {
     }
   }
 
-  refreshToken(): Observable<SimpleResponse<AuthenticateInformation>> {
+  login(loginInfo: {username: string, password: string, tenant: string}): Observable<AuthenticateInformation> {
+    const body = {
+      type: TokenExchangeTypes.UserNamePassword,
+      email: loginInfo.username,
+      password: loginInfo.password
+    };
+
+    return this.exchangeToken(body, loginInfo.tenant);
+  }
+
+  refreshToken(): Observable<AuthenticateInformation> {
     const body = {
       type: TokenExchangeTypes.RefreshToken,
       token: this.getUser()?.refreshToken
     };
-    return this.http
-      .post<SimpleResponse<AuthenticateInformation>>(`${this.accountUrl}/token`, { ...body })
+    return this.exchangeToken(body, this.getUser()?.tenant)
       .pipe(
         tap(response => {
-          const authInfo = response && response.data;
+          const authInfo = response;
           if (!authInfo) { return; }
+
           this.setUser(new User({
-            id: authInfo.id,
-            username: authInfo.userName,
-            email: authInfo.email,
-            token: authInfo.jwToken,
+            token: authInfo.token,
             refreshToken: authInfo.refreshToken,
             expiredOn: authInfo.expireOn
           }));
         })
       );
+  }
+
+  private exchangeToken(body: {type: string, token?: string, email?: string, password?: string}, tenant: string): Observable<AuthenticateInformation> {
+    return this.http
+      .post<AuthenticateInformation>(`${this.accountUrl}/tokens`, { ...body }, { 
+        headers: new HttpHeaders()
+          .append('tenant', tenant) 
+      });
   }
 
   logout(): void {
@@ -117,10 +139,9 @@ export class UserService implements OnDestroy {
     };
 
     if (this.hasValidToken()) {
-      this.http.post(`${this.accountUrl}/logout`, {}, {
-        params: new HttpParams()
-          .append('token', this.getUser().refreshToken)
-      }).subscribe(clearLocal);
+      this.http
+      .post(`${this.accountUrl}/tokens/logout`, { token: this.getUser().refreshToken})
+      .subscribe(clearLocal);
     } else {
       clearLocal();
     }

@@ -1,4 +1,7 @@
 export enum ApplicationClaimTypes {
-  Permission = 'AACSB.Permission',
-  Role = 'AACSB.Role'
+  Tenant = "tenant",
+  Fullname = "fullName",
+  Permission = 'permission',
+  ImageUrl = "image_url",
+  Expiration = "exp"
 }

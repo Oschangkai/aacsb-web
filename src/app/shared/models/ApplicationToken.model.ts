@@ -1,9 +1,10 @@
 import { JwtPayload } from 'jwt-decode';
 
 export type ApplicationToken = {
-  'ip': string;
+  'fullName': string;
   'email': string;
+  'image_url': string
   'uid': string;
-  'AACSB.Role': string[];
-  'AACSB.Permission': string[];
+  'tenant': string;
+  'permission': string[];
 } & JwtPayload;

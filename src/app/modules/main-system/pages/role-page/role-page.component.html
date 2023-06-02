@@ -2,7 +2,7 @@
 <clr-datagrid [clrDgLoading]="loadData">
   <!-- Action Bar -->
   <clr-dg-action-bar>
-    <div class="btn-group" *permission="[Permission.Role.Add]">
+    <div class="btn-group" *permission="[Permission.Role.Create]">
       <button
         type="button"
         class="btn btn-sm btn-secondary btn-outline-primary"
@@ -24,7 +24,7 @@
       Name
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column *permission="[Permission.Role.Edit, Permission.Role.Delete]; operation: 'OR'">
+  <clr-dg-column *permission="[Permission.Role.Update, Permission.Role.Delete]; operation: 'OR'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Action
     </ng-container>
@@ -34,9 +34,9 @@
   <clr-dg-row *clrDgItems="let role of roles.data" [clrDgItem]="role">
     <clr-dg-cell>{{role.id}}</clr-dg-cell>
     <clr-dg-cell>{{role.name}}</clr-dg-cell>
-    <clr-dg-cell *permission="[Permission.Role.Edit, Permission.Role.Delete]; operation: 'OR'">
-      <a style="cursor: pointer" (click)="onEditClicked(role)" *permission="[Permission.Role.Edit]">Edit</a>
-      <span *permission="[Permission.Role.Edit, Permission.Role.Delete]"> | </span>
+    <clr-dg-cell *permission="[Permission.Role.Update]; operation: 'OR'">
+      <a style="cursor: pointer" (click)="onEditClicked(role)" *permission="[Permission.Role.Update]">Edit</a>
+      <span *permission="[Permission.Role.Update, Permission.Role.Delete]"> | </span>
       <a style="cursor: pointer" (click)="onDeleteClicked(role)" *permission="[Permission.Role.Delete]">Delete</a>
     </clr-dg-cell>
 

@@ -34,7 +34,7 @@
 <clr-datagrid [clrDgLoading]="loadData" [(clrDgSelected)]="selected" (clrDgRefresh)="refresh($event)">
   <!-- Action Bar -->
   <clr-dg-action-bar>
-    <div class="btn-group" *permission="[Permission.SendGrid.FailureMail.Unblock]">
+    <div class="btn-group" *permission="[Permission.ALL]">
       <button
         type="button"
         class="btn btn-sm btn-secondary btn-warning-outline"

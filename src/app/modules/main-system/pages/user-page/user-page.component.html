@@ -2,7 +2,7 @@
 <clr-datagrid [clrDgLoading]="loadData">
   <!-- Action Bar -->
   <clr-dg-action-bar>
-    <div class="btn-group" *permission="[Permission.User.Add]">
+    <div class="btn-group" *permission="[Permission.Users.Update]">
       <button
         type="button"
         class="btn btn-sm btn-secondary btn-outline-primary"
@@ -34,7 +34,7 @@
       Enabled
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column *permission="[Permission.User.Edit, Permission.User.Delete]; operation: 'OR'">
+  <clr-dg-column *permission="[Permission.Users.Update]; operation: 'OR'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Action
     </ng-container>
@@ -46,10 +46,10 @@
     <clr-dg-cell>{{user.email}}</clr-dg-cell>
     <clr-dg-cell>{{user.id}}</clr-dg-cell>
     <clr-dg-cell><span class="dot" [class]="user.enabled.toString()"></span> &nbsp;{{user.enabled}}</clr-dg-cell>
-    <clr-dg-cell *permission="[Permission.User.Edit, Permission.User.Delete]; operation: 'OR'">
-      <a style="cursor: pointer" (click)="onEditClicked(user)" *permission="[Permission.User.Edit]">Edit</a>
-      <span *permission="[Permission.User.Edit, Permission.User.Delete]"> | </span>
-      <a style="cursor: pointer" (click)="onDeleteClicked(user)" *permission="[Permission.User.Delete]">Delete</a>
+    <clr-dg-cell *permission="[Permission.Users.Update]; operation: 'OR'">
+      <a style="cursor: pointer" (click)="onEditClicked(user)" *permission="[Permission.Users.Update]">Edit</a>
+      <span *permission="[Permission.Users.Update, Permission.Users.Delete]"> | </span>
+      <a style="cursor: pointer" (click)="onDeleteClicked(user)" *permission="[Permission.Users.Delete]">Delete</a>
     </clr-dg-cell>
   </clr-dg-row>
 
