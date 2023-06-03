@@ -7,9 +7,7 @@ import { RolePageComponent } from '@module/main-system/pages/role-page/role-page
 import { AuditLogPageComponent } from '@module/main-system/pages/audit-log-page/audit-log-page.component';
 
 // Resolver
-import { UserResolver } from '@module/main-system/service/user.resolver';
-import { RoleResolver } from '@module/main-system/service/role.resolver';
-import { AuditLogResolver } from '@module/main-system/service/auditLog.resolver';
+import { auditLogResolver, roleResolver, userResolver } from '@service/main-system.resolver';
 
 const routes: Routes = [
   {
@@ -17,7 +15,7 @@ const routes: Routes = [
     children: [
       {
         path: 'user',
-        resolve: { response: UserResolver },
+        resolve: { response: userResolver },
         component: UserPageComponent,
         children: [
           {
@@ -28,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'role',
-        resolve: { response: RoleResolver },
+        resolve: { response: roleResolver },
         component: RolePageComponent,
         children: [
           {
@@ -39,7 +37,7 @@ const routes: Routes = [
       },
       {
         path: 'log',
-        resolve: { response: AuditLogResolver },
+        resolve: { response: auditLogResolver },
         component: AuditLogPageComponent,
         children: [
           {

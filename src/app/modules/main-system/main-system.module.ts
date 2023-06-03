@@ -17,12 +17,7 @@ import { AddUserModalComponent } from './components/add-user-modal.component';
 import { EditUserModalComponent } from './components/edit-user-modal.component';
 import { DeleteUserModalComponent } from './components/delete-user-modal.component';
 
-// Resolver
 import { SystemService } from './service/system.service';
-import { UserResolver } from './service/user.resolver';
-import { RoleResolver } from './service/role.resolver';
-import { AuditLogResolver } from './service/auditLog.resolver';
-
 import { SharedModule } from '@shared/shared.module';
 import { CdsTagModule } from '@cds/angular';
 
@@ -31,7 +26,6 @@ const Modals = [
   AddRoleModalComponent, EditRoleModalComponent, DeleteRoleModalComponent,
   AddUserModalComponent, EditUserModalComponent, DeleteUserModalComponent
 ];
-const Resolves = [UserResolver, RoleResolver, AuditLogResolver];
 
 const CdsModules = [
   CdsTagModule
@@ -47,6 +41,6 @@ const CdsModules = [
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [SystemService, ...Resolves]
+  providers: [SystemService]
 })
 export class MainSystemModule {}

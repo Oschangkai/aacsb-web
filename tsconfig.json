@@ -25,7 +25,8 @@
         "src/environments/*"
       ],
       "@service/*": [
-        "src/app/core/services/*"
+        "src/app/core/services/*",
+        "src/app/modules/main-system/service/*"
       ],
       "@component/*": [
         "src/app/shared/components/*"
