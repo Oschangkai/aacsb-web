@@ -8,7 +8,7 @@
         class="btn btn-sm btn-secondary btn-outline-primary"
         (click)="onAddClicked()"
       >
-        <clr-icon shape="plus"></clr-icon> Add
+        <cds-icon shape="plus"></cds-icon> Add
       </button>
     </div>
   </clr-dg-action-bar>
@@ -24,6 +24,11 @@
       Name
     </ng-container>
   </clr-dg-column>
+  <clr-dg-column [clrDgField]="'description'">
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      Description
+    </ng-container>
+  </clr-dg-column>
   <clr-dg-column *permission="[Permission.Role.Update, Permission.Role.Delete]; operation: 'OR'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Action
@@ -34,6 +39,7 @@
   <clr-dg-row *clrDgItems="let role of roles.data" [clrDgItem]="role">
     <clr-dg-cell>{{role.id}}</clr-dg-cell>
     <clr-dg-cell>{{role.name}}</clr-dg-cell>
+    <clr-dg-cell>{{role.description}}</clr-dg-cell>
     <clr-dg-cell *permission="[Permission.Role.Update]; operation: 'OR'">
       <a style="cursor: pointer" (click)="onEditClicked(role)" *permission="[Permission.Role.Update]">Edit</a>
       <span *permission="[Permission.Role.Update, Permission.Role.Delete]"> | </span>
@@ -43,9 +49,9 @@
     <!-- Detail -->
     <ng-container ngProjectAs="clr-dg-row-detail" *ngIf="true">
       <clr-dg-row-detail clrIfExpanded (clrIfExpandedChange)="onDetailOpen($event, role)">
-        <div [clrLoading]="loadData" *ngIf="roleDetail[role.id] && roleDetail[role.id].claims.length; else nodata">
+        <div [clrLoading]="loadData" *ngIf="roleDetail[role.id] && roleDetail[role.id].claims && roleDetail[role.id].claims.length; else nodata">
           <div cds-layout="horizontal gap:sm">
-            <cds-tag readonly *ngFor="let permission of roleDetail[role.id].claims">{{permission}}</cds-tag>
+            <cds-tag readonly *ngFor="let permission of roleDetail[role.id].claims">{{permission | slice : 12}}</cds-tag>
           </div>
         </div>
         <ng-template #nodata>No Permission assigned to this group.</ng-template>

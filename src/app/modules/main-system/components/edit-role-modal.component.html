@@ -12,12 +12,17 @@
         <label>Group Name</label>
         <input clrInput type="text" name="name" [(ngModel)]="role.name" />
       </clr-input-container>
+      <!-- Description -->
+      <clr-input-container>
+        <label>Description</label>
+        <input clrInput type="text" name="description" [(ngModel)]="role.description" />
+      </clr-input-container>
       <!-- Claims -->
       <clr-checkbox-container clrInline="horizontal">
         <label>Permission</label>
         <clr-checkbox-wrapper *ngFor="let p of ObjectKeys(permissions)">
           <input type="checkbox" clrCheckbox [name]="p" [value]="permissions[p]" [(ngModel)]="permissions[p]" />
-          <label>{{p}}</label>
+          <label>{{p | slice : 12}}</label>
         </clr-checkbox-wrapper>
       </clr-checkbox-container>
     </form>

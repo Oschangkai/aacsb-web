@@ -34,7 +34,7 @@ export class AddRoleModalComponent implements OnInit, OnDestroy {
   @Output() onSubmit: EventEmitter<Role> = new EventEmitter<Role>();
 
   // data
-  role: Role = {id: '', name: '', claims: []};
+  role: Role = {id: '', name: '', description: '', claims: []};
 
   // @ts-ignore
   permissions: {[x: string]: boolean} = PermissionList.reduce((acc, curr) => (acc[curr] = false, acc), {});
@@ -44,6 +44,7 @@ export class AddRoleModalComponent implements OnInit, OnDestroy {
     const role: Role = {
       id: this.role.id,
       name: this.role.name,
+      description: this.role.description,
       claims: Object.keys(this.permissions).filter(key => this.permissions[key])
     };
     this.onSubmit.emit(role);

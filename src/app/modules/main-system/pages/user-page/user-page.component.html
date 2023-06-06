@@ -45,7 +45,7 @@
     <clr-dg-cell>{{user.firstName + ' ' + user.lastName}}</clr-dg-cell>
     <clr-dg-cell>{{user.email}}</clr-dg-cell>
     <clr-dg-cell>{{user.id}}</clr-dg-cell>
-    <clr-dg-cell><span class="dot" [class]="user.isActive.toString()"></span> &nbsp;{{user.isActive}</clr-dg-cell>
+    <clr-dg-cell><span class="dot" [class]="user.isActive.toString()"></span> &nbsp;{{user.isActive}}</clr-dg-cell>
     <clr-dg-cell *permission="[Permission.Users.Update]; operation: 'OR'">
       <a style="cursor: pointer" (click)="onEditClicked(user)" *permission="[Permission.Users.Update]">Edit</a>
       <span *permission="[Permission.Users.Update, Permission.Users.Delete]"> | </span>

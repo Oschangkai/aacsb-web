@@ -42,8 +42,8 @@ export class RolePageComponent implements OnInit, OnDestroy {
     // not processing this function
     if (!open || role === null || this.roleDetail[role.id]) { return; }
 
-    this.systemService.getRole(role.id).subscribe(response => {
-      this.roleDetail[role.id] = response.data as Role;
+    this.systemService.getRoleDetail(role.id).subscribe(response => {
+      this.roleDetail[role.id] = response;
     });
   }
   onAddClicked(): void {
@@ -55,8 +55,8 @@ export class RolePageComponent implements OnInit, OnDestroy {
     this.modalOpened.edit = true;
     this.selected = {...role};
 
-    this.systemService.getRole(role.id).subscribe(response => {
-      this.roleDetail[role.id] = response.data as Role;
+    this.systemService.getRoleDetail(role.id).subscribe(response => {
+      this.roleDetail[role.id] = response;
     });
   }
   onDeleteClicked(role: Roles | null): void {
@@ -68,21 +68,21 @@ export class RolePageComponent implements OnInit, OnDestroy {
   onAddSubmit(role: Role): void {
     this.systemService.addRole(role).subscribe(response => {
       this.modalOpened.add = false;
-      this.alert.success(response.message);
+      response && response.message && this.alert.success(response.message);
       this.load();
     });
   }
   onEditSubmit(role: Role): void {
     this.systemService.editRole(role).subscribe(response => {
       this.modalOpened.edit = false;
-      this.alert.success(response.message);
+      response && response.message && this.alert.success(response.message);
       this.load();
     });
   }
   onDeleteSubmit(id: string): void {
     this.systemService.deleteRole(id).subscribe(response => {
       this.modalOpened.delete = false;
-      this.alert.info(response.message);
+      response && response.message && this.alert.info(response.message);
       this.load();
     });
   }
@@ -90,7 +90,7 @@ export class RolePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.data.subscribe(
       ({ response }) => {
-        this.roles.data = [...response.data];
+        this.roles.data = [...response];
         this.roles.count = response.count;
       }
     );
@@ -98,8 +98,8 @@ export class RolePageComponent implements OnInit, OnDestroy {
 
   load(): void {
     this.systemService.getRoles().subscribe(response => {
-      this.roles.data = [...response.data];
-      this.roles.count = response.count;
+      this.roles.data = [...response];
+      this.roles.count = response.length;
       this.roleDetail = {};
     });
   }

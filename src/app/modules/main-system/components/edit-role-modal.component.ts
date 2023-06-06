@@ -26,7 +26,7 @@ export class EditRoleModalComponent implements OnInit, OnDestroy {
     });
   }
   private httpStateSubscription: Subscription;
-  private data$ = new BehaviorSubject<Role>({id: '', name: '', claims: []});
+  private data$ = new BehaviorSubject<Role>({id: '', name: '', description: '', claims: []});
 
   // states
   loadData = true;
@@ -52,6 +52,7 @@ export class EditRoleModalComponent implements OnInit, OnDestroy {
     const role: Role = {
       id: this.role.id,
       name: this.role.name,
+      description: this.role.description,
       claims: Object.keys(this.permissions).filter(key => this.permissions[key])
     };
     this.onSubmit.emit(role);

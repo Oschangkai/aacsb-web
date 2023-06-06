@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ClarityIcons, plusIcon } from '@cds/core/icon';
 
 import { MainSystemRoutingModule } from './main-system-routing.module';
 
@@ -20,6 +21,9 @@ import { DeleteUserModalComponent } from './components/delete-user-modal.compone
 import { SystemService } from './service/system.service';
 import { SharedModule } from '@shared/shared.module';
 import { CdsTagModule } from '@cds/angular';
+
+import '@cds/core/icon/register.js';
+ClarityIcons.addIcons(plusIcon);
 
 const Pages = [UserPageComponent, RolePageComponent, AuditLogPageComponent];
 const Modals = [

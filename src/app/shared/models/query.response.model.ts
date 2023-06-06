@@ -72,16 +72,19 @@ export interface Users {
   firstName: string;
   lastName: string;
   email: string;
-  enabled: boolean;
+  isActive: boolean;
 }
 
 export interface User extends Users {
   roles: string[];
+  username?: string;
+  password?: string;
 }
 
 export interface Roles {
   id: string;
   name: string;
+  description?: string;
 }
 
 export interface Role extends Roles {
