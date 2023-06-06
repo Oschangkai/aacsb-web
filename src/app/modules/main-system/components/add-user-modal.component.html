@@ -17,12 +17,17 @@
         <label>Email</label>
         <input clrInput type="text" name="Email" [(ngModel)]="user.email" />
       </clr-input-container>
+      <!-- Username -->
+      <clr-input-container>
+        <label>Username</label>
+        <input clrInput type="text" name="Username" [(ngModel)]="user.username" />
+      </clr-input-container>
       <!-- Enabled -->
       <clr-toggle-container>
         <label>Enabled</label>
         <clr-toggle-wrapper>
-          <input type="checkbox" clrToggle name="enabled" [(ngModel)]="user.enabled" />
-          <label>{{user.enabled}}</label>
+          <input type="checkbox" clrToggle name="enabled" [(ngModel)]="user.isActive" />
+          <label>{{user.isActive}}</label>
         </clr-toggle-wrapper>
       </clr-toggle-container>
       <!-- Roles -->

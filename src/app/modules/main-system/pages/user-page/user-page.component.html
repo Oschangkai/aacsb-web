@@ -8,7 +8,7 @@
         class="btn btn-sm btn-secondary btn-outline-primary"
         (click)="onAddClicked()"
       >
-        <clr-icon shape="plus"></clr-icon> Add
+        <cds-icon shape="plus"></cds-icon> Add
       </button>
     </div>
   </clr-dg-action-bar>
@@ -45,7 +45,7 @@
     <clr-dg-cell>{{user.firstName + ' ' + user.lastName}}</clr-dg-cell>
     <clr-dg-cell>{{user.email}}</clr-dg-cell>
     <clr-dg-cell>{{user.id}}</clr-dg-cell>
-    <clr-dg-cell><span class="dot" [class]="user.enabled.toString()"></span> &nbsp;{{user.enabled}}</clr-dg-cell>
+    <clr-dg-cell><span class="dot" [class]="user.isActive.toString()"></span> &nbsp;{{user.isActive}</clr-dg-cell>
     <clr-dg-cell *permission="[Permission.Users.Update]; operation: 'OR'">
       <a style="cursor: pointer" (click)="onEditClicked(user)" *permission="[Permission.Users.Update]">Edit</a>
       <span *permission="[Permission.Users.Update, Permission.Users.Delete]"> | </span>
@@ -81,7 +81,7 @@
             </tr>
             <tr>
               <th>Enabled</th>
-              <td><span class="dot" [class]="userDetail[detail.id].enabled.toString()"></span> &nbsp;{{userDetail[detail.id].enabled}}</td>
+              <td><span class="dot" [class]="userDetail[detail.id].isActive.toString()"></span> &nbsp;{{userDetail[detail.id].isActive}}</td>
             </tr>
             <tr>
               <th>Group</th>

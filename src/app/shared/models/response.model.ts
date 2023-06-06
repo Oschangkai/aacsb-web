@@ -1,20 +1,19 @@
-export type BaseResponse = {
+export type MessageResponse = {
   succeeded: boolean;
   message: string;
 };
-export type SimpleResponse<T> = {
-  errors?: string;
-  data: T;
-  count: number;
-} & BaseResponse;
 
 export type PaginationResponse<T> = {
-  pageNumber: number;
+  data: T[];
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
   pageSize: number;
-} & SimpleResponse<T>;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+};
 
 export type ResponseData<T> = {
   data: T[];
-  count: number;
   [x: string]: any;
 };

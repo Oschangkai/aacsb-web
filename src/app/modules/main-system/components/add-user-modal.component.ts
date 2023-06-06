@@ -35,7 +35,7 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
   @Output() onSubmit: EventEmitter<User> = new EventEmitter<User>();
 
   // data
-  user: User = {id: '', email: '', enabled: false, firstName: '', lastName: '', roles: []};
+  user: User = {id: '', email: '', isActive: false, firstName: '', lastName: '', roles: [], username: '', password: ''};
 
   roles: {[x: string]: boolean} = {};
   ObjectKeys = Object.keys;
@@ -46,7 +46,8 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       email: this.user.email,
-      enabled: this.user.enabled,
+      username: this.user.username,
+      isActive: this.user.isActive,
       roles: Object.keys(this.roles).filter(key => this.roles[key])
     };
     this.onSubmit.emit(user);
@@ -54,7 +55,7 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.systemService.getRoles().subscribe(response => {
-      const roleList = (response.data as Roles[]).map(r => r.name);
+      const roleList = response.map(r => r.name);
       // @ts-ignore
       this.roles = roleList.reduce((acc, curr) => (acc[curr] = false, acc), {});
     });

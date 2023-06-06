@@ -26,7 +26,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
     });
   }
   private httpStateSubscription: Subscription;
-  private data$ = new BehaviorSubject<User>({id: '', email: '', enabled: false, firstName: '', lastName: '', roles: []});
+  private data$ = new BehaviorSubject<User>({id: '', email: '', isActive: false, firstName: '', lastName: '', roles: []});
 
   // states
   loadData = true;
@@ -53,7 +53,8 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       email: this.user.email,
-      enabled: this.user.enabled,
+      username: this.user.username,
+      isActive: this.user.isActive,
       roles: Object.keys(this.roles).filter(key => this.roles[key])
     };
     this.onSubmit.emit(user);
@@ -65,7 +66,7 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
       .subscribe(data => {
         if (data) {
           this.systemService.getRoles().subscribe(response => {
-            const roleList = (response.data as Roles[]).map(r => r.name);
+            const roleList = response.map(r => r.name);
             // @ts-ignore
             this.roles = roleList.reduce((acc, curr) => (acc[curr] = false, acc), {});
             this.user.roles.forEach(r => this.roles[r] = true);

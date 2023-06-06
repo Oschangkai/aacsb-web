@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PaginationResponse, SimpleResponse } from '@model/response.model';
+import { PaginationResponse, ResponseData, MessageResponse } from '@model/response.model';
 import { AuditLog, Role, Roles, User, Users } from '@model/query.response.model';
 import { AuditLogQuery } from '@model/query.model';
 import { EnvironmentService } from '@service/environment.service';
@@ -11,60 +11,53 @@ export class SystemService {
 
   constructor(private http: HttpClient, private environment: EnvironmentService) { }
 
-  accountUrl = `${this.environment.api}/account`;
-  logUrl = `${this.environment.api}/System/AuditLog`;
+  userUrl = `${this.environment.api}/users`;
+  roleUrl = `${this.environment.api}/roles`;
+  logUrl = `${this.environment.api}/personal/logs`;
 
-  getUsers(): Observable<SimpleResponse<Users[]>> {
+  getUsers(): Observable<Users[]> {
     return this.http
-      .get<SimpleResponse<Users[]>>(`${this.accountUrl}/user`, {
-        params: new HttpParams()
-          .append('page', '1')
-          .append('pageSize', '1000')
-      });
+      .get<Users[]>(`${this.userUrl}`);
   }
-  getUser(id: string): Observable<SimpleResponse<User>> {
+  getUserDetail(id: string): Observable<User> {
     return this.http
-      .get<SimpleResponse<User>>(`${this.accountUrl}/user/${id}`);
+      .get<User>(`${this.userUrl}/${id}`);
   }
-  editUser(user: User): Observable<SimpleResponse<string>> {
+  editUser(user: User): Observable<MessageResponse> {
     return this.http
-      .patch<SimpleResponse<string>>(`${this.accountUrl}/user`, user);
+      .patch<MessageResponse>(`${this.userUrl}`, user);
   }
-  addUser(user: User): Observable<SimpleResponse<string>> {
+  addUser(user: User): Observable<MessageResponse> {
     return this.http
-      .post<SimpleResponse<string>>(`${this.accountUrl}/user`, user);
+      .post<MessageResponse>(`${this.userUrl}`, user);
   }
-  deleteUser(userId: string): Observable<SimpleResponse<string>> {
+  deleteUser(userId: string): Observable<MessageResponse> {
     return this.http
-      .delete<SimpleResponse<string>>(`${this.accountUrl}/user/${userId}`);
+      .delete<MessageResponse>(`${this.userUrl}/${userId}`);
   }
 
-  getRoles(): Observable<SimpleResponse<Roles[]>> {
+  getRoles(): Observable<Roles[]> {
     return this.http
-      .get<SimpleResponse<Roles[]>>(`${this.accountUrl}/role`, {
-        params: new HttpParams()
-          .append('page', '1')
-          .append('pageSize', '1000')
-      });
+      .get<Roles[]>(`${this.roleUrl}`);
   }
-  getRole(id: string): Observable<SimpleResponse<Role>> {
+  getRoleDetail(id: string): Observable<Role> {
     return this.http
-      .get<SimpleResponse<Role>>(`${this.accountUrl}/role/${id}`);
+      .get<Role>(`${this.roleUrl}/${id}`);
   }
-  editRole(role: Role): Observable<SimpleResponse<string>> {
+  editRole(role: Role): Observable<MessageResponse> {
     return this.http
-      .patch<SimpleResponse<string>>(`${this.accountUrl}/role`, role);
+      .patch<MessageResponse>(`${this.roleUrl}`, role);
   }
-  addRole(role: Role): Observable<SimpleResponse<string>> {
+  addRole(role: Role): Observable<MessageResponse> {
     return this.http
-      .post<SimpleResponse<string>>(`${this.accountUrl}/role`, role);
+      .post<MessageResponse>(`${this.roleUrl}`, role);
   }
-  deleteRole(roleId: string): Observable<SimpleResponse<string>> {
+  deleteRole(roleId: string): Observable<MessageResponse> {
     return this.http
-      .delete<SimpleResponse<string>>(`${this.accountUrl}/role/${roleId}`);
+      .delete<MessageResponse>(`${this.roleUrl}/${roleId}`);
   }
-  getAuditLog(query: Partial<AuditLogQuery>): Observable<PaginationResponse<AuditLog[]>> {
-    return this.http.get<PaginationResponse<AuditLog[]>>(`${this.logUrl}`, {
+  getAuditLog(query: Partial<AuditLogQuery>): Observable<PaginationResponse<AuditLog>> {
+    return this.http.get<PaginationResponse<AuditLog>>(`${this.logUrl}`, {
       params: new HttpParams({fromObject: query})
     });
   }

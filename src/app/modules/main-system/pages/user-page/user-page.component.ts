@@ -35,16 +35,16 @@ export class UserPageComponent implements OnInit, OnDestroy {
 
   // data
   users: ResponseData<Users> = { data: [], count: 0 };
-  selected: Users = {id: '', email: '', enabled: false, firstName: '', lastName: ''};
-  userDetail: {[x: string]: User} = { '': {id: '', email: '', enabled: false, firstName: '', lastName: '', roles: []} };
+  selected: Users = {id: '', email: '', isActive: false, firstName: '', lastName: ''};
+  userDetail: {[x: string]: User} = { '': {id: '', email: '', isActive: false, firstName: '', lastName: '', roles: []} };
 
   onDetailOpen(user: Users): void {
     // If first loaded, or loaded before
     // not processing this function
     if (user === null || this.userDetail[user.id]) { return; }
 
-    this.systemService.getUser(user.id).subscribe(response => {
-      this.userDetail[user.id] = response.data as User;
+    this.systemService.getUserDetail(user.id).subscribe(response => {
+      this.userDetail[user.id] = response;
     });
   }
   onAddClicked(): void {
@@ -56,8 +56,8 @@ export class UserPageComponent implements OnInit, OnDestroy {
     this.modalOpened.edit = true;
     this.selected = {...user};
 
-    this.systemService.getUser(user.id).subscribe(response => {
-      this.userDetail[user.id] = response.data;
+    this.systemService.getUserDetail(user.id).subscribe(response => {
+      this.userDetail[user.id] = response;
     });
   }
   onDeleteClicked(user: Users): void {
@@ -69,21 +69,21 @@ export class UserPageComponent implements OnInit, OnDestroy {
   onAddSubmit(user: User): void {
     this.systemService.addUser(user).subscribe(response => {
       this.modalOpened.add = false;
-      this.alert.success(response.message);
+      response && response.message && this.alert.success(response.message);
       this.load();
     });
   }
   onEditSubmit(user: User): void {
     this.systemService.editUser(user).subscribe(response => {
       this.modalOpened.edit = false;
-      this.alert.success(response.message);
+      response && response.message && this.alert.success(response.message);
       this.load();
     });
   }
   onDeleteSubmit(id: string): void {
     this.systemService.deleteUser(id).subscribe(response => {
       this.modalOpened.delete = false;
-      this.alert.info(response.message);
+      response && response.message && this.alert.info(response.message);
       this.load();
     });
   }
@@ -91,16 +91,16 @@ export class UserPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.data.subscribe(
       ({ response }) => {
-        this.users.data = [...response.data];
-        this.users.count = response.count;
+        this.users.data = [...response];
+        this.users.count = response.length;
       }
     );
   }
 
   load(): void {
     this.systemService.getUsers().subscribe(response => {
-      this.users.data = [...response.data];
-      this.users.count = response.count;
+      this.users.data = [...response];
+      this.users.count = response.length;
       this.userDetail = {};
     });
   }
