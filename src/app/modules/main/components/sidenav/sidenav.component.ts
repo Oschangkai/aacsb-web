@@ -45,10 +45,44 @@ export class SidenavComponent implements OnInit {
       ]
     },
     {
+      routerLink: 'data',
+      shape: 'data-cluster',
+      displayName: 'Data',
+      permission: [...Permission.Report.ALL],
+      child: [
+        {
+          routerLink: 'data/course',
+          shape: 'book',
+          displayName: 'Courses',
+          permission: [...Permission.Report.ALL],
+        },
+        {
+          routerLink: 'data/teacher',
+          shape: 'assign-user',
+          displayName: 'Teachers',
+          permission: [...Permission.Report.ALL],
+        },
+      ]
+    },
+    {
       routerLink: 'report',
-      shape: 'envelope',
+      shape: 'file-group',
       displayName: 'Reports',
-      permission: [...Permission.ALL]
+      permission: [...Permission.Report.ALL],
+      child: [
+        {
+          routerLink: 'report/aacsb-3-1',
+          shape: 'table',
+          displayName: 'AACSB 3.1',
+          permission: [...Permission.Report.ALL]
+        },
+        {
+          routerLink: 'report/aacsb-3-2',
+          shape: 'table',
+          displayName: 'AACSB 3.2',
+          permission: [...Permission.Report.ALL]
+        }
+      ]
     }
   ];
 
