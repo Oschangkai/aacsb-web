@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClarityIcons, loginIcon } from '@cds/core/icon';
 
 import { LoginComponent } from './pages/login-page/login.component';
-import { LoginRoutingModule } from '@module/login/login-routing.module';
+import { LoginRoutingModule } from './login-routing.module';
 import { SharedModule } from '@shared/shared.module';
 
 import '@cds/core/icon/register.js';

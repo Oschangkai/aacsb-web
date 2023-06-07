@@ -6,7 +6,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { Subscription } from 'rxjs';
 import { Role, Roles } from '@model/query.response.model';
 import { ResponseData } from '@model/response.model';
-import { SystemService } from '@module/main-system/service/system.service';
+import { SystemService } from '@here/services/system.service';
 import { AlertService } from '@service/alert.service';
 
 @Component({

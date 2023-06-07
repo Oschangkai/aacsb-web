@@ -6,8 +6,8 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { ClrLoadingState } from '@clr/angular';
 
-import { Roles, User } from '@model/query.response.model';
-import { SystemService } from '@module/main-system/service/system.service';
+import { User } from '@model/query.response.model';
+import { SystemService } from '@here/services/system.service';
 
 @Component({
   selector: 'app-user-edit-modal',

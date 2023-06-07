@@ -18,7 +18,7 @@ import { AddUserModalComponent } from './components/add-user-modal.component';
 import { EditUserModalComponent } from './components/edit-user-modal.component';
 import { DeleteUserModalComponent } from './components/delete-user-modal.component';
 
-import { SystemService } from './service/system.service';
+import { SystemService } from './services/system.service';
 import { SharedModule } from '@shared/shared.module';
 import { CdsTagModule } from '@cds/angular';
 

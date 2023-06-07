@@ -6,7 +6,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { Subscription } from 'rxjs';
 import { AuditLog } from '@model/query.response.model';
 import { PaginationResponse } from '@model/response.model';
-import { SystemService } from '@module/main-system/service/system.service';
+import { SystemService } from '@module/main-system/services/system.service';
 import { AlertService } from '@service/alert.service';
 import { AuditLogQuery } from '@model/query.model';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';

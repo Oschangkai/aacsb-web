@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Component
-import { UserPageComponent } from '@module/main-system/pages/user-page/user-page.component';
-import { RolePageComponent } from '@module/main-system/pages/role-page/role-page.component';
-import { AuditLogPageComponent } from '@module/main-system/pages/audit-log-page/audit-log-page.component';
+import { UserPageComponent } from './pages/user-page/user-page.component';
+import { RolePageComponent } from './pages/role-page/role-page.component';
+import { AuditLogPageComponent } from './pages/audit-log-page/audit-log-page.component';
 
 // Resolver
-import { auditLogResolver, roleResolver, userResolver } from '@service/main-system.resolver';
+import { auditLogResolver, roleResolver, userResolver } from './services/main-system.resolver';
 
 const routes: Routes = [
   {
