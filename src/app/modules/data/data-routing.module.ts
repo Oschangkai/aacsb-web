@@ -2,35 +2,35 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Component
-import { Aacsb31Component } from '@here/pages/aacsb31/aacsb31.component';
-import { Aacsb32Component } from '@here/pages/aacsb32/aacsb32.component';
+import { CourseComponent } from './pages/course/course.component';
+import { TeacherComponent } from './pages/teacher/teacher.component';
 
 // Resolver
-import {  } from './services/report.resolver';
+import {  } from './services/data.resolver';
 
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'aacsb-3-1',
+        path: 'course',
         resolve: {  },
-        component: Aacsb31Component,
+        component: CourseComponent,
         children: [
           {
             path: '',
-            component: Aacsb31Component
+            component: CourseComponent
           }
         ]
       },
       {
-        path: 'aacsb-3-2',
+        path: 'teacher',
         resolve: {  },
-        component: Aacsb32Component,
+        component: TeacherComponent,
         children: [
           {
             path: '',
-            component: Aacsb32Component
+            component: TeacherComponent
           }
         ]
       }
@@ -42,4 +42,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ReportRoutingModule {}
+export class DataRoutingModule {}
