@@ -12,7 +12,6 @@ import { InitializerService } from '@service/initializer.service';
 import { ErrorService } from '@service/error.service';
 import { EnvironmentService } from '@service/environment.service';
 import { EnvironmentServiceFactory } from '@service/environment.service.factory';
-import { AuthGuard } from '@core/guards/auth.guard';
 
 // set zh-hant
 registerLocaleData(localeZhHant);
@@ -20,7 +19,6 @@ registerLocaleData(localeZhHant);
 @NgModule({
   declarations: [],
   providers: [
-    AuthGuard,
     {
       provide: APP_INITIALIZER,
       useFactory: (init: InitializerService) => () => init.wakeUpSql(9870).toPromise(),

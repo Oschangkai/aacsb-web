@@ -6,13 +6,14 @@ import { MainComponent } from './main.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 
 // Resolver
-import { AuthGuard } from '@core/guards/auth.guard';
+import { authGuard, pageGuard } from '@core/guards/core.guard';
+import { Permission } from '@model/ApplicationPermission.model';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    canActivate: [AuthGuard],
+    canMatch: [authGuard],
     children: [
       {
         path: '',
@@ -20,16 +21,19 @@ const routes: Routes = [
       },
       {
         path: 'system',
+        canMatch: [pageGuard([...Permission.Users.ALL, ...Permission.Role.ALL])],
         loadChildren: () =>
           import('@module/main-system/main-system.module').then(m => m.MainSystemModule),
       },
       {
         path: 'report',
+        canMatch: [pageGuard([...Permission.Report.ALL])],
         loadChildren: () =>
           import('@module/report/report.module').then(m => m.ReportModule),
       },
       {
         path: 'data',
+        canMatch: [pageGuard([...Permission.Report.ALL])],
         loadChildren: () =>
           import('@module/data/data.module').then(m => m.DataModule),
       }
