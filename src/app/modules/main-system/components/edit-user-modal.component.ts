@@ -53,7 +53,6 @@ export class EditUserModalComponent implements OnInit, OnDestroy {
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       email: this.user.email,
-      username: this.user.username,
       isActive: this.user.isActive,
       roles: Object.keys(this.roles).filter(key => this.roles[key])
     };

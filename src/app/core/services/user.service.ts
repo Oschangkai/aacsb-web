@@ -71,7 +71,7 @@ export class UserService implements OnDestroy {
     if (!!user.token) {
       let userInfoFromToken = jwtDecode<ApplicationToken>(user.token);
       u.id = userInfoFromToken.sub!;
-      u.username = userInfoFromToken.fullName;
+      u.name = userInfoFromToken.fullName;
       u.tenant = userInfoFromToken.tenant;
       u.email = userInfoFromToken.email;
     }

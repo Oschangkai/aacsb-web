@@ -35,7 +35,7 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
   @Output() onSubmit: EventEmitter<User> = new EventEmitter<User>();
 
   // data
-  user: User = {id: '', email: '', isActive: false, firstName: '', lastName: '', roles: [], username: '', password: ''};
+  user: User = {id: '', email: '', isActive: false, firstName: '', lastName: '', roles: [], password: ''};
 
   roles: {[x: string]: boolean} = {};
   ObjectKeys = Object.keys;
@@ -46,7 +46,6 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       email: this.user.email,
-      username: this.user.username,
       isActive: this.user.isActive,
       roles: Object.keys(this.roles).filter(key => this.roles[key])
     };

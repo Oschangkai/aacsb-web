@@ -77,7 +77,6 @@ export interface Users {
 
 export interface User extends Users {
   roles: string[];
-  username?: string;
   password?: string;
 }
 
