@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # "ng g c" shortcut for this project
+# ex: ./generate.sh -m main-system -n users -t page
 
 # ==== read arguments from command line ====
 while getopts ":m:n:t:" opt; do

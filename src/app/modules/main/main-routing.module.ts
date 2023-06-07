@@ -22,6 +22,11 @@ const routes: Routes = [
         path: 'system',
         loadChildren: () =>
           import('@module/main-system/main-system.module').then(m => m.MainSystemModule),
+      },
+      {
+        path: 'report',
+        loadChildren: () =>
+          import('@module/report/report.module').then(m => m.ReportModule),
       }
     ],
   }
