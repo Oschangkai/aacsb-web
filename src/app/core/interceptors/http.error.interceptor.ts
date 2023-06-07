@@ -26,13 +26,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   }
   handle401Error = (error: any, req: HttpRequest<any>, next: HttpHandler): Observable<any> => {
     // If error code provided
-    if (error.error && error.error.errorId) {
-      switch (error.exception) {
+    if (!req.url.endsWith('/tokens') && error.error && error.error.messages) {
+      switch (error.error.exception) {
+        case 'Authentication Failed.':
         case 'Login Timeout, Please Login Again.':
           if (!this.user.isLoggedIn) {
             this.router.navigate(['/login'], {
               queryParams: {
-                message: 'Login Expired, Please Login Again.',
+                message: error.exception,
                 path: this.storage.getRoutingDestination() ?? '/'
               }
             });
@@ -47,7 +48,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
               return next.handle(request);
             })
           );
-        case 'Authentication Failed.':
         default:
           return this.handle400SeriesError(error);
       }
