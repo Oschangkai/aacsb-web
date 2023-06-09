@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DataRoutingModule } from './data-routing.module';
+import { ReportDataRoutingModule } from './report-data-routing.module';
 
 // Pages
 import { CourseComponent } from './pages/course/course.component';
 import { TeacherComponent } from './pages/teacher/teacher.component';
 
-import { DataService } from './services/data.service';
+import { ReportDataService } from './services/report-data.service';
 
 const Pages = [CourseComponent, TeacherComponent];
 const Modals = [];
@@ -16,8 +16,8 @@ const Modals = [];
   declarations: [...Pages],
   imports: [
     CommonModule,
-    DataRoutingModule
+    ReportDataRoutingModule
   ],
-  providers: [DataService]
+  providers: [ReportDataService]
 })
-export class DataModule { }
+export class ReportDataModule { }

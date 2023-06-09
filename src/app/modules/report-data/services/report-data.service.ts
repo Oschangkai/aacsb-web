@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { EnvironmentService } from '@service/environment.service';
 
 @Injectable()
-export class DataService {
+export class ReportDataService {
   constructor(private http: HttpClient, private environment: EnvironmentService) { }
 
-  reportUrl = `${this.environment.api}/data`;
+  reportUrl = `${this.environment.api}/reportData`;
 }

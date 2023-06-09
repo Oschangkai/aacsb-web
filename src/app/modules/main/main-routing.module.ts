@@ -32,10 +32,10 @@ const routes: Routes = [
           import('@module/report/report.module').then(m => m.ReportModule),
       },
       {
-        path: 'data',
-        canMatch: [pageGuard([...Permission.Report.ALL])],
+        path: 'report-data',
+        canMatch: [pageGuard([...Permission.ReportData.ALL])],
         loadChildren: () =>
-          import('@module/data/data.module').then(m => m.DataModule),
+          import('@module/report-data/report-data.module').then(m => m.ReportDataModule),
       }
     ],
   }

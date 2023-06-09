@@ -6,7 +6,7 @@ import { CourseComponent } from './pages/course/course.component';
 import { TeacherComponent } from './pages/teacher/teacher.component';
 
 // Resolver
-import {  } from './services/data.resolver';
+import {  } from './services/report-data.resolver';
 
 const routes: Routes = [
   {
@@ -42,4 +42,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DataRoutingModule {}
+export class ReportDataRoutingModule {}

@@ -21,7 +21,7 @@ export class AACSBResource {
     public static RoleClaims: string = "RoleClaims";
     public static Products: string = "Products";
     public static Brands: string = "Brands";
-    public static Courses: string = "Courses";
+    public static ReportData: string = "ReportData";
     public static Report: string = "Report";
 }
 export abstract class Permission {
@@ -128,11 +128,11 @@ export abstract class Permission {
     Clean: Permission.nameFor(AACSBResource.Brands, AACSBAction.Clean)
   }
   // Report Generator
-  public static Courses = {
+  public static ReportData = {
     ALL: [
-      Permission.nameFor(AACSBResource.Courses, AACSBAction.Import)
+      Permission.nameFor(AACSBResource.ReportData, AACSBAction.Import)
     ],
-    Import: Permission.nameFor(AACSBResource.Courses, AACSBAction.Import)
+    Import: Permission.nameFor(AACSBResource.ReportData, AACSBAction.Import)
   }
   public static Report = {
     ALL: [
@@ -152,6 +152,6 @@ export const PermissionList = [
   ...Permission.Tenants.ALL,
   ...Permission.Products.ALL,
   ...Permission.Brands.ALL,
-  ...Permission.Courses.ALL,
+  ...Permission.ReportData.ALL,
   ...Permission.Report.ALL
 ];
