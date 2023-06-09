@@ -44,7 +44,9 @@ export class AuditLogPageComponent implements OnInit, OnDestroy {
     Operator: new UntypedFormControl()
   });
   filter: Partial<AuditLogQuery> = { ...this.filterForm.value, PageNumber: 1, PageSize: 10 };
-  logs: PaginationResponse<AuditLog[]> = { data: [], count: 0, pageNumber: 1, pageSize: 10, succeeded: false, message: '' };
+  logs: PaginationResponse<AuditLog> = {
+    data: [], totalCount: 0, currentPage: 1, pageSize: 10, totalPages: 0, hasPreviousPage: false, hasNextPage: false
+  };
 
   ngOnInit(): void {
     this.route.data.subscribe(

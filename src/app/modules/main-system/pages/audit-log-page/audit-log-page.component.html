@@ -74,7 +74,7 @@
 
   <!-- Footer -->
   <clr-dg-footer>
-    <clr-dg-pagination #pagination [clrDgTotalItems]="logs.count">
+    <clr-dg-pagination #pagination [clrDgTotalItems]="logs.totalCount">
       {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} Logs
     </clr-dg-pagination>
   </clr-dg-footer>
