@@ -71,3 +71,13 @@ app-root:empty::after {
 .warning {
   color: hsl(9, 100%, 43%)!important;
 }
+
+#report-aacsb-3-1 {
+  td, th {
+    border-right-style: solid;
+    border-right-width: var(--clr-table-borderwidth, 0.05rem);
+    border-right-color: #ccc;
+    border-left: 0 none;
+    vertical-align: middle;
+  }
+}

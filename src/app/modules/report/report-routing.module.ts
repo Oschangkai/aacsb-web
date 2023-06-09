@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Component
-import { Aacsb31Component } from '@here/pages/aacsb31/aacsb31.component';
+import Aacsb31Component from '@here/pages/aacsb31/aacsb31.component';
 import { Aacsb32Component } from '@here/pages/aacsb32/aacsb32.component';
 
 // Resolver
-import {  } from './services/report.resolver';
+import { aacsb31TableResolver, getAcademicYearResolver, getDisciplineResolver } from './services/report.resolver';
 
 const routes: Routes = [
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: 'aacsb-3-1',
-        resolve: {  },
+        resolve: { aacsb31Table: aacsb31TableResolver, disciplineList: getDisciplineResolver, academicYearList: getAcademicYearResolver },
         component: Aacsb31Component,
         children: [
           {

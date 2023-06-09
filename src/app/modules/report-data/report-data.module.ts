@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReportDataRoutingModule } from './report-data-routing.module';
+import { SharedModule } from '@shared/shared.module';
 
 // Pages
 import { CourseComponent } from './pages/course/course.component';
@@ -16,7 +17,8 @@ const Modals = [];
   declarations: [...Pages],
   imports: [
     CommonModule,
-    ReportDataRoutingModule
+    ReportDataRoutingModule,
+    SharedModule,
   ],
   providers: [ReportDataService]
 })

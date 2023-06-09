@@ -1,45 +1,24 @@
-export interface WebAppInstanceStatus {
-  cpu: { id: string, records: WebAppInstanceCpuRecord[] };
-  memory: { id: string, records: WebAppInstanceMemoryRecord[] };
-  location: string;
-  queryDateTimeRange: { startTime: string, endTime: string };
+export interface AacsbTable31 {
+  disciplineTotal: number;
+  creditTotal: number;
+  teacherId: string;
+  teacher: string;
+  teacherEnglishName: string;
+  teacherDepartment: string;
+  degree: string;
+  degreeYear: number;
+  responsibilities: string;
+  qualification: string;
+  workType: 'P' | 'S' | null;
+  discipline: number;
 }
-export interface WebAppInstanceCpuRecord {
-  timestamp: string;
-  machineName: string;
-  overallCPUPercent: number;
-}
-export interface WebAppInstanceMemoryRecord {
-  timestamp: string;
-  machineName: string;
-  percentPhysicalMemoryUsed: number;
-  privateBytes: number;
-}
-export interface WebAppInstance {
-  id: string;
+
+export interface Discipline {
+  code: number;
   name: string;
-  location: string;
-  state: string;
-  machineName: string;
-}
-export interface WebApps {
   id: string;
-  regionName: string;
-  resourceGroupName: string;
-  serverFarmId: string;
 }
-export interface VM {
-  subscriptionId: string;
-  computerName: string;
-  resourceGroup: string;
-  region: string;
-  id: string;
-  vmId: string;
-  powerState: string;
-  size: string;
-  osType: string;
-  ipAddress: string;
-}
+
 export interface AuditLog {
   operator: string;
   resource: string;
@@ -47,18 +26,6 @@ export interface AuditLog {
   command: string;
   response: number;
   created: string;
-}
-export interface AzureStatusMessage {
-  code: string;
-  message: string;
-}
-
-export interface FailureMailEvents {
-  reason: string;
-  created: number;
-  category: string;
-  email: string;
-  status: string;
 }
 
 export interface AuthenticateInformation {

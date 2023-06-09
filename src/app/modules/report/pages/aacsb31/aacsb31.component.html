@@ -1,1 +1,146 @@
-<h1>Table 3-1: Faculty Sufficiency and Qualifications Summary</h1>
+<h1>AACSB Table 3-1</h1>
+<br/>
+<!-- Academic Year -->
+<clr-dropdown>
+  <button class="btn btn-outline-primary"  [disabled]="loadData" clrDropdownTrigger>
+    Academic Year
+    <cds-icon shape="angle" direction="down"></cds-icon>
+  </button>
+  <clr-dropdown-menu clrPosition="bottom-center" *clrIfOpen>
+      <label class="dropdown-header" aria-hidden="true">Year</label>
+      <ng-container *ngFor="let year of academicYearList">
+        <div [attr.aria-label]="year" clrDropdownItem (click)="academicYear = year; load();">{{year}}</div>
+      </ng-container>
+  </clr-dropdown-menu>
+</clr-dropdown>
+
+<!-- Hide or show teachers -->
+<clr-toggle-container>
+  <clr-toggle-wrapper>
+    <input type="checkbox" [disabled]="loadData" clrToggle [(ngModel)]="showTeachers" />
+    <label>Show Teachers</label>
+  </clr-toggle-wrapper>
+</clr-toggle-container>
+
+<!-- Empty Table -->
+<div style="margin-top: 2rem; display: flex; justify-content: center;" *ngIf="loadData || !aacsbTable31.length; else reportA31">
+  <clr-spinner [clrMedium]="true" *ngIf="loadData"></clr-spinner>
+  <p style="text-align: center" *ngIf="!aacsbTable31.length && !loadData">No Data</p>
+</div>
+
+<!-- AACSB Table 3-1 -->
+<ng-template #reportA31>
+<table id="report-aacsb-3-1" class="table table-compact">
+<!-- Head -->
+<thead style="border: 1px solid;">
+  <tr>
+    <th class="border-0" colspan="14" style="background: none; color: #000;">
+      University of Pirsig-School of Business Table 3-1: Faculty Sufficiency and Qualifications Summary for September {{academicYear + 1912}} – February {{academicYear + 1913}} (Re: Standard 3)
+    </th>
+  </tr>
+  <tr>
+    <th colspan="3">Faculty Portfolio by Discipline</th>
+    <th colspan="2">Faculty Sufficiency Related to Teaching (SCH, ECTS, contact hours)</th>
+    <th rowspan="2">Normal Professional Responsibilities</th>
+    <th colspan="5">Faculty Qualifications With Respect to Percent of Time Devoted to Mission</th>
+    <th rowspan="2">Brief Description of Basis for Qualification (Enter brief quantitative and/or qualitative information corresponding to the school criteria for each category.)</th>
+  </tr>
+  <tr>
+    <th>Faculty Member Name (Please organize and list individually in sections reflecting each discipline.)</th>
+    <th>Specialty Field</th>
+    <th>Highest Degree, Year Earned</th>
+    <th>Participating Faculty Teaching Productivity (P)</th>
+    <th>Supporting Faculty Teaching Productivity (S)</th>
+    <th>Scholarly Academic (SA)</th>
+    <th>Practice Academic (PA)</th>
+    <th>Scholarly Practitioner (SP)</th>
+    <th>Instructional Practitioner (IP)</th>
+    <th>Additional Faculty (A)</th>
+  </tr>
+</thead>
+
+<!-- forEach api/getDiscipline name & id 0-6  -->
+<ng-container *ngFor="let discipline of disciplines">
+  <!-- 灰底 discipline 開頭  -->
+  <tr style="background-color: hsl(198, 0%, 87%);">
+    <td colspan="2">{{ discipline.name }}</td>
+    <td colspan="4" class="left">Degrees or majors are offered in this discipline {{ getTeachers(discipline.code).length > 0 ? '☒' : '☐' }}</td>
+    <td colspan="7" class="left">Degrees or majors are not offered in this discipline {{ getTeachers(discipline.code).length <= 0 ? '☒' : '☐' }} </td>
+  </tr>
+
+  <!-- discipline 老師  -->
+  <ng-container *ngIf="showTeachers">
+    <tr *ngFor="let teacher of getTeachers(discipline.code)">
+      <td>{{ teacher.teacher }} {{ teacher.teacherEnglishName ? '(' + teacher.teacherEnglishName + ')' : '' }}</td>
+      <td>{{ teacher.teacherDepartment }}</td>
+      <td>{{ teacher.degree }}{{ teacher.degreeYear ? ', ' + teacher.degreeYear : '' }}</td>
+      <td>{{ teacher.workType == 'P' ? teacher.disciplineTotal : '' }}</td>
+      <td>{{ teacher.workType == 'S' ? teacher.disciplineTotal : '' }}</td>
+      <td>{{ teacher.responsibilities }}</td>
+      <td>{{ teacher.qualification == 'SA' ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
+      <td>{{ teacher.qualification == 'PA' ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
+      <td>{{ teacher.qualification == 'SP' ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
+      <td>{{ teacher.qualification == 'IP' ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
+      <td>{{ teacher.qualification == null ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
+      <td></td>
+  </tr>
+  </ng-container>
+
+  <!-- discipline 小結 -1 -->
+  <!-- Discipline Total -->
+  <tr style="background-color: hsl(198, 0%, 98%); font-weight: 600;">
+    <td colspan="3">Discipline Total</td>
+    <td>{{ this.getDisciplineTotal(discipline.code).fullTime | number: '1.0-2' }}</td>
+    <td>{{ this.getDisciplineTotal(discipline.code).partTime | number: '1.0-2' }}</td>
+    <td rowspan="2"></td>
+    <td>{{ this.getDisciplineTotal(discipline.code).SA | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pSA | percent: '1.0-2' }})</td>
+    <td>{{ this.getDisciplineTotal(discipline.code).PA | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pPA| percent: '1.0-2' }})</td>
+    <td>{{ this.getDisciplineTotal(discipline.code).SP | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pSP | percent: '1.0-2' }})</td>
+    <td>{{ this.getDisciplineTotal(discipline.code).IP | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pIP | percent: '1.0-2' }})</td>
+    <td>{{ this.getDisciplineTotal(discipline.code).A | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pA | percent: '1.0-2' }})</td>
+    <td></td>
+  </tr>
+  <!-- discipline 小結 -2 -->
+  <!-- Discipline Ratio -->
+  <tr style="background-color: hsl(198, 0%, 98%);">
+    <td colspan="3" style="font-weight: 600;">Discipline Ratio</td>
+    <td colspan="2">
+      >= 60% requirement for P <b>{{ this.getDisciplineTotal(discipline.code).contactHourRatio >= 0.6 ? 'met' : 'not met' }} 
+        ({{ this.getDisciplineTotal(discipline.code).contactHourRatio | percent: '1.0-2' }})</b> 
+    </td>
+    <td colspan="6">
+      Minimum SA >= 40% <b>{{ this.getDisciplineTotal(discipline.code).pSA >= 0.4 ? 'met' : 'not met' }} 
+      ({{ this.getDisciplineTotal(discipline.code).pSA | percent:'1.0-2' }})</b>
+      /
+      Minimum SA+PA+SP+IP >= 90% <b>{{ this.getDisciplineTotal(discipline.code).pDevoted >= 0.9 ? 'met' : 'not met' }}  
+      ({{ this.getDisciplineTotal(discipline.code).pDevoted | percent:'1.0-2' }})</b>
+    </td>
+  </tr>
+</ng-container>
+<!-- END forEach api/getDiscipline name & id 0-6  -->
+
+<!-- Footer -->
+<tr style="background-color: hsl(198, 0%, 98%); font-weight: 600;">
+  <td colspan="3" style="font-weight: 600;">Grand Total</td>
+  <td>{{ tableSummary.grandTotal.fullTime }}</td>
+  <td>{{ tableSummary.grandTotal.partTime }}</td>
+  <td rowspan="2"></td>
+  <td>{{ tableSummary.grandTotal.SA | number: '1.0-2' }} ({{ tableSummary.grandTotal.pSA | percent: '1.0-2' }})</td>
+  <td>{{ tableSummary.grandTotal.PA | number: '1.0-2' }} ({{ tableSummary.grandTotal.pPA | percent: '1.0-2' }})</td>
+  <td>{{ tableSummary.grandTotal.SP | number: '1.0-2' }} ({{ tableSummary.grandTotal.pSP | percent: '1.0-2' }})</td>
+  <td>{{ tableSummary.grandTotal.IP | number: '1.0-2' }} ({{ tableSummary.grandTotal.pIP | percent: '1.0-2' }})</td>
+  <td>{{ tableSummary.grandTotal.A | number: '1.0-2' }} ({{ tableSummary.grandTotal.pA | percent: '1.0-2' }})</td>
+  <td></td>
+</tr>
+<tr style="background-color: hsl(198, 0%, 98%);">
+  <td colspan="3" style="font-weight: 600;">Overall Ratio</td>
+  <td colspan="2">
+      >= 75% requirement for P <b>{{ tableSummary.grandTotal.contactHourRatio >= 0.75 ? 'met' : 'not met' }}
+      ({{ tableSummary.grandTotal.contactHourRatio | percent: '1.0-2' }})</b>
+  </td>
+  <td colspan="6" style="font-weight: 600;">
+      Minimum SA >= 40% met ({{ tableSummary.grandTotal.pSA | percent: '1.0-2' }}) / Minimum SA+PA+SP+IP >= 90% met ({{ tableSummary.grandTotal.pDevoted | percent: '1.0-2' }})
+  </td>
+</tr>
+</table>
+</ng-template>

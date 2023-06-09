@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Aacsb31Component } from './aacsb31.component';
+import Aacsb31Component from './aacsb31.component';
 
 describe('Aacsb31Component', () => {
   let component: Aacsb31Component;
