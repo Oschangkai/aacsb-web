@@ -1,1 +1,54 @@
-<h1>Table 3-2: Deployment of Faculty by Qualification Status in Support of Degree Programs</h1>
+<h1>AACSB Table 3-2</h1>
+<br/>
+<!-- Academic Year -->
+<clr-dropdown>
+  <button class="btn btn-outline-primary"  [disabled]="loadData" clrDropdownTrigger>
+    Academic Year
+    <cds-icon shape="angle" direction="down"></cds-icon>
+  </button>
+  <clr-dropdown-menu clrPosition="bottom-center" *clrIfOpen>
+      <label class="dropdown-header" aria-hidden="true">Year</label>
+      <ng-container *ngFor="let year of academicYearList">
+        <div [attr.aria-label]="year" clrDropdownItem (click)="academicYear = year; load();">{{year}}</div>
+      </ng-container>
+  </clr-dropdown-menu>
+</clr-dropdown>
+
+
+<!-- Empty Table -->
+<div style="margin-top: 2rem; display: flex; justify-content: center;" *ngIf="loadData || !tableData.length; else reportA32">
+  <clr-spinner [clrMedium]="true" *ngIf="loadData"></clr-spinner>
+  <p style="text-align: center" *ngIf="!tableData.length && !loadData">No Data</p>
+</div>
+
+<ng-template #reportA32>
+  <table id="report-aacsb-3-2" class="table">
+    <thead>
+      <tr>
+        <th rowspan="2" style="background: none; color: #000;"></th>
+        <th colspan="7" style="background: none; color: #000;">Faculty percentage of teaching by program and degree level (using Student Credit Hours)</th>
+      </tr>
+      <tr>
+        <th>Scholarly Academic (SA) %</th>
+        <th>Practice Academic (PA) %</th>
+        <th>Scholarly Practitioner (SP) %</th>
+        <th>Instructional Practitioner (IP) %</th>
+        <th>Additional (A) %</th>
+        <th>NULL % (For debug only)</th>
+        <th>Total %</th>
+      </tr>
+    </thead>
+    <ng-container *ngFor="let data of tableData">
+      <tr>
+        <td>{{ data.title }}</td>
+        <td>{{ getQualifcation(data.table, 'SA') | percent: '1.0-2' }}</td>
+        <td>{{ getQualifcation(data.table, 'PA') | percent: '1.0-2' }}</td>
+        <td>{{ getQualifcation(data.table, 'SP') | percent: '1.0-2' }}</td>
+        <td>{{ getQualifcation(data.table, 'IP') | percent: '1.0-2' }}</td>
+        <td>{{ getQualifcation(data.table, 'A') | percent: '1.0-2' }}</td>
+        <td>{{ getQualifcation(data.table, null) | percent: '1.0-2' }}</td>
+        <td>{{ getQualifcationTotal(data.table) | percent: '1.0-2' }}</td>
+      </tr>
+    </ng-container>
+  </table>
+</ng-template>

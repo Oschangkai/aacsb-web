@@ -33,7 +33,6 @@ export default class Aacsb31Component {
   academicYear = 111;
   academicYearList: number[] = [];
   showTeachers = false;
-  selectYearOpen = false;
   // data
   aacsbTable31: AacsbTable31[] = [];
   tableSummary: {disciplineTotal: disciplineTotal[], grandTotal: grandTotal} = {
@@ -135,7 +134,7 @@ export default class Aacsb31Component {
       ({ aacsb31Table, disciplineList, academicYearList }) => {
         this.aacsbTable31 = [...aacsb31Table];
         this.disciplines = [...disciplineList];
-        this.academicYearList = academicYearList;
+        this.academicYearList = [...academicYearList];
         this.disciplines.unshift({code: 0, name: 'Not Categorized', id: ''});
         this.caculateTableSummary();
       }

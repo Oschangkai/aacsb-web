@@ -1,3 +1,8 @@
+export interface AacsbTable32 {
+  qualification: null | 'SA' | 'SP' | 'IP' | 'PA' | 'A';
+  percentage: number;
+}
+
 export interface AacsbTable31 {
   disciplineTotal: number;
   creditTotal: number;

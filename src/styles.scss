@@ -72,7 +72,7 @@ app-root:empty::after {
   color: hsl(9, 100%, 43%)!important;
 }
 
-#report-aacsb-3-1 {
+#report-aacsb-3-1, #report-aacsb-3-2 {
   td, th {
     border-right-style: solid;
     border-right-width: var(--clr-table-borderwidth, 0.05rem);
