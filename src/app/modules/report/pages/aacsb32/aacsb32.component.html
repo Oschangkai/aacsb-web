@@ -1,18 +1,13 @@
 <h1>AACSB Table 3-2</h1>
-<br/>
 <!-- Academic Year -->
-<clr-dropdown>
-  <button class="btn btn-outline-primary"  [disabled]="loadData" clrDropdownTrigger>
-    Academic Year
-    <cds-icon shape="angle" direction="down"></cds-icon>
-  </button>
-  <clr-dropdown-menu clrPosition="bottom-center" *clrIfOpen>
-      <label class="dropdown-header" aria-hidden="true">Year</label>
-      <ng-container *ngFor="let year of academicYearList">
-        <div [attr.aria-label]="year" clrDropdownItem (click)="academicYear = year; load();">{{year}}</div>
-      </ng-container>
-  </clr-dropdown-menu>
-</clr-dropdown>
+<clr-select-container>
+  <label>Academic Year</label>
+  <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData">
+    <ng-container *ngFor="let year of academicYearList">
+      <option [attr.aria-label]="year" [value]="year" (click)="load();">{{year}}</option>
+    </ng-container>
+  </select>
+</clr-select-container>
 
 
 <!-- Empty Table -->
