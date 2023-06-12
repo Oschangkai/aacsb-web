@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpTokenInterceptor } from './interceptors/http.token.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http.error.interceptor';
 import { HttpCacheInterceptor } from './interceptors/http.cache.interceptor';
+import { HttpToastInterceptor } from './interceptors/http.toast.interceptor';
 import { InitializerService } from '@service/initializer.service';
 import { ErrorService } from '@service/error.service';
 import { EnvironmentService } from '@service/environment.service';
@@ -35,6 +36,7 @@ registerLocaleData(localeZhHant);
     { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpCacheInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpToastInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'zh-Hant' },
     { provide: EnvironmentService, useFactory: EnvironmentServiceFactory }
   ],

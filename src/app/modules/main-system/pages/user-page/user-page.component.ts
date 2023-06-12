@@ -69,21 +69,18 @@ export class UserPageComponent implements OnInit, OnDestroy {
   onAddSubmit(user: User): void {
     this.systemService.addUser(user).subscribe(response => {
       this.modalOpened.add = false;
-      response && response.message && this.alert.success(response.message);
       this.load();
     });
   }
   onEditSubmit(user: User): void {
     this.systemService.editUser(user).subscribe(response => {
       this.modalOpened.edit = false;
-      response && response.message && this.alert.success(response.message);
       this.load();
     });
   }
   onDeleteSubmit(id: string): void {
     this.systemService.deleteUser(id).subscribe(response => {
       this.modalOpened.delete = false;
-      response && response.message && this.alert.info(response.message);
       this.load();
     });
   }

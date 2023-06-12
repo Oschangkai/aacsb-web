@@ -68,21 +68,18 @@ export class RolePageComponent implements OnInit, OnDestroy {
   onAddSubmit(role: Role): void {
     this.systemService.addRole(role).subscribe(response => {
       this.modalOpened.add = false;
-      response && response.message && this.alert.success(response.message);
       this.load();
     });
   }
   onEditSubmit(role: Role): void {
     this.systemService.editRole(role).subscribe(response => {
       this.modalOpened.edit = false;
-      response && response.message && this.alert.success(response.message);
       this.load();
     });
   }
   onDeleteSubmit(id: string): void {
     this.systemService.deleteRole(id).subscribe(response => {
       this.modalOpened.delete = false;
-      response && response.message && this.alert.info(response.message);
       this.load();
     });
   }
