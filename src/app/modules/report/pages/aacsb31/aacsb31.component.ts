@@ -30,7 +30,7 @@ export default class Aacsb31Component {
   // states
   Permission = Permission;
   loadData = true;
-  academicYear = 111;
+  academicYear = (new Date()).getFullYear() - 1912;
   academicYearList: number[] = [];
   showTeachers = false;
   // data
@@ -135,6 +135,7 @@ export default class Aacsb31Component {
         this.aacsbTable31 = [...aacsb31Table];
         this.disciplines = [...disciplineList];
         this.academicYearList = [...academicYearList];
+        this.academicYear = this.academicYearList.sort((a, b) => b - a)[0];
         this.disciplines.unshift({code: 0, name: 'Not Categorized', id: ''});
         this.caculateTableSummary();
       }

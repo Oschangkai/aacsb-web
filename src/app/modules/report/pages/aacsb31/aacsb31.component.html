@@ -119,8 +119,8 @@
 <!-- Footer -->
 <tr style="background-color: hsl(198, 0%, 98%); font-weight: 600;">
   <td colspan="3" style="font-weight: 600;">Grand Total</td>
-  <td>{{ tableSummary.grandTotal.fullTime }}</td>
-  <td>{{ tableSummary.grandTotal.partTime }}</td>
+  <td>{{ tableSummary.grandTotal.fullTime | number: '1.0-2' }}</td>
+  <td>{{ tableSummary.grandTotal.partTime | number: '1.0-2' }}</td>
   <td rowspan="2"></td>
   <td>{{ tableSummary.grandTotal.SA | number: '1.0-2' }} ({{ tableSummary.grandTotal.pSA | percent: '1.0-2' }})</td>
   <td>{{ tableSummary.grandTotal.PA | number: '1.0-2' }} ({{ tableSummary.grandTotal.pPA | percent: '1.0-2' }})</td>

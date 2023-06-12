@@ -39,6 +39,7 @@ export class Aacsb32Component {
           { table: mbaTable, title: 'MBA' }
         ];
         this.academicYearList = [...academicYearList];
+        this.academicYear = this.academicYearList.sort((a, b) => b - a)[0];
         this.departmentList = [...departmentList];
         this.loadData = false;
       }
@@ -70,7 +71,7 @@ export class Aacsb32Component {
   // states
   Permission = Permission;
   loadData = true;
-  academicYear = 111;
+  academicYear = (new Date()).getFullYear() - 1912;
   academicYearList: number[] = [];
   department?: string = undefined;
   departmentList: Department[] = [];
