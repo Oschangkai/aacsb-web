@@ -5,7 +5,7 @@ import {
   HttpHandler, HttpEvent, HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 
 import { AlertService } from '@service/alert.service';
 import { UserService } from '@service/user.service';
@@ -24,7 +24,21 @@ export class HttpErrorInterceptor implements HttpInterceptor {
   handle400Error = (error: any): Observable<any> => {
     return this.handle400SeriesError(error);
   }
+
+  handle500Error = (error: any): Observable<any> => {
+    return this.handle400SeriesError(error);
+  }
   handle401Error = (error: any, req: HttpRequest<any>, next: HttpHandler): Observable<any> => {
+
+    if(req.url.endsWith('/tokens') && error.error && error.error.messages) {
+      this.router.navigate(['/login'], {
+        queryParams: {
+          message: error.error.messages[0],
+          path: this.storage.getRoutingDestination() ?? '/'
+        }
+      });
+    }
+
     // If error code provided
     if (!req.url.endsWith('/tokens') && error.error && error.error.messages) {
       switch (error.error.exception) {
@@ -56,15 +70,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return this.handle400SeriesError(error);
   }
   handle400SeriesError = (error: any): Observable<any> => {
-    // If url provided
-    if (error.url) {
-      this.router.navigate(['/login'], {
-        queryParams: {
-          message: error.error.messages[0],
-          path: this.storage.getRoutingDestination() ?? '/'
-        }
-      });
-    }
     // If message provided
     let errorMessage = "";
     // TODO: error.errors
@@ -101,6 +106,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
       case 401:
         return this.handle401Error(error, req, next);
       case 500:
+        return this.handle500Error(error);
       case 0:
       default:
         if (error.error && error.error.Message) {
