@@ -18,6 +18,13 @@ export interface AacsbTable31 {
   discipline: number;
 }
 
+export interface Department {
+  id: string;
+  name: string;
+  englishName: string;
+  abbreviation: string;
+}
+
 export interface Discipline {
   code: number;
   name: string;

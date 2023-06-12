@@ -6,7 +6,7 @@ import Aacsb31Component from '@here/pages/aacsb31/aacsb31.component';
 import { Aacsb32Component } from '@here/pages/aacsb32/aacsb32.component';
 
 // Resolver
-import { aacsb31TableResolver, getAacsb32TableResolver, getAcademicYearResolver, getDisciplineResolver } from './services/report.resolver';
+import { aacsb31TableResolver, getAacsb32TableResolver, getAcademicYearResolver, getDepartmentResolver, getDisciplineResolver } from './services/report.resolver';
 
 const routes: Routes = [
   {
@@ -29,7 +29,8 @@ const routes: Routes = [
           bachelorTable: getAacsb32TableResolver('bachelor'), 
           masterTable: getAacsb32TableResolver('master'), 
           mbaTable: getAacsb32TableResolver('mba'),
-          academicYearList: getAcademicYearResolver
+          academicYearList: getAcademicYearResolver,
+          departmentList: getDepartmentResolver,
         },
         component: Aacsb32Component,
         children: [

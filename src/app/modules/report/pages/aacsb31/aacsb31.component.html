@@ -1,13 +1,15 @@
 <h1>AACSB Table 3-1</h1>
-<!-- Academic Year -->
-<clr-select-container>
-  <label>Academic Year</label>
-  <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData">
-    <ng-container *ngFor="let year of academicYearList">
-      <option [attr.aria-label]="year" [value]="year" (click)="load();">{{year}}</option>
-    </ng-container>
-  </select>
-</clr-select-container>
+<form clrForm>
+  <!-- Academic Year -->
+  <clr-select-container>
+    <label>Academic Year</label>
+    <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData">
+      <ng-container *ngFor="let year of academicYearList">
+        <option [attr.aria-label]="year" [value]="year" (click)="load();">{{year}}</option>
+      </ng-container>
+    </select>
+  </clr-select-container>
+</form>
 
 <!-- Hide or show teachers -->
 <clr-toggle-container>

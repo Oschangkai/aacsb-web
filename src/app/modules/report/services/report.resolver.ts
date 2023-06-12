@@ -3,7 +3,7 @@ import { inject } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { ReportService } from "./report.service";
-import { AacsbTable31, AacsbTable32, Discipline } from "@model/query.response.model";
+import { AacsbTable31, AacsbTable32, Department, Discipline } from "@model/query.response.model";
 
 export const aacsb31TableResolver: ResolveFn<Observable<AacsbTable31[]>> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -13,6 +13,11 @@ export const aacsb31TableResolver: ResolveFn<Observable<AacsbTable31[]>> =
 export const getDisciplineResolver: ResolveFn<Observable<Discipline[]>> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
       return inject(ReportService).getDisciplines();
+    };
+
+export const getDepartmentResolver: ResolveFn<Observable<Department[]>> =
+    (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+      return inject(ReportService).getDepartments();
     };
 
 export const getAcademicYearResolver: ResolveFn<Observable<number[]>> =
