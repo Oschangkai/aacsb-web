@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { MessageResponse as IMessageResponse  } from '@model/response.model';
+import { MessageResponse as IMessageResponse } from '@model/response.model';
+import { JobEnqueuedResponse as IJobEnqueuedResponse } from '@model/query.response.model';
 import { AlertService } from '@service/alert.service';
 import { tap } from 'rxjs/operators';
+import { AlertDuration } from '@model/alert.model';
 
 @Injectable()
 export class HttpToastInterceptor implements HttpInterceptor {
@@ -14,7 +16,8 @@ export class HttpToastInterceptor implements HttpInterceptor {
 
   handleToast(req: HttpRequest<any>, event :HttpEvent<any>): void {
     if(!(event instanceof HttpResponse) || !event.body) return;
-
+    
+    // MessageResponse
     if (event.body.succeeded !== undefined && event.body.message !== undefined) {
       const res = event.body as IMessageResponse;
       if (res.succeeded) {
@@ -26,6 +29,12 @@ export class HttpToastInterceptor implements HttpInterceptor {
       } else {
         this.alert.error(res.message);
       }
+    }
+    
+    // JobEnqueuedResponse
+    if (event.body.jobId !== undefined && event.body.jobUrl !== undefined) {
+      const res = event.body as IJobEnqueuedResponse;
+      this.alert.info(`Job ${res.jobId} enqueued.`, { duration: AlertDuration.Long });
     }
   }
 

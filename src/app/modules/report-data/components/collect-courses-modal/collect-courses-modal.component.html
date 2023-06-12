@@ -1,0 +1,35 @@
+<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="false" [clrModalClosable]="false">
+  <h3 class="modal-title">Collect Courses</h3>
+  <div class="modal-body">
+    <form class="clr-form clr-form-horizontal" *ngIf="request" [clrLoading]="loadData">
+      <!-- Year -->
+      <clr-input-container>
+        <label>Year</label>
+        <input clrInput type="number" name="year" [(ngModel)]="request.year" />
+      </clr-input-container>
+      <!-- Semester -->
+      <clr-input-container>
+        <label>Semester</label>
+        <input clrInput type="number" name="semester" min="1" max="2" [(ngModel)]="request.semester" />
+      </clr-input-container>
+      <!-- Departments -->
+      <clr-checkbox-container clrInline>
+        <label>Departments</label>
+        <clr-toggle-wrapper>
+          <input type="checkbox" clrCheckbox name="all" [(ngModel)]="allDepartments" clrToggle />
+          <label>All</label>
+        </clr-toggle-wrapper>
+        <clr-checkbox-wrapper *ngFor="let d of ObjectKeys(department)" [style.display]="allDepartments ? 'none' : ''"> <!-- -->
+          <input type="checkbox" clrCheckbox [name]="d" [value]="department[d]" [(ngModel)]="department[d]" />
+          <label>{{getCheckboxName(d)}}</label>
+        </clr-checkbox-wrapper>
+      </clr-checkbox-container>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="this.openedChange.emit(false)">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmitClicked()" [clrLoading]="submitBtnState">Ok</button>
+  </div>
+</clr-modal>
+

@@ -1,1 +1,8 @@
 <h1>Course</h1>
+<button class="btn btn-sm" (click)="modalOpened.collect = true" *permission="[Permission.ReportData.Import]">Get Courses</button>
+
+<app-collect-courses-modal
+  *ngIf="modalOpened.collect"
+  [(opened)]="modalOpened.collect"
+  (onSubmit)="onCollectSubmit($event)"
+></app-collect-courses-modal>

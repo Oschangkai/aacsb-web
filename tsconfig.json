@@ -47,6 +47,7 @@
         "src/app/modules/main/*",
         "src/app/modules/main-system/*",
         "src/app/modules/report/*",
+        "src/app/modules/report-data/*"
       ],
       "@shared/*": [
         "src/app/shared/*"

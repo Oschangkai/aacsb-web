@@ -1,3 +1,8 @@
+export interface JobEnqueuedResponse {
+  jobId: string;
+  jobUrl: string;
+}
+
 export interface AacsbTable32 {
   qualification: null | 'SA' | 'SP' | 'IP' | 'PA' | 'A';
   percentage: number;
