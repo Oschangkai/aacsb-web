@@ -1,3 +1,8 @@
+export interface JobEnqueuedResponse {
+  jobId: string;
+  jobUrl: string;
+}
+
 export type MessageResponse = {
   succeeded: boolean;
   message: string;

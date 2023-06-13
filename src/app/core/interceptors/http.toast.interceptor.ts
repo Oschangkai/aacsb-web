@@ -3,7 +3,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 import { Observable } from 'rxjs';
 
 import { MessageResponse as IMessageResponse } from '@model/response.model';
-import { JobEnqueuedResponse as IJobEnqueuedResponse } from '@model/response-data.model';
+import { JobEnqueuedResponse as IJobEnqueuedResponse } from '@model/response.model';
 import { AlertService } from '@service/alert.service';
 import { tap } from 'rxjs/operators';
 import { AlertDuration } from '@model/alert.model';
