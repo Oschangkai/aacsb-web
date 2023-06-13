@@ -132,9 +132,13 @@ export abstract class Permission {
     ALL: [
       Permission.nameFor(AACSBResource.ReportData, AACSBAction.Import),
       Permission.nameFor(AACSBResource.ReportData, AACSBAction.View),
+      Permission.nameFor(AACSBResource.ReportData, AACSBAction.Update),
+      Permission.nameFor(AACSBResource.ReportData, AACSBAction.Delete),
     ],
     Import: Permission.nameFor(AACSBResource.ReportData, AACSBAction.Import),
     View: Permission.nameFor(AACSBResource.ReportData, AACSBAction.View),
+    Update: Permission.nameFor(AACSBResource.ReportData, AACSBAction.Update),
+    Delete: Permission.nameFor(AACSBResource.ReportData, AACSBAction.Delete),
   }
   public static Report = {
     ALL: [
