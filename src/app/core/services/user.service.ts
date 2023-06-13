@@ -11,7 +11,7 @@ import * as store from 'store';
 import { User } from '@model/User.model';
 import { ApplicationToken } from '@model/ApplicationToken.model';
 import { ApplicationClaimTypes } from '@model/ApplicationClaimTypes.enum';
-import { AuthenticateInformation } from '@model/query.response.model';
+import { AuthenticateInformation } from '@model/response-data.model';
 import { TokenExchangeTypes } from '@model/TokenExchangeTypes.enum';
 import { EnvironmentService } from '@service/environment.service';
 

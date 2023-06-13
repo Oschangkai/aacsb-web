@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PaginationResponse, ResponseData, MessageResponse } from '@model/response.model';
-import { AuditLog, Role, Roles, User, Users } from '@model/query.response.model';
-import { AuditLogQuery } from '@model/query.model';
+import { AuditLog, Role, Roles, User, Users } from '@model/response-data.model';
+import { AuditLogQuery } from '@model/request.model';
 import { EnvironmentService } from '@service/environment.service';
 
 @Injectable()

@@ -6,7 +6,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 import { ClrLoadingState } from '@clr/angular';
 
-import { User } from '@model/query.response.model';
+import { User } from '@model/response-data.model';
 import { SystemService } from '@here/services/system.service';
 
 @Component({

@@ -5,7 +5,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { Subscription } from 'rxjs';
 import { ClrLoadingState } from '@clr/angular';
 
-import { Users } from '@model/query.response.model';
+import { Users } from '@model/response-data.model';
 
 @Component({
   selector: 'app-user-delete-modal',

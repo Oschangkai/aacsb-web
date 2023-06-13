@@ -3,8 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { EnvironmentService } from '@service/environment.service';
-import { Department, Discipline, JobEnqueuedResponse } from '@model/query.response.model';
-import { CollectCoursesRequest } from '@model/query.model';
+import { Department, Discipline, JobEnqueuedResponse } from '@model/response-data.model';
+import { CollectCoursesRequest } from '@model/request.model';
 import { tap } from 'rxjs/operators';
 
 @Injectable()

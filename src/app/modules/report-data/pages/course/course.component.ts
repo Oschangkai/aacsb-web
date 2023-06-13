@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Permission } from '@model/ApplicationPermission.model';
-import { CollectCoursesRequest } from '@model/query.model';
+import { CollectCoursesRequest } from '@model/request.model';
 import { ReportDataService } from '@module/report-data/services/report-data.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Subscription } from 'rxjs';

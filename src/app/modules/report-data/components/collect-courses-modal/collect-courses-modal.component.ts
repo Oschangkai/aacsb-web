@@ -5,9 +5,9 @@ import { NgProgress } from 'ngx-progressbar';
 
 import { ClrLoadingState } from '@clr/angular';
 
-import { CollectCoursesRequest } from '@model/query.model';
+import { CollectCoursesRequest } from '@model/request.model';
 import { ReportDataService } from '@here/services/report-data.service';
-import { Department } from '@model/query.response.model';
+import { Department } from '@model/response-data.model';
 
 
 @Component({

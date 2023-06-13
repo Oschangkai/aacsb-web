@@ -4,7 +4,7 @@ import { Permission } from '@model/ApplicationPermission.model';
 import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from 'ngx-progressbar';
 import { Subscription } from 'rxjs';
-import { Role, Roles } from '@model/query.response.model';
+import { Role, Roles } from '@model/response-data.model';
 import { ResponseData } from '@model/response.model';
 import { SystemService } from '@here/services/system.service';
 import { AlertService } from '@service/alert.service';

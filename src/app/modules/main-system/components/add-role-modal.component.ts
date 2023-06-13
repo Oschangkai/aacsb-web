@@ -5,7 +5,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { Subscription } from 'rxjs';
 import { ClrLoadingState } from '@clr/angular';
 
-import { Role } from '@model/query.response.model';
+import { Role } from '@model/response-data.model';
 
 import { PermissionList } from '@model/ApplicationPermission.model';
 

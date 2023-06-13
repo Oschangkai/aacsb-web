@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Permission } from '@model/ApplicationPermission.model';
-import { AacsbTable32, Department } from '@model/query.response.model';
+import { AacsbTable32, Department } from '@model/response-data.model';
 import { ReportService } from '@module/report/services/report.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Subscription, combineLatest } from 'rxjs';

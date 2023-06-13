@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { EnvironmentService } from '@service/environment.service';
-import { AacsbTable31, AacsbTable32, Department, Discipline } from '@model/query.response.model';
+import { AacsbTable31, AacsbTable32, Department, Discipline } from '@model/response-data.model';
 
 @Injectable()
 export class ReportService {

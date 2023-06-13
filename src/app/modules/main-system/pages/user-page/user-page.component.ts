@@ -9,7 +9,7 @@ import { SystemService } from '@here/services/system.service';
 
 import { Permission } from '@model/ApplicationPermission.model';
 import { ResponseData } from '@model/response.model';
-import { User, Users } from '@model/query.response.model';
+import { User, Users } from '@model/response-data.model';
 
 @Component({
   selector: 'app-user',

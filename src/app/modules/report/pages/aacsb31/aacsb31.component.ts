@@ -7,7 +7,7 @@ import { NgProgress } from 'ngx-progressbar';
 import { ReportService } from '@here/services/report.service';
 
 import { Permission } from '@model/ApplicationPermission.model';
-import { AacsbTable31, Discipline } from '@model/query.response.model';
+import { AacsbTable31, Discipline } from '@model/response-data.model';
 
 @Component({
   selector: 'app-aacsb31',

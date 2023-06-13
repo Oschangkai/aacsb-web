@@ -3,7 +3,7 @@ import { inject } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { SystemService } from "./system.service";
-import { Users } from "@model/query.response.model";
+import { Users } from "@model/response-data.model";
 
 export const userResolver: ResolveFn<Observable<Users[]>> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
