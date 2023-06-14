@@ -1,1 +1,82 @@
 <h1>Teacher</h1>
+
+<!-- Search -->
+<div style="margin-bottom: 24px;">
+  <form class="clr-form-compact" clrForm clrLayout="horizontal">
+    <clr-input-container>
+      <label>Search</label>
+      <input placeholder="Global Search" name="global-search" [disabled]="loadData" [(ngModel)]="keyword" clrInput />
+    </clr-input-container>
+    <button class="btn btn-primary" [clrLoading]="loadData"  style="margin-top: 16px;" (click)="submit()">
+      <cds-icon shape="search"></cds-icon>
+      Search
+    </button>
+  </form>
+</div>
+
+<!-- Data List -->
+<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loadData">
+
+  <!-- Columns -->
+  <clr-dg-column [clrDgField]="'ID'">
+    <ng-container *clrDgHideableColumn="{hidden: true}">
+      ID
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'name'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Name
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'email'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Email
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'department'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Department
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'responsibilities'" clrDgSortBy>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Responsibilities
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'workTypeAbbr'" clrDgSortBy>
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Work Type
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column *permission="[Permission.ReportData.Update, Permission.ReportData.Delete]; operation: 'OR'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Action
+    </ng-container>
+  </clr-dg-column>
+
+  <!-- Row Data -->
+  <clr-dg-row *ngFor="let teacher of teachers!.data">
+    <clr-dg-cell>{{teacher.id}}</clr-dg-cell>
+    <clr-dg-cell>{{teacher.name}}</clr-dg-cell>
+    <clr-dg-cell>{{teacher.email}}</clr-dg-cell>
+    <clr-dg-cell>{{getDepartmentName(teacher.departmentId)}}</clr-dg-cell>
+    <clr-dg-cell>{{teacher.responsibilities}}</clr-dg-cell>
+    <clr-dg-cell>{{teacher.workTypeAbbr === 'P' ? 'Full Time' : teacher.workTypeAbbr === null ? '' : 'Part Time'}}</clr-dg-cell>
+    <clr-dg-cell *permission="[Permission.ReportData.Update, Permission.ReportData.Delete]; operation: 'OR'">
+      <a style="cursor: pointer" (click)="onEditClicked(teacher)" *permission="[Permission.ReportData.Update]">Edit</a>
+      <span *permission="[Permission.ReportData.Update, Permission.ReportData.Delete]"> | </span>
+      <a style="cursor: pointer" (click)="onDeleteClicked(teacher)" *permission="[Permission.ReportData.Delete]">Delete</a>
+    </clr-dg-cell>
+  </clr-dg-row>
+
+  <!-- Placeholder -->
+  <clr-dg-placeholder>No Teacher Found</clr-dg-placeholder>
+
+  <!-- Footer -->
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgTotalItems]="teachers!.totalCount">
+      <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Teachers per page</clr-dg-page-size>
+      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} Teachers
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { EnvironmentService } from '@service/environment.service';
-import { CourseList, Department, Discipline } from '@model/response-data.model';
+import { CourseList, Department, Discipline, TeacherList } from '@model/response-data.model';
 import { CollectCoursesRequest } from '@model/request.model';
 import { JobEnqueuedResponse, PaginationResponse } from '@model/response.model';
 import { PaginationFilter } from '@model/request-filter.model';
@@ -32,5 +32,9 @@ export class ReportDataService {
 
   getCourses(request: PaginationFilter = {pageNumber: 1, pageSize: 10}): Observable<PaginationResponse<CourseList>> {
     return this.http.post<PaginationResponse<CourseList>>(`${this.reportDataUrl}/course/search`, {...request});
+  }
+
+  getTeachers(request: PaginationFilter = {pageNumber: 1, pageSize: 10}): Observable<PaginationResponse<TeacherList>> {
+    return this.http.post<PaginationResponse<TeacherList>>(`${this.reportDataUrl}/teacher/search`, {...request});
   }
 }
