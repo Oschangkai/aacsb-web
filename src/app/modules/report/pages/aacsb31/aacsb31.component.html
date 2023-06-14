@@ -135,8 +135,11 @@
       >= 75% requirement for P <b>{{ tableSummary.grandTotal.contactHourRatio >= 0.75 ? 'met' : 'not met' }}
       ({{ tableSummary.grandTotal.contactHourRatio | percent: '1.0-2' }})</b>
   </td>
-  <td colspan="6" style="font-weight: 600;">
-      Minimum SA >= 40% met ({{ tableSummary.grandTotal.pSA | percent: '1.0-2' }}) / Minimum SA+PA+SP+IP >= 90% met ({{ tableSummary.grandTotal.pDevoted | percent: '1.0-2' }})
+  <td colspan="6">
+      Minimum SA >= 40% <b>{{ tableSummary.grandTotal.pSA >= 0.4 ? 'met' : 'not met' }}
+      ({{ tableSummary.grandTotal.pSA | percent: '1.0-2' }})</b> / Minimum SA+PA+SP+IP >= 90% 
+      <b>{{ tableSummary.grandTotal.pDevoted >= 0.9 ? 'met' : 'not met' }} 
+      ({{ tableSummary.grandTotal.pDevoted | percent: '1.0-2' }})</b>
   </td>
 </tr>
 </table>
