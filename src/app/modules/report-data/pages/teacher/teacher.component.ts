@@ -42,7 +42,7 @@ constructor(
   keyword = '';
   filter: PaginationFilter = { pageNumber: 1, pageSize: 10 };
 
-  getDepartmentName = (departmentId: string|undefined) => this.departments.find(d => d.id === departmentId)?.name ?? '';
+  getDepartmentName = (departmentId: string|null) => this.departments.find(d => d.id.toUpperCase() === departmentId?.trim().toUpperCase())?.name ?? '';
 
   onEditClicked(teacher: TeacherList): void {
     this.alertService.info(`Not yet implemented.\nEdit ${teacher.name} clicked.`);

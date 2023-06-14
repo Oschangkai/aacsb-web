@@ -45,8 +45,8 @@ export class CourseComponent {
   keyword = '';
   filter: PaginationFilter = { pageNumber: 1, pageSize: 10 };
 
-  getDisciplineName = (disciplineId: string|undefined) => this.disciplines.find(d => d.id === disciplineId)?.name ?? '';
-  getDepartmentName = (departmentId: string|undefined) => this.departments.find(d => d.id === departmentId)?.name ?? '';
+  getDisciplineName = (disciplineId: string|undefined) => this.disciplines.find(d => d.id.toLocaleUpperCase() === disciplineId?.trim().toUpperCase())?.name ?? '';
+  getDepartmentName = (departmentId: string|undefined) => this.departments.find(d => d.id.toLocaleUpperCase() === departmentId?.trim().toUpperCase())?.name ?? '';
 
   onEditClicked(course: CourseList): void {
     this.alertService.info(`Not yet implemented.\nEdit ${course.name} clicked.`);
