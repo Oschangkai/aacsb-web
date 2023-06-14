@@ -24,7 +24,7 @@ export type Filter = {
   // if 'logic' not provided, 'field', 'operator', and 'value' cannot be null
   field?: string;
   operator?: FilterOperator;
-  value?: object;
+  value?: string|number;
 }
 
 export enum FilterOperator {

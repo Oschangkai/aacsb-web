@@ -1,6 +1,20 @@
-export interface JobEnqueuedResponse {
-  jobId: string;
-  jobUrl: string;
+export interface TeacherList {
+  id: string;
+  name: string;
+  email: string;
+  departmentId: string;
+  responsibilities: string;
+  workTypeAbbr: string;
+}
+
+export interface CourseList {
+  id: string;
+  semester: string;
+  code?: string;
+  name?: string;
+  departmentId?: string;
+  disciplineId: string;
+  importSignatureId: string;
 }
 
 export interface AacsbTable32 {
