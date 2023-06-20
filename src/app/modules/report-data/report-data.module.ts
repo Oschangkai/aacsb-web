@@ -14,14 +14,18 @@ ClarityIcons.addIcons(searchIcon);
 import { CourseComponent } from './pages/course/course.component';
 import { TeacherComponent } from './pages/teacher/teacher.component';
 
+// Components
+import { SemesterDgFilterComponent } from './components/semester-dg-filter/semester-dg-filter.component';
+
 // Modals
 import { CollectCoursesModalComponent } from './components/collect-courses-modal/collect-courses-modal.component';
 
 const Pages = [CourseComponent, TeacherComponent];
+const Components = [SemesterDgFilterComponent];
 const Modals = [CollectCoursesModalComponent];
 
 @NgModule({
-  declarations: [...Pages, ...Modals],
+  declarations: [...Pages, ...Modals, ...Components],
   imports: [
     CommonModule,
     FormsModule,

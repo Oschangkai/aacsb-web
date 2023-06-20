@@ -1,0 +1,6 @@
+<clr-checkbox-container clrInline style="max-width: 20vw;" (change)="onSelectChanged()">
+  <clr-checkbox-wrapper *ngFor="let s of ObjectKeys(semesters)">
+    <input type="checkbox" clrCheckbox [value]="s" [name]="s" [(ngModel)]="semesters[s]" />
+    <label>{{s}}</label>
+  </clr-checkbox-wrapper>
+</clr-checkbox-container>

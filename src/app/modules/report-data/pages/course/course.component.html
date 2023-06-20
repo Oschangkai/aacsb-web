@@ -24,9 +24,12 @@
       ID
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column [clrDgField]="'semester'">
+  <clr-dg-column [clrDgColType]="'number'" [clrDgField]="'semester'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Semester
+      <clr-dg-filter [clrDgFilter]="semesterFilter">
+        <app-semester-dg-filter #semesterFilter></app-semester-dg-filter>
+      </clr-dg-filter>
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'code'">
@@ -39,7 +42,7 @@
       Name
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column [clrDgField]="'department'" clrDgSortBy>
+  <clr-dg-column [clrDgField]="'department'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Department
     </ng-container>

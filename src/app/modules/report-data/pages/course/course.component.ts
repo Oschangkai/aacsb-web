@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { NgProgress } from 'ngx-progressbar';
 
 import { Permission } from '@model/ApplicationPermission.model';
-import { FilterLogic, FilterOperator, PaginationFilter } from '@model/request-filter.model';
+import { Filter, FilterLogic, FilterOperator, PaginationFilter } from '@model/request-filter.model';
 import { CollectCoursesRequest } from '@model/request.model';
 import { CourseList, Department, Discipline } from '@model/response-data.model';
 import { PaginationResponse } from '@model/response.model';
@@ -68,15 +68,16 @@ export class CourseComponent {
     if (state.filters) {
       this.filter.advancedFilter.logic = FilterLogic.AND;
       for (const filter of state.filters) {
-        const { property, value } = filter as { property: string; value: string };
-        // @ts-ignore
-        console.log(typeof(this.courses?.data[0][property]) === 'number');
-        // @ts-ignore
-        if (this.courses?.data.length && typeof(this.courses?.data[0][property]) === 'number') {
-          this.filter.advancedFilter.filters.push({ field: property, operator: FilterOperator.EQ, value: Number(value) });
-          continue;
+        if (filter.selectedSemestersCount) {
+          let semesterFilter: Filter[] = [];
+          filter.selectedSemesters.forEach((semester: number) => {
+            semesterFilter.push({ field: 'semester', operator: FilterOperator.EQ, value: semester });
+          });
+          this.filter.advancedFilter.filters.push({ logic: FilterLogic.OR, filters: semesterFilter})
+        } else {
+          const { property, value } = filter as { property: string; value: string };
+          this.filter.advancedFilter.filters.push({ field: property, operator: FilterOperator.CONTAINS, value: value });
         }
-        this.filter.advancedFilter.filters.push({ field: property, operator: FilterOperator.CONTAINS, value: value });
       }
     } else this.filter.advancedFilter = undefined;
 
@@ -104,11 +105,10 @@ export class CourseComponent {
 
   ngOnInit(): void {
     this.route.data.subscribe(
-      ({ courses, departments, disciplines, semester }) => {
+      ({ courses, departments, disciplines }) => {
         this.courses = {...courses};
         this.departments = [...departments];
         this.disciplines = [...disciplines];
-        this.semesters = [...semester];
       }
     );
   }

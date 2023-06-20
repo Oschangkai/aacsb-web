@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: 'course',
-        resolve: { courses: CourseResolver, departments: DepartmentResolver, disciplines: DisciplineResolver, semesters: SemesterResolver },
+        resolve: { courses: CourseResolver, departments: DepartmentResolver, disciplines: DisciplineResolver },
         component: CourseComponent,
         children: [
           {
