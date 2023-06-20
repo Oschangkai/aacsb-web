@@ -7,7 +7,7 @@
       <label>Search</label>
       <input placeholder="Global Search" name="global-search" [disabled]="loadData" [(ngModel)]="keyword" clrInput />
     </clr-input-container>
-    <button class="btn btn-primary" [clrLoading]="loadData"  style="margin-top: 16px;" (click)="submit()">
+    <button class="btn btn-primary" [clrLoading]="loadData"  style="margin-top: 16px;" (click)="onGlobalSearchSubmit()">
       <cds-icon shape="search"></cds-icon>
       Search
     </button>
@@ -28,14 +28,24 @@
       Name
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column [clrDgField]="'email'">
+  <clr-dg-column [clrDgField]="'title'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
-      Email
+      Title
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'department'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Department
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'degree'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Degree
+    </ng-container>
+  </clr-dg-column>
+  <clr-dg-column [clrDgField]="'degreeYear'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Degree Year
     </ng-container>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'responsibilities'" clrDgSortBy>
@@ -58,8 +68,10 @@
   <clr-dg-row *ngFor="let teacher of teachers!.data">
     <clr-dg-cell>{{teacher.id}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.name}}</clr-dg-cell>
-    <clr-dg-cell>{{teacher.email}}</clr-dg-cell>
+    <clr-dg-cell>{{teacher.title}}</clr-dg-cell>
     <clr-dg-cell>{{getDepartmentName(teacher.departmentId)}}</clr-dg-cell>
+    <clr-dg-cell>{{teacher.degree}}</clr-dg-cell>
+    <clr-dg-cell>{{teacher.degreeYear}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.responsibilities}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.workTypeAbbr === 'P' ? 'Full Time' : teacher.workTypeAbbr === null ? '' : 'Part Time'}}</clr-dg-cell>
     <clr-dg-cell *permission="[Permission.ReportData.Update, Permission.ReportData.Delete]; operation: 'OR'">

@@ -1,8 +1,10 @@
 export interface TeacherList {
   id: string;
   name: string;
-  email: string;
+  title: string;
   departmentId: string;
+  degree: string;
+  degreeYear: number;
   responsibilities: string;
   workTypeAbbr: string;
 }

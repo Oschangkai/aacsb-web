@@ -51,7 +51,7 @@ constructor(
     this.alertService.info(`Not yet implemented\nDelete ${teacher.name} clicked.`);
   }
 
-  submit(): void {
+  onGlobalSearchSubmit(): void {
     this.filter = { ...this.filter, keyword: this.keyword };
     this.load();
   }
