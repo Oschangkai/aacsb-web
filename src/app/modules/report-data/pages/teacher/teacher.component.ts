@@ -98,11 +98,9 @@ constructor(
   }
 
   load(): void {
-    this.loadData = true;
     this.reportDataService.getTeachers(this.filter)
       .subscribe(data => {
         this.teachers = { ...data };
-        this.loadData = false;
         this.teacherDetail = {};
       });
   }

@@ -90,11 +90,9 @@ export class CourseComponent {
   }
 
   load(): void {
-    this.loadData = true;
     this.reportDataService.getCourses(this.filter)
       .subscribe(data => {
         this.courses = { ...data };
-        this.loadData = false;
       });
   }
 
