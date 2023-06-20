@@ -1,0 +1,112 @@
+<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="false" [clrModalClosable]="false">
+  <h3 class="modal-title">Edit</h3>
+  <div class="modal-body">
+    <form class="clr-form clr-form-horizontal" *ngIf="teacher" [clrLoading]="loadData">
+      <!-- Id -->
+      <clr-input-container>
+        <label>Id</label>
+        <input clrInput type="text" name="id" [(ngModel)]="teacher.id" [disabled]="true" />
+      </clr-input-container>
+      <!-- Name -->
+      <clr-input-container>
+        <label>Name</label>
+        <input clrInput type="text" name="name" [(ngModel)]="teacher.name" />
+      </clr-input-container>
+      <!-- English Name -->
+      <clr-input-container>
+        <label>English Name</label>
+        <input clrInput type="text" name="english-name" [(ngModel)]="teacher.englishName" />
+      </clr-input-container>
+      <!-- Work Type -->
+      <clr-radio-container clrInline>
+        <label>Work Type</label>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="options" value="P" [(ngModel)]="teacher.workTypeAbbr" />
+          <label>Full Time</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="options" value="S" [(ngModel)]="teacher.workTypeAbbr" />
+          <label>Part Time</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="options" [value]='null' [(ngModel)]="teacher.workTypeAbbr" />
+          <label>Not Set</label>
+        </clr-radio-wrapper>
+      </clr-radio-container>
+      <!-- Degree -->
+      <clr-radio-container>
+        <label>Degree</label>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="degree" value="Bachelor" [(ngModel)]="teacher.degree" />
+          <label>Bachelor</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="degree" value="Master" [(ngModel)]="teacher.degree" />
+          <label>Master</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="degree" value="PhD" [(ngModel)]="teacher.degree" />
+          <label>Doctor (PhD)</label>
+        </clr-radio-wrapper>
+        <clr-radio-wrapper>
+          <input type="radio" clrRadio name="degree" [value]='null' [(ngModel)]="teacher.degree" />
+          <label>Not Set</label>
+        </clr-radio-wrapper>
+      </clr-radio-container>
+      <!-- Degree Year -->
+      <clr-input-container>
+        <label>Degree Year</label>
+        <input clrInput type="number" min="1900" name="degree-year" [(ngModel)]="teacher.degreeYear" />
+      </clr-input-container>
+      <!-- Department -->
+      <clr-select-container>
+        <label>Department</label>
+        <select clrSelect name="department" [(ngModel)]="teacher.departmentId">
+          <option *ngFor="let d of departments" [value]="d.id">{{d.name}} ({{d.englishName}}, {{d.abbreviation}})</option>
+        </select>
+      </clr-select-container>
+      <!-- Email -->
+      <clr-input-container>
+        <label>Email</label>
+        <input clrInput type="text" name="email" [(ngModel)]="teacher.email" />
+      </clr-input-container>
+      <!-- Qualification -->
+      <clr-select-container>
+        <label>Qualification</label>
+        <select clrSelect name="qualification" [(ngModel)]="teacher.qualificationId">
+          <option *ngFor="let q of qualifications" [value]="q.id">{{q.englishDescription}} ({{q.abbreviation}})</option>
+        </select>
+      </clr-select-container>
+      <!-- Resign Date -->
+      <clr-date-container>
+        <label>Resign Date</label>
+        <input clrDate type="date" name="resign-date" [(ngModel)]="teacherResignDate" />
+      </clr-date-container>
+      <!-- Title -->
+      <clr-input-container>
+        <label>Title</label>
+        <input clrInput type="text" name="title" [(ngModel)]="teacher.title" />
+      </clr-input-container>
+      <!-- Responsibilities -->
+      <clr-combobox-container>
+        <label>Responsibilities</label>
+        <clr-combobox [(ngModel)]="teacherResponsibilities" clrMulti="true" name="responsibilities">
+          <ng-container *clrOptionSelected="let selected">{{selected}}</ng-container>
+          <clr-options>
+            <clr-option clrValue="MT">MT</clr-option>
+            <clr-option clrValue="RES">RES</clr-option>
+            <clr-option clrValue="SER">SER</clr-option>
+            <clr-option clrValue="ADM">ADM</clr-option>
+            <clr-option clrValue="UT">UT</clr-option>
+          </clr-options>
+        </clr-combobox>
+      </clr-combobox-container>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="this.openedChange.emit(false)">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmitClicked()" [clrLoading]="submitBtnState">Ok</button>
+  </div>
+</clr-modal>
+

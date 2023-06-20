@@ -19,10 +19,11 @@ import { SemesterDgFilterComponent } from './components/semester-dg-filter/semes
 
 // Modals
 import { CollectCoursesModalComponent } from './components/collect-courses-modal/collect-courses-modal.component';
+import { EditTeacherModalComponent } from './components/edit-teacher-modal/edit-teacher-modal.component';
 
 const Pages = [CourseComponent, TeacherComponent];
 const Components = [SemesterDgFilterComponent];
-const Modals = [CollectCoursesModalComponent];
+const Modals = [CollectCoursesModalComponent, EditTeacherModalComponent];
 
 @NgModule({
   declarations: [...Pages, ...Modals, ...Components],

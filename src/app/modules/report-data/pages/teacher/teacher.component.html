@@ -38,6 +38,11 @@
       Department
     </ng-container>
   </clr-dg-column>
+  <clr-dg-column [clrDgField]="'qualification'">
+    <ng-container *clrDgHideableColumn="{hidden: false}">
+      Qualification
+    </ng-container>
+  </clr-dg-column>
   <clr-dg-column [clrDgField]="'degree'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Degree
@@ -70,6 +75,7 @@
     <clr-dg-cell>{{teacher.name}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.title}}</clr-dg-cell>
     <clr-dg-cell>{{getDepartmentName(teacher.departmentId)}}</clr-dg-cell>
+    <clr-dg-cell>{{getQualificationName(teacher.qualificationId)}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.degree}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.degreeYear}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.responsibilities}}</clr-dg-cell>
@@ -92,3 +98,10 @@
     </clr-dg-pagination>
   </clr-dg-footer>
 </clr-datagrid>
+
+<app-edit-teacher-modal
+  *ngIf="modalOpened.edit"
+  [(opened)]="modalOpened.edit"
+  [teacher]="teacherDetail[selected.id!]"
+  (onSubmit)="onEditSubmit($event)"
+></app-edit-teacher-modal>

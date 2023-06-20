@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 
 import { EnvironmentService } from '@service/environment.service';
 import { CourseList, Department, Discipline, Qualification, TeacherList } from '@model/response-data.model';
-import { CollectCoursesRequest } from '@model/request.model';
-import { JobEnqueuedResponse, PaginationResponse } from '@model/response.model';
+import { CollectCoursesRequest, EditTeacher } from '@model/request.model';
+import { JobEnqueuedResponse, MessageResponse, PaginationResponse } from '@model/response.model';
 import { PaginationFilter } from '@model/request-filter.model';
 
 @Injectable()
@@ -40,5 +40,13 @@ export class ReportDataService {
 
   getTeachers(request: PaginationFilter = {pageNumber: 1, pageSize: 10}): Observable<PaginationResponse<TeacherList>> {
     return this.http.post<PaginationResponse<TeacherList>>(`${this.reportDataUrl}/teacher/search`, {...request});
+  }
+
+  getTeacher(id: string): Observable<EditTeacher> {
+    return this.http.get<EditTeacher>(`${this.reportDataUrl}/teacher/${id}`);
+  }
+
+  editTeacher(teacher: Partial<EditTeacher>): Observable<MessageResponse> {
+    return this.http.patch<MessageResponse>(`${this.reportDataUrl}/teacher`, {...teacher});
   }
 }

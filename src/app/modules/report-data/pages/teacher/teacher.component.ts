@@ -6,8 +6,8 @@ import { NgProgress } from 'ngx-progressbar';
 
 import { Permission } from '@model/ApplicationPermission.model';
 import { FilterLogic, FilterOperator, PaginationFilter } from '@model/request-filter.model';
-import { CollectCoursesRequest } from '@model/request.model';
-import { CourseList, Department, Discipline, TeacherList } from '@model/response-data.model';
+import { EditTeacher } from '@model/request.model';
+import { Department, Qualification, TeacherList } from '@model/response-data.model';
 import { PaginationResponse } from '@model/response.model';
 
 import { ReportDataService } from '@here/services/report-data.service';
@@ -34,18 +34,24 @@ constructor(
   // states
   Permission = Permission;
   loadData = true;
-  modalOpened = {collect: false};
+  modalOpened = {edit: false};
 
   // data
+  selected: Partial<TeacherList> = {};
   teachers: PaginationResponse<TeacherList> | undefined;
+  teacherDetail: {[x: string]: EditTeacher} = {};
   departments: Department[] = [];
+  qualifications: Qualification[] = [];
   keyword = '';
   filter: PaginationFilter = { pageNumber: 1, pageSize: 10 };
 
   getDepartmentName = (departmentId: string|null) => this.departments.find(d => d.id.toUpperCase() === departmentId?.trim().toUpperCase())?.name ?? '';
+  getQualificationName = (qualificationId: string|null) => this.qualifications.find(q => q.id.toUpperCase() === qualificationId?.trim().toUpperCase())?.abbreviation ?? '';
 
   onEditClicked(teacher: TeacherList): void {
-    this.alertService.info(`Not yet implemented.\nEdit ${teacher.name} clicked.`);
+    this.selected = teacher;
+    this.reportDataService.getTeacher(teacher.id).subscribe(t => this.teacherDetail[t.id] = t);
+    this.modalOpened.edit = true;
   }
   onDeleteClicked(teacher: TeacherList): void {
     this.alertService.info(`Not yet implemented\nDelete ${teacher.name} clicked.`);
@@ -54,6 +60,13 @@ constructor(
   onGlobalSearchSubmit(): void {
     this.filter = { ...this.filter, keyword: this.keyword };
     this.load();
+  }
+
+  onEditSubmit(teacher: Partial<EditTeacher>): void {
+    this.reportDataService.editTeacher(teacher).subscribe(_ => {
+      this.modalOpened.edit = false;
+      this.load();
+    });
   }
 
   refresh(state: ClrDatagridStateInterface): void {
@@ -90,14 +103,16 @@ constructor(
       .subscribe(data => {
         this.teachers = { ...data };
         this.loadData = false;
+        this.teacherDetail = {};
       });
   }
 
   ngOnInit(): void {
     this.route.data.subscribe(
-      ({ teachers, departments }) => {
+      ({ teachers, departments, qualifications }) => {
         this.teachers = {...teachers};
         this.departments = [...departments];
+        this.qualifications = [...qualifications];
       }
     );
   }
