@@ -3,6 +3,7 @@ export interface TeacherList {
   name: string;
   title: string;
   departmentId: string;
+  qualificationId: string;
   degree: string;
   degreeYear: number;
   responsibilities: string;
@@ -37,6 +38,13 @@ export interface AacsbTable31 {
   qualification: string;
   workType: 'P' | 'S' | null;
   discipline: number;
+}
+
+export interface Qualification {
+  id: string;
+  description: string;
+  englishDescription: string;
+  abbreviation: string;
 }
 
 export interface Department {

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { EnvironmentService } from '@service/environment.service';
-import { CourseList, Department, Discipline, TeacherList } from '@model/response-data.model';
+import { CourseList, Department, Discipline, Qualification, TeacherList } from '@model/response-data.model';
 import { CollectCoursesRequest } from '@model/request.model';
 import { JobEnqueuedResponse, PaginationResponse } from '@model/response.model';
 import { PaginationFilter } from '@model/request-filter.model';
@@ -20,6 +20,10 @@ export class ReportDataService {
 
   getDepartments(): Observable<Department[]> {
     return this.http.get<Department[]>(`${this.reportDataUrl}/department`);
+  }
+
+  getQualifications(): Observable<Qualification[]> {
+    return this.http.get<Qualification[]>(`${this.reportDataUrl}/qualification`);
   }
 
   collectCourses(request: CollectCoursesRequest): Observable<JobEnqueuedResponse> {

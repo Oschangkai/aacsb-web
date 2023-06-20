@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 import { ReportDataService } from "./report-data.service";
 
 import { PaginationResponse } from "@model/response.model";
-import { CourseList, TeacherList, Department, Discipline } from "@model/response-data.model";
+import { CourseList, TeacherList, Department, Discipline, Qualification } from "@model/response-data.model";
 
 export const CourseResolver: ResolveFn<Observable<PaginationResponse<CourseList>>> =
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -30,4 +30,9 @@ export const DisciplineResolver: ResolveFn<Observable<Discipline[]>> =
 export const SemesterResolver: ResolveFn<Observable<number[]>> =
   (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
     return inject(ReportDataService).getSemesters();
+  }
+
+export const QualificationResolver: ResolveFn<Observable<Qualification[]>> =
+  (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+    return inject(ReportDataService).getQualifications();
   }
