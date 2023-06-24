@@ -37,6 +37,9 @@
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Department
     </ng-container>
+    <clr-dg-filter [clrDgFilter]="departmentFilter">
+      <app-department-dg-filter #departmentFilter></app-department-dg-filter>
+    </clr-dg-filter>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'qualification'">
     <ng-container *clrDgHideableColumn="{hidden: false}">

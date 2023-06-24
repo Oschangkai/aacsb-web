@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { NgProgress } from 'ngx-progressbar';
 
 import { Permission } from '@model/ApplicationPermission.model';
-import { FilterLogic, FilterOperator, PaginationFilter } from '@model/request-filter.model';
+import { Filter, FilterLogic, FilterOperator, PaginationFilter } from '@model/request-filter.model';
 import { EditTeacher } from '@model/request.model';
 import { Department, Qualification, TeacherList } from '@model/response-data.model';
 import { PaginationResponse } from '@model/response.model';
@@ -76,16 +76,19 @@ constructor(
 
     if (state.filters) {
       this.filter.advancedFilter.logic = FilterLogic.AND;
+
       for (const filter of state.filters) {
-        const { property, value } = filter as { property: string; value: string };
-        // @ts-ignore
-        console.log(typeof(this.teachers?.data[0][property]) === 'number');
-        // @ts-ignore
-        if (this.teachers?.data.length && typeof(this.teachers?.data[0][property]) === 'number') {
-          this.filter.advancedFilter.filters.push({ field: property, operator: FilterOperator.EQ, value: Number(value) });
-          continue;
+
+        if (filter.selectedDepartmentsCount) {
+          let departmentFilter: Filter[] = [];
+          filter.selectedDepartments.forEach((department: string) => {
+            departmentFilter.push({ field: 'DepartmentId', operator: FilterOperator.EQ, value: department });
+          });
+          this.filter.advancedFilter.filters.push({ logic: FilterLogic.OR, filters: departmentFilter})
+        } else {
+          const { property, value } = filter as { property: string; value: string };
+          this.filter.advancedFilter.filters.push({ field: property, operator: FilterOperator.CONTAINS, value: value });
         }
-        this.filter.advancedFilter.filters.push({ field: property, operator: FilterOperator.CONTAINS, value: value });
       }
     } else this.filter.advancedFilter = undefined;
 

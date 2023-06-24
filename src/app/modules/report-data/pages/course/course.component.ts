@@ -67,11 +67,18 @@ export class CourseComponent {
 
     if (state.filters) {
       this.filter.advancedFilter.logic = FilterLogic.AND;
+
       for (const filter of state.filters) {
-        if (filter.selectedSemestersCount) {
+        if (filter.selectedDepartmentsCount) {
+          let departmentFilter: Filter[] = [];
+          filter.selectedDepartments.forEach((department: string) => {
+            departmentFilter.push({ field: 'DepartmentId', operator: FilterOperator.EQ, value: department });
+          });
+          this.filter.advancedFilter.filters.push({ logic: FilterLogic.OR, filters: departmentFilter})
+        } else if (filter.selectedSemestersCount) {
           let semesterFilter: Filter[] = [];
           filter.selectedSemesters.forEach((semester: number) => {
-            semesterFilter.push({ field: 'semester', operator: FilterOperator.EQ, value: semester });
+            semesterFilter.push({ field: 'Semester', operator: FilterOperator.EQ, value: semester });
           });
           this.filter.advancedFilter.filters.push({ logic: FilterLogic.OR, filters: semesterFilter})
         } else {
