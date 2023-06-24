@@ -27,10 +27,10 @@
   <clr-dg-column [clrDgColType]="'number'" [clrDgField]="'semester'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Semester
-      <clr-dg-filter [clrDgFilter]="semesterFilter">
-        <app-semester-dg-filter #semesterFilter></app-semester-dg-filter>
-      </clr-dg-filter>
     </ng-container>
+    <clr-dg-filter [clrDgFilter]="semesterFilter">
+      <app-semester-dg-filter #semesterFilter></app-semester-dg-filter>
+    </clr-dg-filter>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'code'">
     <ng-container *clrDgHideableColumn="{hidden: false}">
