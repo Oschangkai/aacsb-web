@@ -42,7 +42,7 @@
       Name
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column [clrDgField]="'department'">
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Department
     </ng-container>
@@ -50,7 +50,7 @@
       <app-department-dg-filter #departmentFilter></app-department-dg-filter>
     </clr-dg-filter>
   </clr-dg-column>
-  <clr-dg-column [clrDgField]="'discipline'" clrDgSortBy>
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Discipline
     </ng-container>
@@ -58,7 +58,7 @@
       <app-discipline-dg-filter #disciplineFilter></app-discipline-dg-filter>
     </clr-dg-filter>
   </clr-dg-column>
-  <clr-dg-column [clrDgField]="'importSignatureId'">
+  <clr-dg-column>
     <ng-container *clrDgHideableColumn="{hidden: true}">
       ImportSignatureId
     </ng-container>
