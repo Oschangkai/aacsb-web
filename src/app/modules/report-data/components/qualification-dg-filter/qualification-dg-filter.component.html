@@ -1,0 +1,6 @@
+<clr-checkbox-container clrInline style="max-width: 25vw; margin-top: 0;" (change)="onSelectChanged()">
+  <clr-checkbox-wrapper *ngFor="let q of qualificationList">
+    <input type="checkbox" clrCheckbox [value]="q.id" [name]="q.id" [(ngModel)]="qualifications[q.id]" />
+    <label>{{q.englishDescription}} ({{q.abbreviation}})</label>
+  </clr-checkbox-wrapper>
+</clr-checkbox-container>

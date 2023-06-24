@@ -85,6 +85,12 @@ constructor(
             departmentFilter.push({ field: 'DepartmentId', operator: FilterOperator.EQ, value: department });
           });
           this.filter.advancedFilter.filters.push({ logic: FilterLogic.OR, filters: departmentFilter})
+        } else if (filter.selectedQualificationsCount) {
+          let qualificationFilter: Filter[] = [];
+          filter.selectedQualifications.forEach((qualification: string) => {
+            qualificationFilter.push({ field: 'QualificationId', operator: FilterOperator.EQ, value: qualification });
+          });
+          this.filter.advancedFilter.filters.push({ logic: FilterLogic.OR, filters: qualificationFilter})
         } else {
           const { property, value } = filter as { property: string; value: string };
           this.filter.advancedFilter.filters.push({ field: property, operator: FilterOperator.CONTAINS, value: value });
