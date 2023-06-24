@@ -54,6 +54,9 @@
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Discipline
     </ng-container>
+    <clr-dg-filter [clrDgFilter]="disciplineFilter">
+      <app-discipline-dg-filter #disciplineFilter></app-discipline-dg-filter>
+    </clr-dg-filter>
   </clr-dg-column>
   <clr-dg-column [clrDgField]="'importSignatureId'">
     <ng-container *clrDgHideableColumn="{hidden: true}">

@@ -18,13 +18,14 @@ import { TeacherComponent } from './pages/teacher/teacher.component';
 import { SemesterDgFilterComponent } from './components/semester-dg-filter/semester-dg-filter.component';
 import { DepartmentDgFilterComponent } from './components/department-dg-filter/department-dg-filter.component';
 import { QualificationDgFilterComponent } from './components/qualification-dg-filter/qualification-dg-filter.component';
+import { DisciplineDgFilterComponent } from './components/discipline-dg-filter/qualification-dg-filter.component';
 
 // Modals
 import { CollectCoursesModalComponent } from './components/collect-courses-modal/collect-courses-modal.component';
 import { EditTeacherModalComponent } from './components/edit-teacher-modal/edit-teacher-modal.component';
 
 const Pages = [CourseComponent, TeacherComponent];
-const Components = [SemesterDgFilterComponent, DepartmentDgFilterComponent, QualificationDgFilterComponent];
+const Components = [SemesterDgFilterComponent, DepartmentDgFilterComponent, DisciplineDgFilterComponent, QualificationDgFilterComponent];
 const Modals = [CollectCoursesModalComponent, EditTeacherModalComponent];
 
 @NgModule({

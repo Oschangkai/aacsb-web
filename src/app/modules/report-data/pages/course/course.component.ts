@@ -81,6 +81,12 @@ export class CourseComponent {
             semesterFilter.push({ field: 'Semester', operator: FilterOperator.EQ, value: semester });
           });
           this.filter.advancedFilter.filters.push({ logic: FilterLogic.OR, filters: semesterFilter})
+        } else if (filter.selectedDisciplinesCount) {
+          let disciplineFilter: Filter[] = [];
+          filter.selectedDisciplines.forEach((discipline: string) => {
+            disciplineFilter.push({ field: 'DisciplineId', operator: FilterOperator.EQ, value: discipline });
+          });
+          this.filter.advancedFilter.filters.push({ logic: FilterLogic.OR, filters: disciplineFilter})
         } else {
           const { property, value } = filter as { property: string; value: string };
           this.filter.advancedFilter.filters.push({ field: property, operator: FilterOperator.CONTAINS, value: value });

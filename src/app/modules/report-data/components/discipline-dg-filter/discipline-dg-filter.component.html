@@ -1,0 +1,6 @@
+<clr-checkbox-container clrInline style="max-width: 25vw; margin-top: 0;" (change)="onSelectChanged()">
+  <clr-checkbox-wrapper *ngFor="let d of disciplineList">
+    <input type="checkbox" clrCheckbox [value]="d.id" [name]="d.id" [(ngModel)]="disciplines[d.id]" />
+    <label>({{d.code}}) {{d.name}}</label>
+  </clr-checkbox-wrapper>
+</clr-checkbox-container>
