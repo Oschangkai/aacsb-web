@@ -2,6 +2,7 @@ export type PaginationFilter = {
   pageNumber: number;
   pageSize: number;
   orderBy?: string[];
+  [key: string]: any;
 } & BaseFilter;
 
 export type BaseFilter = {
