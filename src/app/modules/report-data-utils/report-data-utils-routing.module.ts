@@ -7,6 +7,7 @@ import { TeacherComponent } from './pages/teacher/teacher.component';
 import { CourseTeacherComponent } from './pages/course-teacher/course-teacher.component';
 
 // Resolver
+import { getAcademicYearResolver, getNullDisciplineCoursesResolver } from './services/report-data-utils.resolver';
 
 
 const routes: Routes = [
@@ -15,7 +16,7 @@ const routes: Routes = [
     children: [
       {
         path: 'course',
-        resolve: {},
+        resolve: { courses: getNullDisciplineCoursesResolver, academicYear: getAcademicYearResolver },
         component: CourseComponent,
         children: [
           {

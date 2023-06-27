@@ -1,3 +1,12 @@
+export interface NullDisciplineCourseList {
+  course?: string;
+  courseCode?: string;
+  teacher?: string;
+  teacherEnglishName?: string;
+  courseDepartment?: string;
+  semester?: number;
+}
+
 export interface TeacherList {
   id: string;
   name: string;

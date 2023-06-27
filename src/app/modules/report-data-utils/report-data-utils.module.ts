@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { ReportDataUtilsRoutingModule } from './report-data-routing.module';
+import { SharedModule } from '@shared/shared.module';
+import { ReportDataUtilsRoutingModule } from './report-data-utils-routing.module';
+import { ReportDataUtilsService } from './services/report-data-utils.service';
 
 // Pages
 import { CourseComponent } from './pages/course/course.component';
@@ -19,7 +22,11 @@ const Pages = [CourseComponent, TeacherComponent, CourseTeacherComponent];
   declarations: [...Pages],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
     ReportDataUtilsRoutingModule
-  ]
+  ],
+  providers: [ReportDataUtilsService]
 })
 export class ReportDataUtilsModule { }

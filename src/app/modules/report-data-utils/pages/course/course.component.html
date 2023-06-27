@@ -1,2 +1,76 @@
 <h1>Course</h1>
-<p>not yet implement</p>
+
+<form clrForm style="margin-bottom: 24px;">
+  <!-- Academic Year -->
+  <clr-select-container>
+    <label>Academic Year</label>
+    <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData">
+      <ng-container *ngFor="let year of academicYearList">
+        <option [attr.aria-label]="year" [value]="year" (click)="load();">{{year}}</option>
+      </ng-container>
+    </select>
+  </clr-select-container>
+</form>
+
+<!-- Empty Table -->
+<div style="margin-top: 2rem; display: flex; justify-content: center;" *ngIf="loadData || !courses.length; else datagrid">
+  <clr-spinner [clrMedium]="true" *ngIf="loadData"></clr-spinner>
+  <p style="text-align: center" *ngIf="!courses.length && !loadData">No Data</p>
+</div>
+
+<ng-template #datagrid>
+  <clr-datagrid [clrDgLoading]="loadData">
+    <!-- Columns -->
+    <clr-dg-column [clrDgField]="'course'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Course
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'courseCode'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Course Code
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'teacher'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Teacher
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'teacherEnglishName'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Teacher English Name
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'courseDepartment'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Course Department
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'semester'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Semester
+      </ng-container>
+    </clr-dg-column>
+
+    <!-- Row Data -->
+    <clr-dg-row *clrDgItems="let course of courses">
+      <clr-dg-cell>{{course.course}}</clr-dg-cell>
+      <clr-dg-cell>{{course.courseCode}}</clr-dg-cell>
+      <clr-dg-cell>{{course.teacher}}</clr-dg-cell>
+      <clr-dg-cell>{{course.teacherEnglishName}}</clr-dg-cell>
+      <clr-dg-cell>{{course.courseDepartment}}</clr-dg-cell>
+      <clr-dg-cell>{{course.semester}}</clr-dg-cell>
+    </clr-dg-row>
+
+    <!-- Placeholder -->
+    <clr-dg-placeholder>No Course Found</clr-dg-placeholder>
+
+    <!-- Footer -->
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgTotalItems]="courses.length">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Courses per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} Courses
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</ng-template>
