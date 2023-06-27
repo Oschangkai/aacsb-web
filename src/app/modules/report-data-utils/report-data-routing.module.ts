@@ -4,10 +4,10 @@ import { Routes, RouterModule } from '@angular/router';
 // Component
 import { CourseComponent } from './pages/course/course.component';
 import { TeacherComponent } from './pages/teacher/teacher.component';
-import { ResearchComponent } from './pages/research/research.component';
+import { CourseTeacherComponent } from './pages/course-teacher/course-teacher.component';
 
 // Resolver
-import { CourseResolver, DepartmentResolver, DisciplineResolver, QualificationResolver, TeacherResolver } from './services/report-data.resolver';
+
 
 const routes: Routes = [
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       {
         path: 'course',
-        resolve: { courses: CourseResolver, departments: DepartmentResolver, disciplines: DisciplineResolver },
+        resolve: {},
         component: CourseComponent,
         children: [
           {
@@ -26,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'teacher',
-        resolve: { teachers: TeacherResolver, departments: DepartmentResolver, qualifications: QualificationResolver },
+        resolve: {},
         component: TeacherComponent,
         children: [
           {
@@ -36,13 +36,13 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'research',
+        path: 'course-teacher',
         resolve: {},
-        component: ResearchComponent,
+        component: CourseTeacherComponent,
         children: [
           {
             path: '',
-            component: ResearchComponent
+            component: CourseTeacherComponent
           }
         ]
       }
@@ -54,4 +54,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ReportDataRoutingModule {}
+export class ReportDataUtilsRoutingModule {}

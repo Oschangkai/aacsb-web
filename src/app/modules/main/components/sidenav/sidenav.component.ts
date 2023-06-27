@@ -26,7 +26,7 @@ export class SidenavComponent implements OnInit {
       child: [
         {
           routerLink: 'system/user',
-          shape: 'user',
+          shape: 'administrator',
           displayName: 'User',
           permission: [...Permission.Users.ALL]
         },
@@ -52,14 +52,46 @@ export class SidenavComponent implements OnInit {
       child: [
         {
           routerLink: 'report-data/course',
-          shape: 'book',
+          shape: 'calendar',
           displayName: 'Courses',
           permission: [...Permission.ReportData.ALL],
         },
         {
           routerLink: 'report-data/teacher',
-          shape: 'assign-user',
+          shape: 'user',
           displayName: 'Teachers',
+          permission: [...Permission.ReportData.ALL],
+        },
+        {
+          routerLink: 'report-data/research',
+          shape: 'library',
+          displayName: 'Research',
+          permission: [...Permission.ReportData.ALL],
+        }
+      ]
+    },
+    {
+      routerLink: 'report-data-utils',
+      shape: 'wrench',
+      displayName: 'Data Utilities',
+      permission: [...Permission.ReportData.ALL],
+      child: [
+        {
+          routerLink: 'report-data-utils/course',
+          shape: 'calendar',
+          displayName: 'Courses',
+          permission: [...Permission.ReportData.ALL],
+        },
+        {
+          routerLink: 'report-data-utils/teacher',
+          shape: 'user',
+          displayName: 'Teachers',
+          permission: [...Permission.ReportData.ALL],
+        },
+        {
+          routerLink: 'report-data-utils/course-teacher',
+          shape: 'book',
+          displayName: 'Teacher Courses',
           permission: [...Permission.ReportData.ALL],
         },
       ]
@@ -80,6 +112,18 @@ export class SidenavComponent implements OnInit {
           routerLink: 'report/aacsb-3-2',
           shape: 'table',
           displayName: 'AACSB 3.2',
+          permission: [...Permission.Report.ALL]
+        },
+        {
+          routerLink: 'report/aacsb-8-1',
+          shape: 'table',
+          displayName: 'AACSB 8.1',
+          permission: [...Permission.Report.ALL]
+        },
+        {
+          routerLink: 'report/aacsb-teacher-protofilo',
+          shape: 'contract', // id-badge
+          displayName: 'AACSB Teacher Profile',
           permission: [...Permission.Report.ALL]
         }
       ]

@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { CdsIconModule } from '@cds/angular';
 import { ClarityIcons, homeIcon, cogIcon, userIcon, usersIcon, listIcon,
-  fileGroupIcon, tableIcon, dataClusterIcon, bookIcon, assignUserIcon } from '@cds/core/icon';
+  fileGroupIcon, tableIcon, dataClusterIcon, bookIcon, libraryIcon, contractIcon, administratorIcon, calendarIcon, wrenchIcon } from '@cds/core/icon';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
@@ -33,7 +33,8 @@ const CdsModules = [CdsIconModule];
 import '@cds/core/icon/register.js';
 ClarityIcons.addIcons(
   homeIcon, cogIcon, userIcon, usersIcon, listIcon, fileGroupIcon,
-  tableIcon, dataClusterIcon, bookIcon, assignUserIcon);
+  tableIcon, dataClusterIcon, bookIcon, calendarIcon, contractIcon,
+  libraryIcon, administratorIcon, wrenchIcon);
 
 @NgModule({
   declarations: [...Pages, ...Components],

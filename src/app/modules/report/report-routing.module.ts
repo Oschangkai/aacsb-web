@@ -7,6 +7,8 @@ import { Aacsb32Component } from '@here/pages/aacsb32/aacsb32.component';
 
 // Resolver
 import { aacsb31TableResolver, getAacsb32TableResolver, getAcademicYearResolver, getDepartmentResolver, getDisciplineResolver } from './services/report.resolver';
+import { Aacsb81Component } from './pages/aacsb81/aacsb81.component';
+import { AacsbTeacherProfileComponent } from './pages/aacsb-teacher-profile/aacsb-teacher-profile.component';
 
 const routes: Routes = [
   {
@@ -37,6 +39,28 @@ const routes: Routes = [
           {
             path: '',
             component: Aacsb32Component
+          }
+        ]
+      },
+      {
+        path: 'aacsb-8-1',
+        resolve: {},
+        component: Aacsb81Component,
+        children: [
+          {
+            path: '',
+            component: Aacsb81Component
+          }
+        ]
+      },
+      {
+        path: 'aacsb-teacher-protofilo',
+        resolve: {},
+        component: AacsbTeacherProfileComponent,
+        children: [
+          {
+            path: '',
+            component: AacsbTeacherProfileComponent
           }
         ]
       }

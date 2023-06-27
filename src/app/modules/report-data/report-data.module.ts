@@ -13,6 +13,7 @@ ClarityIcons.addIcons(searchIcon);
 // Pages
 import { CourseComponent } from './pages/course/course.component';
 import { TeacherComponent } from './pages/teacher/teacher.component';
+import { ResearchComponent } from './pages/research/research.component';
 
 // Components
 import { SemesterDgFilterComponent } from './components/semester-dg-filter/semester-dg-filter.component';
@@ -24,7 +25,7 @@ import { DisciplineDgFilterComponent } from './components/discipline-dg-filter/q
 import { CollectCoursesModalComponent } from './components/collect-courses-modal/collect-courses-modal.component';
 import { EditTeacherModalComponent } from './components/edit-teacher-modal/edit-teacher-modal.component';
 
-const Pages = [CourseComponent, TeacherComponent];
+const Pages = [CourseComponent, TeacherComponent, ResearchComponent];
 const Components = [SemesterDgFilterComponent, DepartmentDgFilterComponent, DisciplineDgFilterComponent, QualificationDgFilterComponent];
 const Modals = [CollectCoursesModalComponent, EditTeacherModalComponent];
 
