@@ -27,7 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'teacher',
-        resolve: { teachers: getMissingDataTeachersResolver, academicYear: getAcademicYearResolver},
+        resolve: { teachers: getMissingDataTeachersResolver, academicYear: getAcademicYearResolver },
         component: TeacherComponent,
         children: [
           {
@@ -38,7 +38,7 @@ const routes: Routes = [
       },
       {
         path: 'course-teacher',
-        resolve: {},
+        resolve: { academicYear: getAcademicYearResolver },
         component: CourseTeacherComponent,
         children: [
           {

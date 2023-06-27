@@ -18,7 +18,10 @@ export interface NullDisciplineCourseList {
   courseId: string;
   teacherId: string;
 }
-
+export interface SimpleA31TeacherList {
+  teacher: string;
+  teacherEnglishName?: string;
+}
 export interface TeacherList {
   id: string;
   name: string;
