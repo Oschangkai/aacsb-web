@@ -5,6 +5,7 @@ export interface MissingDataTeacherList {
   degreeYear?: number;
   responsibilities?: string;
   qualification?: string;
+  teacherId: string;
 }
 
 export interface NullDisciplineCourseList {
@@ -14,6 +15,8 @@ export interface NullDisciplineCourseList {
   teacherEnglishName?: string;
   courseDepartment?: string;
   semester?: number;
+  courseId: string;
+  teacherId: string;
 }
 
 export interface TeacherList {

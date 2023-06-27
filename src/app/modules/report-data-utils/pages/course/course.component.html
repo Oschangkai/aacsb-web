@@ -51,6 +51,16 @@
         Semester
       </ng-container>
     </clr-dg-column>
+    <clr-dg-column [clrDgField]="'courseId'">
+      <ng-container *clrDgHideableColumn="{hidden: true}">
+        Course Id
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'teacherId'">
+      <ng-container *clrDgHideableColumn="{hidden: true}">
+        Teacher Id
+      </ng-container>
+    </clr-dg-column>
 
     <!-- Row Data -->
     <clr-dg-row *clrDgItems="let course of courses">
@@ -60,6 +70,8 @@
       <clr-dg-cell>{{course.teacherEnglishName}}</clr-dg-cell>
       <clr-dg-cell>{{course.courseDepartment}}</clr-dg-cell>
       <clr-dg-cell>{{course.semester}}</clr-dg-cell>
+      <clr-dg-cell>{{course.courseId}}</clr-dg-cell>
+      <clr-dg-cell>{{course.teacherId}}</clr-dg-cell>
     </clr-dg-row>
 
     <!-- Placeholder -->

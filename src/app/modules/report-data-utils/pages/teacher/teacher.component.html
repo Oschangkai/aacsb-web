@@ -72,6 +72,11 @@
         Qualification
       </ng-container>
     </clr-dg-column>
+    <clr-dg-column [clrDgField]="'teacherId'">
+      <ng-container *clrDgHideableColumn="{hidden: true}">
+        Teacher Id
+      </ng-container>
+    </clr-dg-column>
 
     <!-- Row Data -->
     <clr-dg-row *clrDgItems="let teacher of teachers">
@@ -81,6 +86,7 @@
       <clr-dg-cell>{{teacher.degreeYear}}</clr-dg-cell>
       <clr-dg-cell>{{teacher.responsibilities}}</clr-dg-cell>
       <clr-dg-cell>{{teacher.qualification}}</clr-dg-cell>
+      <clr-dg-cell>{{teacher.teacherId}}</clr-dg-cell>
     </clr-dg-row>
 
     <!-- Placeholder -->
