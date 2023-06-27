@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { EnvironmentService } from '@service/environment.service';
 import { CourseList, Department, Discipline, Qualification, TeacherList } from '@model/response-data.model';
-import { CollectCoursesRequest, EditTeacher } from '@model/request.model';
+import { CollectCoursesRequest, DeleteCoursesRequest, EditTeacher } from '@model/request.model';
 import { JobEnqueuedResponse, MessageResponse, PaginationResponse } from '@model/response.model';
 import { PaginationFilter } from '@model/request-filter.model';
 
@@ -36,6 +36,10 @@ export class ReportDataService {
 
   getCourses(request: PaginationFilter = {pageNumber: 1, pageSize: 10}): Observable<PaginationResponse<CourseList>> {
     return this.http.post<PaginationResponse<CourseList>>(`${this.reportDataUrl}/course/search`, {...request});
+  }
+
+  deleteCourses(request: DeleteCoursesRequest): Observable<MessageResponse> {
+    return this.http.request<MessageResponse>('delete', `${this.reportDataUrl}/course`, { body: {...request}});
   }
 
   getTeachers(request: PaginationFilter = {pageNumber: 1, pageSize: 10}): Observable<PaginationResponse<TeacherList>> {

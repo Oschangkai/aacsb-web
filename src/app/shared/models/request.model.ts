@@ -12,6 +12,10 @@ export type EditTeacher = {
   title: string | null;
   responsibilities: string | null;
 }
+export type DeleteCoursesRequest = {
+  semester: string;
+  importSignatureId: string;
+}
 export type CollectCoursesRequest = {
   year: number;
   semester: number;

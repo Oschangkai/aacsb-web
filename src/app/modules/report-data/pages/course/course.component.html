@@ -1,5 +1,6 @@
 <h1>Course</h1>
 <button class="btn btn-sm" (click)="modalOpened.collect = true" *permission="[Permission.ReportData.Import]">Get Courses</button>
+<button class="btn btn-sm btn-danger-outline" (click)="modalOpened.delete = true" *permission="[Permission.ReportData.Delete]">Delete Courses</button>
 
 <!-- Search -->
 <div style="margin-bottom: 24px;">
@@ -97,9 +98,14 @@
   </clr-dg-footer>
 </clr-datagrid>
 
-
 <app-collect-courses-modal
   *ngIf="modalOpened.collect"
   [(opened)]="modalOpened.collect"
   (onSubmit)="onCollectSubmit($event)"
 ></app-collect-courses-modal>
+
+<app-delete-courses-modal
+  *ngIf="modalOpened.delete"
+  [(opened)]="modalOpened.delete"
+  (onSubmit)="onDeleteSubmit($event)"
+></app-delete-courses-modal>

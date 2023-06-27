@@ -23,11 +23,12 @@ import { DisciplineDgFilterComponent } from './components/discipline-dg-filter/q
 
 // Modals
 import { CollectCoursesModalComponent } from './components/collect-courses-modal/collect-courses-modal.component';
+import { DeleteCoursesModalComponent } from './components/delete-courses-modal/delete-courses-modal.component';
 import { EditTeacherModalComponent } from './components/edit-teacher-modal/edit-teacher-modal.component';
 
 const Pages = [CourseComponent, TeacherComponent, ResearchComponent];
 const Components = [SemesterDgFilterComponent, DepartmentDgFilterComponent, DisciplineDgFilterComponent, QualificationDgFilterComponent];
-const Modals = [CollectCoursesModalComponent, EditTeacherModalComponent];
+const Modals = [CollectCoursesModalComponent, DeleteCoursesModalComponent, EditTeacherModalComponent];
 
 @NgModule({
   declarations: [...Pages, ...Modals, ...Components],

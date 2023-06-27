@@ -6,7 +6,7 @@ import { NgProgress } from 'ngx-progressbar';
 
 import { Permission } from '@model/ApplicationPermission.model';
 import { Filter, FilterLogic, FilterOperator, PaginationFilter } from '@model/request-filter.model';
-import { CollectCoursesRequest } from '@model/request.model';
+import { CollectCoursesRequest, DeleteCoursesRequest } from '@model/request.model';
 import { CourseList, Department, Discipline } from '@model/response-data.model';
 import { PaginationResponse } from '@model/response.model';
 
@@ -35,7 +35,7 @@ export class CourseComponent {
   // states
   Permission = Permission;
   loadData = true;
-  modalOpened = {collect: false};
+  modalOpened = {collect: false, delete: false};
 
   // data
   courses: PaginationResponse<CourseList> | undefined;
@@ -112,6 +112,11 @@ export class CourseComponent {
   onCollectSubmit(request: CollectCoursesRequest): void {
     this.reportDataService.collectCourses({...request})
       .subscribe(_ => this.modalOpened.collect = false);
+  }
+
+  onDeleteSubmit(request: DeleteCoursesRequest): void {
+    this.reportDataService.deleteCourses({...request})
+      .subscribe(_ => this.modalOpened.delete = false)
   }
 
   ngOnInit(): void {

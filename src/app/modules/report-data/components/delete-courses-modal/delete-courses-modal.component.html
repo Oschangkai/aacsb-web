@@ -1,0 +1,23 @@
+<clr-modal [(clrModalOpen)]="opened" [clrModalStaticBackdrop]="false" [clrModalClosable]="false">
+  <h3 class="modal-title">Delete Courses</h3>
+  <div class="modal-body">
+    <form class="clr-form clr-form-horizontal" *ngIf="request" [clrLoading]="loadData">
+      <!-- Semester -->
+      <clr-input-container>
+        <label>Semester</label>
+        <input clrInput type="text" name="semester" [(ngModel)]="request.semester" />
+      </clr-input-container>
+      <!-- Import Signature Id -->
+      <clr-input-container>
+        <label>Import Id</label>
+        <input clrInput type="text" name="importSignatureId" [(ngModel)]="request.importSignatureId" />
+      </clr-input-container>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="this.openedChange.emit(false)">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="onSubmitClicked()" [clrLoading]="submitBtnState">Ok</button>
+  </div>
+</clr-modal>
+
