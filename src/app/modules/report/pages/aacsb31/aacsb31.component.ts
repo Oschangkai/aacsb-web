@@ -8,6 +8,7 @@ import { ReportService } from '@here/services/report.service';
 
 import { Permission } from '@model/ApplicationPermission.model';
 import { AacsbTable31, Discipline } from '@model/response-data.model';
+import { EnvironmentService } from '@service/environment.service';
 
 @Component({
   selector: 'app-aacsb31',
@@ -19,6 +20,7 @@ export default class Aacsb31Component {
   constructor(
     private route: ActivatedRoute,
     private reportService: ReportService,
+    private env: EnvironmentService,
     private ngProgress: NgProgress
 ) {
   this.httpStateSubscription = this.ngProgress.ref('http-load').state.subscribe(state => {
@@ -123,7 +125,9 @@ export default class Aacsb31Component {
       this.reportService.getAacsb31Table({semester: this.academicYear.toString()})
     ]).subscribe(([discipline, aacsb31Table]) => {
         this.disciplines = discipline;
-        this.disciplines.unshift({code: 0, name: 'Not Categorized', id: ''});
+        if (!this.env.production) {
+          this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
+        }
         this.aacsbTable31 = aacsb31Table;
         this.caculateTableSummary();
       });
@@ -136,7 +140,9 @@ export default class Aacsb31Component {
         this.disciplines = [...disciplineList];
         this.academicYearList = [...academicYearList];
         this.academicYear = this.academicYearList.sort((a, b) => b - a)[0];
-        this.disciplines.unshift({code: 0, name: 'Not Categorized', id: ''});
+        if (!this.env.production) {
+          this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
+        }
         this.caculateTableSummary();
       }
     );
