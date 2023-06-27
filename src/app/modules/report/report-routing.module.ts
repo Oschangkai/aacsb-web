@@ -44,7 +44,10 @@ const routes: Routes = [
       },
       {
         path: 'aacsb-8-1',
-        resolve: {},
+        resolve: {
+          disciplineList: getDisciplineResolver,
+          academicYearList: getAcademicYearResolver,
+        },
         component: Aacsb81Component,
         children: [
           {

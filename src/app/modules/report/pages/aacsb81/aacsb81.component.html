@@ -1,2 +1,84 @@
 <h1>AACSB Table 8-1</h1>
-<p>not yet implement</p>
+<form clrForm>
+  <!-- Academic Year -->
+  <clr-select-container>
+    <label>Academic Year</label>
+    <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData">
+      <ng-container *ngFor="let year of academicYearList">
+        <option [attr.aria-label]="year" [value]="year" (click)="load();">{{year}}</option>
+      </ng-container>
+    </select>
+  </clr-select-container>
+</form>
+
+<!-- Empty Table -->
+<div style="margin-top: 2rem; display: flex; justify-content: center;" *ngIf="loadData || !aacsbTable81.length; else reportA81">
+  <clr-spinner [clrMedium]="true" *ngIf="loadData"></clr-spinner>
+  <p style="text-align: center" *ngIf="!aacsbTable81.length && !loadData">No Data</p>
+</div>
+
+<!-- AACSB Table 3-1 -->
+<ng-template #reportA81>
+<table id="report-aacsb-8-1" class="table table-compact">
+<!-- Head -->
+<thead>
+  <tr>
+    <th colspan="12" style="background: none; color: #000;">
+      Part A: Summary of Intellectual Contributions Over the Most Recently Completed Accreditation Cycle
+    </th>
+  </tr>
+  <tr>
+    <th rowspan="2">
+      Aggregate and summarize data by discipline. Do not list by individual faculty member.
+    </th>
+    <th colspan="4">Portfolio of Intellectual Contributions</th>
+    <th colspan="4">Types of Intellectual Contributions</th>
+    <th colspan="2">% of Faculty Producing Intellectual Contributions</th>
+  </tr>
+  <tr>
+    <th>Basic or Discovery Scholarship</th>
+    <th>Applied or Integration/Application Scholarship</th>
+    <th>Teaching and Learning Scholarship</th>
+    <th><b>Total</b></th>
+    <th>Peer-reviewed journal articles</th>
+    <th>Additional peer- or editorial-reviewed intellectual contributions</th>
+    <th>All other intellectual contributions</th>
+    <th><b>Total</b></th>
+    <th>Percentage of participating faculty producing ICs</th>
+    <th>Percentage of total Full Time Equivalent (FTE) faculty producing ICs</th>
+  </tr>
+</thead>
+
+  <!-- forEach getDiscipline name & id 0-6 -->
+  <ng-container *ngFor="let discipline of disciplines">
+    <tr>
+      <td>{{ discipline.name }}</td>
+      <!-- forEach 8-1 -->
+      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ '123' | number: '1.0-2' }}</td>
+    </tr>
+  </ng-container>
+  <tr style="background-color: #fafafa;">
+    <td><b>Total</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+  </tr>
+
+</table>
+</ng-template>
