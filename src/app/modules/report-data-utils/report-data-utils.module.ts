@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ClarityIcons, searchIcon } from '@cds/core/icon';
+
+import '@cds/core/icon/register.js';
+ClarityIcons.addIcons(searchIcon);
 
 import { SharedModule } from '@shared/shared.module';
 import { ReportDataUtilsRoutingModule } from './report-data-utils-routing.module';

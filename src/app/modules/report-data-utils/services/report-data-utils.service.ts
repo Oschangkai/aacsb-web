@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { EnvironmentService } from '@service/environment.service';
-import { Department, Discipline, NullDisciplineCourseList } from '@model/response-data.model';
+import { Department, Discipline, MissingDataTeacherList, NullDisciplineCourseList } from '@model/response-data.model';
 
 @Injectable()
 export class ReportDataUtilsService {
@@ -25,5 +25,9 @@ export class ReportDataUtilsService {
 
   getNullDisciplineCourses(request: {academicYear: string}): Observable<NullDisciplineCourseList[]> {
     return this.http.post<NullDisciplineCourseList[]>(`${this.reportDataUrl}/course/inspect`, request);
+  }
+
+  getMissingDataTeachers(request: {academicYear: string, column: 'degree' | 'responsibility' | 'qualification'}): Observable<MissingDataTeacherList[]> {
+    return this.http.post<MissingDataTeacherList[]>(`${this.reportDataUrl}/teacher/inspect`, request);
   }
 }

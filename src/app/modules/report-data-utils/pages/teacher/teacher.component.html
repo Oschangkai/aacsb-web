@@ -1,2 +1,97 @@
 <h1>Teacher</h1>
-<p>not yet implement</p>
+
+<form clrForm style="margin-bottom: 24px;">
+  <!-- Academic Year -->
+  <clr-select-container>
+    <label>Academic Year</label>
+    <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData">
+      <ng-container *ngFor="let year of academicYearList">
+        <option [attr.aria-label]="year" [value]="year">{{year}}</option>
+      </ng-container>
+    </select>
+  </clr-select-container>
+  <!-- Column -->
+  <clr-radio-container clrInline>
+    <label>Column</label>
+    <clr-radio-wrapper>
+      <input type="radio" clrRadio name="options" value="degree" [(ngModel)]="column" />
+      <label>Degree</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+      <input type="radio" clrRadio name="options" value="responsibility" [(ngModel)]="column" />
+      <label>Responsibility</label>
+    </clr-radio-wrapper>
+    <clr-radio-wrapper>
+      <input type="radio" clrRadio name="options" value="qualification" [(ngModel)]="column" />
+      <label>Qualification</label>
+    </clr-radio-wrapper>
+  </clr-radio-container>
+  <!-- Search -->
+  <button class="btn btn-primary" [clrLoading]="loadData"  style="margin-top: 16px;" (click)="load()">
+      <cds-icon shape="search"></cds-icon>
+      Search
+    </button>
+</form>
+
+<!-- Empty Table -->
+<div style="margin-top: 2rem; display: flex; justify-content: center;" *ngIf="loadData || !teachers.length; else datagrid">
+  <clr-spinner [clrMedium]="true" *ngIf="loadData"></clr-spinner>
+  <p style="text-align: center" *ngIf="!teachers.length && !loadData">No Data</p>
+</div>
+
+<ng-template #datagrid>
+  <clr-datagrid [clrDgLoading]="loadData">
+    <!-- Columns -->
+    <clr-dg-column [clrDgField]="'teacher'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Teacher
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'teacherEnglishName'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Teacher English Name
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'degree'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Degree
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'degreeYear'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Degree Year
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'responsibilities'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Responsibilities
+      </ng-container>
+    </clr-dg-column>
+    <clr-dg-column [clrDgField]="'qualification'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Qualification
+      </ng-container>
+    </clr-dg-column>
+
+    <!-- Row Data -->
+    <clr-dg-row *clrDgItems="let teacher of teachers">
+      <clr-dg-cell>{{teacher.teacher}}</clr-dg-cell>
+      <clr-dg-cell>{{teacher.teacherEnglishName}}</clr-dg-cell>
+      <clr-dg-cell>{{teacher.degree}}</clr-dg-cell>
+      <clr-dg-cell>{{teacher.degreeYear}}</clr-dg-cell>
+      <clr-dg-cell>{{teacher.responsibilities}}</clr-dg-cell>
+      <clr-dg-cell>{{teacher.qualification}}</clr-dg-cell>
+    </clr-dg-row>
+
+    <!-- Placeholder -->
+    <clr-dg-placeholder>No Course Found</clr-dg-placeholder>
+
+    <!-- Footer -->
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgTotalItems]="teachers.length">
+        <clr-dg-page-size [clrPageSizeOptions]="[10,20,30]">Teachers per page</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} Teachers
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</ng-template>

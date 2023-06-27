@@ -1,3 +1,12 @@
+export interface MissingDataTeacherList {
+  teacher: string;
+  teacherEnglishName?: string;
+  degree?: string;
+  degreeYear?: number;
+  responsibilities?: string;
+  qualification?: string;
+}
+
 export interface NullDisciplineCourseList {
   course?: string;
   courseCode?: string;
