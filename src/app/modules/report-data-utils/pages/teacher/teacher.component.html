@@ -25,6 +25,10 @@
       <input type="radio" clrRadio name="options" value="qualification" [(ngModel)]="column" />
       <label>Qualification</label>
     </clr-radio-wrapper>
+    <clr-radio-wrapper>
+      <input type="radio" clrRadio name="options" value="workType" [(ngModel)]="column" />
+      <label>Work Type</label>
+    </clr-radio-wrapper>
   </clr-radio-container>
   <!-- Search -->
   <button class="btn btn-primary" [clrLoading]="loadData"  style="margin-top: 16px;" (click)="load()">
@@ -72,6 +76,11 @@
         Qualification
       </ng-container>
     </clr-dg-column>
+    <clr-dg-column [clrDgField]="'workType'">
+      <ng-container *clrDgHideableColumn="{hidden: false}">
+        Work Type
+      </ng-container>
+    </clr-dg-column>
     <clr-dg-column [clrDgField]="'teacherId'">
       <ng-container *clrDgHideableColumn="{hidden: true}">
         Teacher Id
@@ -86,6 +95,7 @@
       <clr-dg-cell>{{teacher.degreeYear}}</clr-dg-cell>
       <clr-dg-cell>{{teacher.responsibilities}}</clr-dg-cell>
       <clr-dg-cell>{{teacher.qualification}}</clr-dg-cell>
+      <clr-dg-cell>{{teacher.workType}}</clr-dg-cell>
       <clr-dg-cell>{{teacher.teacherId}}</clr-dg-cell>
     </clr-dg-row>
 

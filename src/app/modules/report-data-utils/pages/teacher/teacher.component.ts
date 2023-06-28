@@ -27,7 +27,7 @@ constructor(
 
   // data
   teachers: MissingDataTeacherList[] = [];
-  column: 'degree' | 'responsibility' | 'qualification' = 'degree';
+  column: 'degree' | 'responsibility' | 'qualification' | 'workType' = 'degree';
   academicYear = (new Date()).getFullYear() - 1912;
   academicYearList: number[] = [];
 

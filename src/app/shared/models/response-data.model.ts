@@ -5,6 +5,7 @@ export interface MissingDataTeacherList {
   degreeYear?: number;
   responsibilities?: string;
   qualification?: string;
+  workType?: string;
   teacherId: string;
 }
 

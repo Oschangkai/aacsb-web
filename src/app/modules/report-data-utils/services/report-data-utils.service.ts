@@ -27,7 +27,7 @@ export class ReportDataUtilsService {
     return this.http.post<NullDisciplineCourseList[]>(`${this.reportDataUrl}/course/inspect`, request);
   }
 
-  getMissingDataTeachers(request: {academicYear: string, column: 'degree' | 'responsibility' | 'qualification'}): Observable<MissingDataTeacherList[]> {
+  getMissingDataTeachers(request: {academicYear: string, column: 'degree' | 'responsibility' | 'qualification' | 'workType'}): Observable<MissingDataTeacherList[]> {
     return this.http.post<MissingDataTeacherList[]>(`${this.reportDataUrl}/teacher/inspect`, request);
   }
 
