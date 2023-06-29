@@ -7,6 +7,7 @@ export class Alert {
   fade = true;
   duration?: AlertDuration = AlertDuration.Default;
   uid?: string;
+  timeoutId?: number; 
   constructor(init?: Partial<Alert>) {
     Object.assign(this, init);
   }

@@ -46,7 +46,7 @@ export class StandardAlertComponent implements OnInit, OnDestroy {
 
         // auto close alert if required
         if (alert.autoClose) {
-          setTimeout(() => this.removeAlert(alert), alert.duration);
+          alert.timeoutId = setTimeout(() => this.removeAlert(alert), alert.duration);
         }
       });
 
@@ -63,6 +63,16 @@ export class StandardAlertComponent implements OnInit, OnDestroy {
     // unsubscribe to avoid memory leaks
     this.alertSubscription.unsubscribe();
     this.routeSubscription.unsubscribe();
+  }
+
+  onMouseEnter(e: Event): void {
+    clearTimeout(this.alerts.find(x => x.uid === (e.target as HTMLDivElement).id)?.timeoutId);
+  }
+  onMouseLeave(e: Event): void {
+    const alert = this.alerts.find(x => x.uid === (e.target as HTMLDivElement).id);
+    if (alert && alert.autoClose) {
+      alert.timeoutId = setTimeout(() => this.removeAlert(alert), alert.duration);
+    }
   }
 
   removeAlert(alert: Alert): boolean {

@@ -7,7 +7,7 @@
     Clear All
   </button>
   <clr-alerts *ngFor="let alert of alerts" style="clear: both;">
-    <clr-alert [clrAlertType]=alert.type (clrAlertClosedChange)="removeAlert(alert)">
+    <clr-alert [id]="alert.uid" (mouseenter)="onMouseEnter($event)" (mouseleave)="onMouseLeave($event)" [clrAlertType]=alert.type (clrAlertClosedChange)="removeAlert(alert)">
       <clr-alert-item style="white-space: pre-line;">{{alert.message}}</clr-alert-item>
     </clr-alert>
   </clr-alerts>
