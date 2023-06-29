@@ -11,14 +11,15 @@
     </select>
   </clr-select-container>
   <!-- Teacher -->
-  <clr-select-container>
+  <clr-datalist-container>
     <label>Teacher</label>
-    <select clrSelect name="Teacher" [(ngModel)]="teacher" [disabled]="loadData">
-      <ng-container *ngFor="let teacher of teachers">
-        <option [attr.aria-label]="teacher" [value]="teacher.teacher" (click)="load();">{{teacher.teacher}} {{teacher.teacherEnglishName ? '(' + teacher.teacherEnglishName + ')' : ''}}</option>
-      </ng-container>
-    </select>
-  </clr-select-container>
+    <input clrDatalistInput (keyup.enter)="load();" [(ngModel)]="teacher" [disabled]="loadData" placeholder="Teacher Name" name="Option"/>
+    <datalist>
+      <option *ngFor="let teacher of teachers" [attr.aria-label]="teacher" [value]="teacher.teacher">
+        {{teacher.teacher}}
+      </option>
+    </datalist>
+  </clr-datalist-container>
 </form>
 
 <!-- Empty Table -->

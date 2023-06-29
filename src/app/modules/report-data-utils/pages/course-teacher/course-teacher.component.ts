@@ -37,7 +37,6 @@ constructor(
         .subscribe(teachers => {
           this.teachers = [...teachers];
           this.teachers.sort((a, b) => a.teacher.localeCompare(b.teacher));
-          this.teacher = this.teachers[0].teacher;
           this.load();
         });
   }

@@ -6,12 +6,12 @@
     <label>Academic Year</label>
     <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData">
       <ng-container *ngFor="let year of academicYearList">
-        <option [attr.aria-label]="year" [value]="year">{{year}}</option>
+        <option [attr.aria-label]="year" [value]="year" (click)="load()">{{year}}</option>
       </ng-container>
     </select>
   </clr-select-container>
   <!-- Column -->
-  <clr-radio-container clrInline>
+  <clr-radio-container (change)="load();" clrInline>
     <label>Column</label>
     <clr-radio-wrapper>
       <input type="radio" clrRadio name="options" value="degree" [(ngModel)]="column" />
@@ -30,11 +30,6 @@
       <label>Work Type</label>
     </clr-radio-wrapper>
   </clr-radio-container>
-  <!-- Search -->
-  <button class="btn btn-primary" [clrLoading]="loadData"  style="margin-top: 16px;" (click)="load()">
-      <cds-icon shape="search"></cds-icon>
-      Search
-    </button>
 </form>
 
 <!-- Empty Table -->
