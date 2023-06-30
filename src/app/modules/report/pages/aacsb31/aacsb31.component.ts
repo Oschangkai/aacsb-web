@@ -20,7 +20,7 @@ export default class Aacsb31Component {
   constructor(
     private route: ActivatedRoute,
     private reportService: ReportService,
-    private env: EnvironmentService,
+    protected env: EnvironmentService,
     private ngProgress: NgProgress
 ) {
   this.httpStateSubscription = this.ngProgress.ref('http-load').state.subscribe(state => {
@@ -71,7 +71,7 @@ export default class Aacsb31Component {
         .filter(x => x.qualification == 'IP')
         .reduce((prev, curr) => prev + curr.disciplineTotal / curr.creditTotal * 100, 0);
       let A = disciplineData
-        .filter(x => x.qualification == null)
+        .filter(x => (x.qualification == null || x.qualification == 'A'))
         .reduce((prev, curr) => prev + curr.disciplineTotal / curr.creditTotal * 100, 0);
       let total = SA + PA + SP + IP + A;
 
@@ -87,6 +87,8 @@ export default class Aacsb31Component {
         pA: A / total,
         pDevoted: (SA + PA + SP + IP) / total
       });
+
+      if (d.code == null || d.code == 0) return;
 
       // grand total
       this.tableSummary.grandTotal.fullTime += fullTime;
@@ -117,9 +119,7 @@ export default class Aacsb31Component {
       this.reportService.getAacsb31Table({semester: this.academicYear.toString()})
     ]).subscribe(([discipline, aacsb31Table]) => {
         this.disciplines = discipline;
-        if (!this.env.production) {
-          this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
-        }
+        this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
         this.aacsbTable31 = aacsb31Table;
         this.caculateTableSummary();
       });
@@ -132,9 +132,7 @@ export default class Aacsb31Component {
         this.disciplines = [...disciplineList];
         this.academicYearList = [...academicYearList];
         this.academicYear = this.academicYearList.sort((a, b) => b - a)[0];
-        if (!this.env.production) {
-          this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
-        }
+        this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
         this.caculateTableSummary();
       }
     );
