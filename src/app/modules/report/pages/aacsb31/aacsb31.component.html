@@ -61,24 +61,24 @@
   <!-- 灰底 discipline 開頭  -->
   <tr style="background-color: hsl(198, 0%, 87%);">
     <td colspan="2">{{ discipline.name }}</td>
-    <td colspan="4" class="left">Degrees or majors are offered in this discipline {{ getTeachers(discipline.code).length > 0 ? '☒' : '☐' }}</td>
-    <td colspan="7" class="left">Degrees or majors are not offered in this discipline {{ getTeachers(discipline.code).length <= 0 ? '☒' : '☐' }} </td>
+    <td colspan="4" class="left">Degrees or majors are offered in this discipline {{ (aacsbTable31 | filter: { discipline: discipline.code }).length > 0 ? '☒' : '☐' }}</td>
+    <td colspan="7" class="left">Degrees or majors are not offered in this discipline {{ (aacsbTable31 | filter: { discipline: discipline.code }).length <= 0 ? '☒' : '☐' }} </td>
   </tr>
 
   <!-- discipline 老師  -->
   <ng-container *ngIf="showTeachers">
-    <tr *ngFor="let teacher of getTeachers(discipline.code)">
+    <tr *ngFor="let teacher of aacsbTable31 | filter: { discipline: discipline.code }">
       <td>{{ teacher.teacher }} {{ teacher.teacherEnglishName ? '(' + teacher.teacherEnglishName + ')' : '' }}</td>
       <td>{{ teacher.teacherDepartment }}</td>
       <td>{{ teacher.degree }}{{ teacher.degreeYear ? ', ' + teacher.degreeYear : '' }}</td>
       <td>{{ teacher.workType == 'P' ? teacher.disciplineTotal : '' }}</td>
       <td>{{ teacher.workType == 'S' ? teacher.disciplineTotal : '' }}</td>
       <td>{{ teacher.responsibilities }}</td>
-      <td>{{ teacher.qualification == 'SA' ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
-      <td>{{ teacher.qualification == 'PA' ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
-      <td>{{ teacher.qualification == 'SP' ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
-      <td>{{ teacher.qualification == 'IP' ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
-      <td>{{ teacher.qualification == null ? roundTo(teacher.disciplineTotal / teacher.creditTotal * 100, 2) : '' }}</td>
+      <td>{{ (teacher.qualification == 'SA' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
+      <td>{{ (teacher.qualification == 'PA' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
+      <td>{{ (teacher.qualification == 'SP' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
+      <td>{{ (teacher.qualification == 'IP' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
+      <td>{{ (teacher.qualification == null ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
       <td></td>
   </tr>
   </ng-container>
@@ -87,14 +87,14 @@
   <!-- Discipline Total -->
   <tr style="background-color: hsl(198, 0%, 98%); font-weight: 600;">
     <td colspan="3">Discipline Total</td>
-    <td>{{ this.getDisciplineTotal(discipline.code).fullTime | number: '1.0-2' }}</td>
-    <td>{{ this.getDisciplineTotal(discipline.code).partTime | number: '1.0-2' }}</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].fullTime | number: '1.0-2' }}</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].partTime | number: '1.0-2' }}</td>
     <td rowspan="2"></td>
-    <td>{{ this.getDisciplineTotal(discipline.code).SA | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pSA | percent: '1.0-2' }})</td>
-    <td>{{ this.getDisciplineTotal(discipline.code).PA | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pPA| percent: '1.0-2' }})</td>
-    <td>{{ this.getDisciplineTotal(discipline.code).SP | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pSP | percent: '1.0-2' }})</td>
-    <td>{{ this.getDisciplineTotal(discipline.code).IP | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pIP | percent: '1.0-2' }})</td>
-    <td>{{ this.getDisciplineTotal(discipline.code).A | number: '1.0-2' }} ({{ this.getDisciplineTotal(discipline.code).pA | percent: '1.0-2' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].SA | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pSA | percent: '1.0-2' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].PA | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pPA| percent: '1.0-2' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].SP | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pSP | percent: '1.0-2' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].IP | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pIP | percent: '1.0-2' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].A | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pA | percent: '1.0-2' }})</td>
     <td></td>
   </tr>
   <!-- discipline 小結 -2 -->
@@ -102,15 +102,15 @@
   <tr style="background-color: hsl(198, 0%, 98%);">
     <td colspan="3" style="font-weight: 600;">Discipline Ratio</td>
     <td colspan="2">
-      >= 60% requirement for P <b>{{ this.getDisciplineTotal(discipline.code).contactHourRatio >= 0.6 ? 'met' : 'not met' }} 
-        ({{ this.getDisciplineTotal(discipline.code).contactHourRatio | percent: '1.0-2' }})</b> 
+      >= 60% requirement for P <b>{{ this.tableSummary.disciplineTotal[discipline.code].contactHourRatio >= 0.6 ? 'met' : 'not met' }} 
+        ({{ this.tableSummary.disciplineTotal[discipline.code].contactHourRatio | percent: '1.0-2' }})</b> 
     </td>
     <td colspan="6">
-      Minimum SA >= 40% <b>{{ this.getDisciplineTotal(discipline.code).pSA >= 0.4 ? 'met' : 'not met' }} 
-      ({{ this.getDisciplineTotal(discipline.code).pSA | percent:'1.0-2' }})</b>
+      Minimum SA >= 40% <b>{{ this.tableSummary.disciplineTotal[discipline.code].pSA >= 0.4 ? 'met' : 'not met' }} 
+      ({{ this.tableSummary.disciplineTotal[discipline.code].pSA | percent:'1.0-2' }})</b>
       /
-      Minimum SA+PA+SP+IP >= 90% <b>{{ this.getDisciplineTotal(discipline.code).pDevoted >= 0.9 ? 'met' : 'not met' }}  
-      ({{ this.getDisciplineTotal(discipline.code).pDevoted | percent:'1.0-2' }})</b>
+      Minimum SA+PA+SP+IP >= 90% <b>{{ this.tableSummary.disciplineTotal[discipline.code].pDevoted >= 0.9 ? 'met' : 'not met' }}  
+      ({{ this.tableSummary.disciplineTotal[discipline.code].pDevoted | percent:'1.0-2' }})</b>
     </td>
   </tr>
 </ng-container>

@@ -45,14 +45,6 @@ export default class Aacsb31Component {
 
   roundTo = (num: number, decimal: number) => Math.round((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
 
-  getTeachers(disciplineCode: number): AacsbTable31[] {
-    return this.aacsbTable31.filter(x => x.discipline == disciplineCode);
-  }
-
-  getDisciplineTotal(disciplineCode: number): disciplineTotal {
-    return this.tableSummary.disciplineTotal.find(x => x.code == disciplineCode)!;
-  }
-
   caculateTableSummary(): void {
     this.tableSummary.disciplineTotal = [];
     this.tableSummary.grandTotal = { 

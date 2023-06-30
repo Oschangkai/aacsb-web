@@ -13,6 +13,7 @@ import { LazyForDirective } from '@shared/directives/lazy-for.directive';
 
 // Pipe
 import { AsPipe } from '@shared/pipes/as.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 // prototypes
 import './utils/prototypes/Date.prototype';
@@ -20,7 +21,7 @@ import './utils/prototypes/Date.prototype';
 
 const ClrModules = [ClarityModule];
 const Directives = [PermissionDirective, LazyForDirective];
-const Pipes = [AsPipe];
+const Pipes = [AsPipe, FilterPipe];
 
 @NgModule({
   declarations: [AppVersionComponent, AppAlertComponent, StandardAlertComponent, ...Directives, ...Pipes],
