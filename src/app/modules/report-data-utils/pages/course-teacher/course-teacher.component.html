@@ -4,9 +4,9 @@
   <!-- Academic Year -->
   <clr-select-container>
     <label>Academic Year</label>
-    <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData">
+    <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData" (change)="loadTeachers();">
       <ng-container *ngFor="let year of academicYearList">
-        <option [attr.aria-label]="year" [value]="year" (click)="loadTeachers();">{{year}}</option>
+        <option [attr.aria-label]=year [value]=year>{{year}}</option>
       </ng-container>
     </select>
   </clr-select-container>
@@ -15,7 +15,7 @@
     <label>Teacher</label>
     <input clrDatalistInput (keyup.enter)="load();" [(ngModel)]="teacher" [disabled]="loadData" placeholder="Teacher Name" name="Option"/>
     <datalist>
-      <option *ngFor="let teacher of teachers" [attr.aria-label]="teacher" [value]="teacher.teacher">
+      <option *ngFor="let teacher of teachers" [attr.aria-label]="teacher" [ngValue]="teacher.teacher">
         {{teacher.teacher}}
       </option>
     </datalist>

@@ -3,20 +3,20 @@
   <!-- Academic Year -->
   <clr-select-container>
     <label>Academic Year</label>
-    <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData">
+    <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData" (change)="load();">
       <ng-container *ngFor="let year of academicYearList">
-        <option [attr.aria-label]="year" [value]="year" (click)="load();">{{year}}</option>
+        <option [attr.aria-label]=year [value]=year>{{year}}</option>
       </ng-container>
     </select>
   </clr-select-container>
   <!-- Department -->
   <clr-select-container>
     <label>Department</label>
-    <select clrSelect name="department" [(ngModel)]="department" [disabled]="loadData">
+    <select clrSelect name="department" [(ngModel)]="department" [disabled]="loadData" (change)="load();">
       <!-- All -->
-      <option aria-label="all-department" [value]="undefined" (click)="load();">All</option>
+      <option aria-label="all-department" [value]="undefined">All</option>
       <ng-container *ngFor="let department of departmentList">
-        <option [attr.aria-label]="department.englishName" [value]="department.id" (click)="load();">{{department.englishName}}</option>
+        <option [attr.aria-label]="department.englishName" [ngValue]="department.id">{{department.englishName}}</option>
       </ng-container>
     </select>
   </clr-select-container>
