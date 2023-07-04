@@ -22,10 +22,6 @@ export class Aacsb32Component {
     });
   }
 
-  getQualifcation(table: AacsbTable32[],qualification: string | null): number {
-    return table.find(q => q.qualification == qualification)?.percentage ?? 0;
-  }
-
   getQualifcationTotal(table: AacsbTable32[]): number {
     return table.reduce((prev, curr) => prev + curr.percentage, 0);
   }

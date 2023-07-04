@@ -48,12 +48,12 @@
     <ng-container *ngFor="let data of tableData">
       <tr>
         <td>{{ data.title }}</td>
-        <td>{{ getQualifcation(data.table, 'SA') | percent: '1.0-2' }}</td>
-        <td>{{ getQualifcation(data.table, 'PA') | percent: '1.0-2' }}</td>
-        <td>{{ getQualifcation(data.table, 'SP') | percent: '1.0-2' }}</td>
-        <td>{{ getQualifcation(data.table, 'IP') | percent: '1.0-2' }}</td>
-        <td>{{ getQualifcation(data.table, 'A') | percent: '1.0-2' }}</td>
-        <td>{{ getQualifcation(data.table, null) | percent: '1.0-2' }}</td>
+        <td>{{ (data.table | filter: { qualification: 'SA' })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
+        <td>{{ (data.table | filter: { qualification: 'PA' })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
+        <td>{{ (data.table | filter: { qualification: 'SP' })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
+        <td>{{ (data.table | filter: { qualification: 'IP' })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
+        <td>{{ (data.table | filter: { qualification: 'A' })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
+        <td>{{ (data.table | filter: { qualification: null })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
         <td>{{ getQualifcationTotal(data.table) | percent: '1.0-2' }}</td>
       </tr>
     </ng-container>
