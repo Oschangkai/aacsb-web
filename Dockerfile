@@ -1,6 +1,6 @@
 ## Build Web
 FROM node:16-alpine AS build
-ARG PROFILE
+ARG PROFILE=prod
 ENV PROFILE $PROFILE
 # Use /app as working directory to prevent build files be cleaned
 WORKDIR /app

@@ -1,0 +1,18 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: som-web
+    labels:
+      # Watchtower
+      com.centurylinklabs.watchtower.enable: "true"
+      com.centurylinklabs.watchtower.local-image: "true"
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - som-network
+networks:
+  som-network:
+    external: true
