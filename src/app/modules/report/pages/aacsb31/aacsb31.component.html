@@ -9,6 +9,17 @@
       </ng-container>
     </select>
   </clr-select-container>
+  <!-- Discipline -->
+  <clr-select-container>
+    <label>Discipline</label>
+    <select clrSelect name="discipline" [(ngModel)]="discipline" [disabled]="loadData" (change)="load();">
+      <!-- All -->
+      <option aria-label="all-discipline" [ngValue]="null">All</option>
+      <ng-container *ngFor="let discipline of disciplines">
+        <option [attr.aria-label]="discipline.name" [ngValue]="discipline.code">{{discipline.code}}. {{discipline.name}}</option>
+      </ng-container>
+    </select>
+  </clr-select-container>
 </form>
 
 <!-- Hide or show teachers -->
@@ -58,11 +69,11 @@
 
 <!-- forEach api/getDiscipline name & id 0-6  -->
 <ng-container *ngFor="let discipline of disciplines">
-<ng-container *ngIf="discipline.code != 0 || !env.production">
   <!--
     (discipline.code != 0 || !env.production) : 在 production 不顯示 code = 0 的 discipline
     若出現 code = 0 的 discipline，代表該老師有課程未被分類
   -->
+<ng-container *ngIf="(discipline.code != 0 || !env.production) && !!countDisciplineTeacher(discipline.code)">
   <!-- 灰底 discipline 開頭  -->
   <tr style="background-color: hsl(198, 0%, 87%);">
     <td colspan="2">{{ discipline.name }}</td>

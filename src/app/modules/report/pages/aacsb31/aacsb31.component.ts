@@ -41,6 +41,7 @@ export default class Aacsb31Component {
     disciplineTotal: [], 
     grandTotal: { fullTime: 0, partTime: 0, contactHourRatio: 0, SA: 0, PA: 0, SP: 0, IP: 0, A: 0, pSA: 0, pPA: 0, pIP: 0, pSP: 0, pA: 0, pDevoted: 0 }
   };
+  discipline: number|null = null;
   disciplines: Discipline[] = [];
 
   roundTo = (num: number, decimal: number) => Math.round((num + Number.EPSILON) * Math.pow(10, decimal)) / Math.pow(10, decimal);
@@ -111,12 +112,18 @@ export default class Aacsb31Component {
     this.tableSummary.grandTotal.pDevoted = this.tableSummary.grandTotal.pDevoted / grandTotalTotal;
   }
 
+  countDisciplineTeacher(discipline: number): number {
+    return this.aacsbTable31.filter(x => x.discipline == discipline).length;
+  }
+
   load(): void {
     this.aacsbTable31 = [];
     this.disciplines = [];
     combineLatest([
       this.reportService.getDisciplines(), 
-      this.reportService.getAacsb31Table({semester: this.academicYear.toString()})
+      this.discipline === null ? 
+        this.reportService.getAacsb31Table({semester: this.academicYear.toString()}) : 
+        this.reportService.getAacsb31TableByDiscipline({semester: this.academicYear.toString(), discipline: this.discipline})
     ]).subscribe(([discipline, aacsb31Table]) => {
         this.disciplines = discipline;
         this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
