@@ -58,15 +58,20 @@
 
 <!-- forEach api/getDiscipline name & id 0-6  -->
 <ng-container *ngFor="let discipline of disciplines">
+<ng-container *ngIf="discipline.code != 0 || !env.production">
+  <!--
+    (discipline.code != 0 || !env.production) : 在 production 不顯示 code = 0 的 discipline
+    若出現 code = 0 的 discipline，代表該老師有課程未被分類
+  -->
   <!-- 灰底 discipline 開頭  -->
-  <tr style="background-color: hsl(198, 0%, 87%);" *ngIf="discipline.code != 0 || !env.production">
+  <tr style="background-color: hsl(198, 0%, 87%);">
     <td colspan="2">{{ discipline.name }}</td>
     <td colspan="4" class="left">Degrees or majors are offered in this discipline {{ (aacsbTable31 | filter: { discipline: discipline.code }).length > 0 ? '☒' : '☐' }}</td>
     <td colspan="7" class="left">Degrees or majors are not offered in this discipline {{ (aacsbTable31 | filter: { discipline: discipline.code }).length <= 0 ? '☒' : '☐' }} </td>
   </tr>
 
   <!-- discipline 老師  -->
-  <ng-container *ngIf="showTeachers && (discipline.code != 0 || !env.production)">
+  <ng-container *ngIf="showTeachers">
     <tr *ngFor="let teacher of aacsbTable31 | filter: { discipline: discipline.code }">
       <td>{{ teacher.teacher }} {{ teacher.teacherEnglishName ? '(' + teacher.teacherEnglishName + ')' : '' }}</td>
       <td>{{ teacher.teacherDepartment }}</td>
@@ -74,32 +79,43 @@
       <td>{{ teacher.workType == 'P' ? teacher.disciplineTotal : '' }}</td>
       <td>{{ teacher.workType == 'S' ? teacher.disciplineTotal : '' }}</td>
       <td>{{ teacher.responsibilities }}</td>
-      <td>{{ (teacher.qualification == 'SA' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
-      <td>{{ (teacher.qualification == 'PA' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
-      <td>{{ (teacher.qualification == 'SP' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
-      <td>{{ (teacher.qualification == 'IP' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
-      <td>{{ ((teacher.qualification == null || teacher.qualification == 'A') ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-2' }}</td>
+      <ng-container [ngSwitch]="teacher.workType">
+        <ng-container *ngSwitchCase="'S'">
+          <td>{{ (teacher.qualification == 'SA' ? (teacher.disciplineTotal >= 9 ? 9 : teacher.disciplineTotal) * 4 : undefined) | number: '1.0-0' }}</td>
+          <td>{{ (teacher.qualification == 'PA' ? (teacher.disciplineTotal >= 9 ? 9 : teacher.disciplineTotal) * 4 : undefined) | number: '1.0-0' }}</td>
+          <td>{{ (teacher.qualification == 'SP' ? (teacher.disciplineTotal >= 9 ? 9 : teacher.disciplineTotal) * 4 : undefined) | number: '1.0-0' }}</td>
+          <td>{{ (teacher.qualification == 'IP' ? (teacher.disciplineTotal >= 9 ? 9 : teacher.disciplineTotal) * 4 : undefined) | number: '1.0-0' }}</td>
+          <td>{{ ((teacher.qualification == null || teacher.qualification == 'A') ? (teacher.disciplineTotal >= 9 ? 9 : teacher.disciplineTotal) * 4 : undefined) | number: '1.0-0' }}</td>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <td>{{ (teacher.qualification == 'SA' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-0' }}</td>
+          <td>{{ (teacher.qualification == 'PA' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-0' }}</td>
+          <td>{{ (teacher.qualification == 'SP' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-0' }}</td>
+          <td>{{ (teacher.qualification == 'IP' ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-0' }}</td>
+          <td>{{ ((teacher.qualification == null || teacher.qualification == 'A') ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-0' }}</td>
+        </ng-container>
+      </ng-container>
       <td></td>
-  </tr>
+    </tr>
   </ng-container>
 
   <!-- discipline 小結 -1 -->
   <!-- Discipline Total -->
-  <tr style="background-color: hsl(198, 0%, 98%); font-weight: 600;" *ngIf="discipline.code != 0 || !env.production">
+  <tr style="background-color: hsl(198, 0%, 98%); font-weight: 600;">
     <td colspan="3">Discipline Total</td>
-    <td>{{ this.tableSummary.disciplineTotal[discipline.code].fullTime | number: '1.0-2' }}</td>
-    <td>{{ this.tableSummary.disciplineTotal[discipline.code].partTime | number: '1.0-2' }}</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].fullTime | number: '1.0-0' }}</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].partTime | number: '1.0-0' }}</td>
     <td rowspan="2"></td>
-    <td>{{ this.tableSummary.disciplineTotal[discipline.code].SA | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pSA | percent: '1.0-2' }})</td>
-    <td>{{ this.tableSummary.disciplineTotal[discipline.code].PA | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pPA| percent: '1.0-2' }})</td>
-    <td>{{ this.tableSummary.disciplineTotal[discipline.code].SP | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pSP | percent: '1.0-2' }})</td>
-    <td>{{ this.tableSummary.disciplineTotal[discipline.code].IP | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pIP | percent: '1.0-2' }})</td>
-    <td>{{ this.tableSummary.disciplineTotal[discipline.code].A | number: '1.0-2' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pA | percent: '1.0-2' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].SA | number: '1.0-0' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pSA | percent: '1.0-0' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].PA | number: '1.0-0' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pPA| percent: '1.0-0' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].SP | number: '1.0-0' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pSP | percent: '1.0-0' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].IP | number: '1.0-0' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pIP | percent: '1.0-0' }})</td>
+    <td>{{ this.tableSummary.disciplineTotal[discipline.code].A | number: '1.0-0' }} ({{ this.tableSummary.disciplineTotal[discipline.code].pA | percent: '1.0-0' }})</td>
     <td></td>
   </tr>
   <!-- discipline 小結 -2 -->
   <!-- Discipline Ratio -->
-  <tr style="background-color: hsl(198, 0%, 98%);" *ngIf="discipline.code != 0 || !env.production">
+  <tr style="background-color: hsl(198, 0%, 98%);">
     <td colspan="3" style="font-weight: 600;">Discipline Ratio</td>
     <td colspan="2">
       >= 60% requirement for P <b>{{ this.tableSummary.disciplineTotal[discipline.code].contactHourRatio >= 0.6 ? 'met' : 'not met' }} 
@@ -113,6 +129,7 @@
       ({{ this.tableSummary.disciplineTotal[discipline.code].pDevoted | percent:'1.0-2' }})</b>
     </td>
   </tr>
+</ng-container>
 </ng-container>
 <!-- END forEach api/getDiscipline name & id 0-6  -->
 
