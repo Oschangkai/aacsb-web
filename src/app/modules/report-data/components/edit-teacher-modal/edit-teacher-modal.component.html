@@ -87,20 +87,13 @@
         <label>Title</label>
         <input clrInput type="text" name="title" [(ngModel)]="teacher.title" />
       </clr-input-container>
-      <!-- Responsibilities -->
-      <clr-combobox-container>
-        <label>Responsibilities</label>
-        <clr-combobox [(ngModel)]="teacherResponsibilities" clrMulti="true" name="responsibilities">
-          <ng-container *clrOptionSelected="let selected">{{selected}}</ng-container>
-          <clr-options>
-            <clr-option clrValue="MT">MT</clr-option>
-            <clr-option clrValue="RES">RES</clr-option>
-            <clr-option clrValue="SER">SER</clr-option>
-            <clr-option clrValue="ADM">ADM</clr-option>
-            <clr-option clrValue="UT">UT</clr-option>
-          </clr-options>
-        </clr-combobox>
-      </clr-combobox-container>
+      <!-- Supervisor -->
+      <clr-toggle-container>
+        <label>Supervisor</label>
+        <clr-toggle-wrapper>
+          <input clrToggle type="checkbox" name="supervisor" [disabled]="loadData" [(ngModel)]="teacher.supervisor" />
+        </clr-toggle-wrapper>
+      </clr-toggle-container>
     </form>
 
   </div>

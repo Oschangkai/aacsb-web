@@ -56,7 +56,6 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
   onSubmitClicked(): void {
     if (!this.teacher) { return; }
     this.teacher.resignDate = (this.teacherResignDate == '') ? null : this.datePipe.transform(this.teacherResignDate, 'yyyy-MM-dd');
-    this.teacher.responsibilities = this.teacherResponsibilities ? this.teacherResponsibilities.join(',') : null;
     this.onSubmit.emit(this.teacher);
   }
 
@@ -65,7 +64,6 @@ export class EditTeacherModalComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => !this.teacher, true))
       .subscribe(data => {
         if (data) {
-          this.teacherResponsibilities = this.teacher.responsibilities ? this.teacher.responsibilities.split(',') : [];
           this.teacherResignDate = this.teacher.resignDate ? this.datePipe.transform(this.teacher.resignDate, 'yyyy/MM/dd') : null;
           combineLatest([
             this.reportDataService.getQualifications(),

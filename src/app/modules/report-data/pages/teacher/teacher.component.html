@@ -59,11 +59,6 @@
       Degree Year
     </ng-container>
   </clr-dg-column>
-  <clr-dg-column>
-    <ng-container *clrDgHideableColumn="{hidden: false}">
-      Responsibilities
-    </ng-container>
-  </clr-dg-column>
   <clr-dg-column [clrDgField]="'workTypeAbbr'" clrDgSortBy>
     <ng-container *clrDgHideableColumn="{hidden: false}">
       Work Type
@@ -84,7 +79,6 @@
     <clr-dg-cell>{{getQualificationName(teacher.qualificationId)}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.degree}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.degreeYear}}</clr-dg-cell>
-    <clr-dg-cell>{{teacher.responsibilities}}</clr-dg-cell>
     <clr-dg-cell>{{teacher.workTypeAbbr === 'P' ? 'Full Time (P)' : teacher.workTypeAbbr === null ? '' : 'Part Time (S)'}}</clr-dg-cell>
     <clr-dg-cell *permission="[Permission.ReportData.Update, Permission.ReportData.Delete]; operation: 'OR'">
       <a style="cursor: pointer" (click)="onEditClicked(teacher)" *permission="[Permission.ReportData.Update]">Edit</a>

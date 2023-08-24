@@ -3,7 +3,6 @@ export interface MissingDataTeacherList {
   teacherEnglishName?: string;
   degree?: string;
   degreeYear?: number;
-  responsibilities?: string;
   qualification?: string;
   workType?: string;
   teacherId: string;
@@ -31,7 +30,6 @@ export interface TeacherList {
   qualificationId: string;
   degree: string;
   degreeYear: number;
-  responsibilities: string;
   workTypeAbbr: string;
 }
 

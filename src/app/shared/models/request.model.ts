@@ -10,7 +10,7 @@ export type EditTeacher = {
   qualificationId: string | null;
   resignDate: Date|string | null;
   title: string | null;
-  responsibilities: string | null;
+  supervisor: boolean | null;
 }
 export type DeleteCoursesRequest = {
   semester: string;
