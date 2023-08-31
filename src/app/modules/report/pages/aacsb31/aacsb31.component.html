@@ -38,6 +38,45 @@
 
 <!-- AACSB Table 3-1 -->
 <ng-template #reportA31>
+<table id="report-aacsb-3-1-sub1" class="table table-compact">
+  <!-- Head -->
+  <thead>
+    <tr>
+      <th colspan="6" style="background: none; color: #000;">
+        Faculty Qualifications Percentages by Discipline
+      </th>
+    </tr>
+    <tr>
+      <th>Discipline</th>
+      <th>SA Percentage<br/>(>= 40%)</th>
+      <th>PA Percentage</th>
+      <th>SP Percentage</th>
+      <th>IP Percentage</th>
+      <th>SA+PA+SP+IP Percentage<br/> (>= 90%)</th>
+    </tr>
+  </thead>
+  <!-- forEach api/getDiscipline name & id 0-6  -->
+  <ng-container *ngFor="let discipline of disciplines">
+    <tr>
+      <td>{{ discipline.name }}</td>
+      <td>{{ this.tableSummary.disciplineTotal[discipline.code].pSA | percent: '1.0-0' }}</td>
+      <td>{{ this.tableSummary.disciplineTotal[discipline.code].pPA| percent: '1.0-0' }}</td>
+      <td>{{ this.tableSummary.disciplineTotal[discipline.code].pSP | percent: '1.0-0' }}</td>
+      <td>{{ this.tableSummary.disciplineTotal[discipline.code].pIP | percent: '1.0-0' }}</td>
+      <td>{{ this.tableSummary.disciplineTotal[discipline.code].pDevoted | percent:'1.0-2' }}</td>
+    </tr>
+  </ng-container>
+  <!-- Total -->
+  <tr style="background-color: hsl(198, 0%, 98%);">
+    <td style="font-weight: 600;">Total</td>
+    <td style="font-weight: 600;">{{ tableSummary.grandTotal.pSA | percent: '1.0-2' }}</td>
+    <td style="font-weight: 600;">{{ tableSummary.grandTotal.pPA | percent: '1.0-2' }}</td>
+    <td style="font-weight: 600;">{{ tableSummary.grandTotal.pSP | percent: '1.0-2' }}</td>
+    <td style="font-weight: 600;">{{ tableSummary.grandTotal.pIP | percent: '1.0-2' }}</td>
+    <td style="font-weight: 600;">{{ tableSummary.grandTotal.pDevoted | percent: '1.0-2' }}</td>
+  </tr>
+</table>
+
 <table id="report-aacsb-3-1" class="table table-compact">
 <!-- Head -->
 <thead>
