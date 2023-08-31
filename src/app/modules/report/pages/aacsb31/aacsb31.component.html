@@ -145,7 +145,13 @@
           <td>{{ ((teacher.qualification == null || teacher.qualification == 'A') ? teacher.disciplineTotal / teacher.creditTotal * 100 : undefined) | number: '1.0-0' }}</td>
         </ng-container>
       </ng-container>
-      <td></td>
+      <ng-container [ngSwitch]="teacher.qualification">
+        <ng-container *ngSwitchCase="'SA'"><td>Meets or Exceeds 3 PRJs</td></ng-container>
+        <ng-container *ngSwitchCase="'PA'"><td>Meets or Exceeds 3 RPs</td></ng-container>
+        <ng-container *ngSwitchCase="'SP'"><td>Meets or Exceeds 2 Academic Researches</td></ng-container>
+        <ng-container *ngSwitchCase="'IP'"><td>Meets or Exceeds 2 Professional Activities</td></ng-container>
+        <ng-container *ngSwitchDefault><td></td></ng-container>
+      </ng-container>
     </tr>
   </ng-container>
 
