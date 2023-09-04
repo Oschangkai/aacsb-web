@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { EnvironmentService } from '@service/environment.service';
-import { AacsbTable31, AacsbTable32, Department, Discipline } from '@model/response-data.model';
+import { AacsbTable31, AacsbTable32, AacsbTable81, Department, Discipline } from '@model/response-data.model';
 
 @Injectable()
 export class ReportService {
@@ -33,5 +33,9 @@ export class ReportService {
 
   getAacsb32Table(params: {semester: string, type: string, departmentId?: string}): Observable<AacsbTable32[]> {
     return this.http.post<AacsbTable32[]>(`${this.reportUrl}/a32`, params);
+  }
+
+  getAacsb81Table(params: {semester: string}): Observable<AacsbTable81[]> {
+    return this.http.post<AacsbTable81[]>(`${this.reportUrl}/a81`, params);
   }
 }

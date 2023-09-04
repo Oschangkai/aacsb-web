@@ -36,8 +36,8 @@
     <th colspan="2">% of Faculty Producing Intellectual Contributions</th>
   </tr>
   <tr>
-    <th>Basic or Discovery Scholarship</th>
     <th>Applied or Integration/Application Scholarship</th>
+    <th>Basic or Discovery Scholarship</th>
     <th>Teaching and Learning Scholarship</th>
     <th><b>Total</b></th>
     <th>Peer-reviewed journal articles</th>
@@ -54,30 +54,30 @@
     <tr>
       <td>{{ discipline.name }}</td>
       <!-- forEach 8-1 -->
-      <td>{{ '123' | number: '1.0-2' }}</td>
-      <td>{{ '123' | number: '1.0-2' }}</td>
-      <td>{{ '123' | number: '1.0-2' }}</td>
-      <td>{{ '123' | number: '1.0-2' }}</td>
-      <td>{{ '123' | number: '1.0-2' }}</td>
-      <td>{{ '123' | number: '1.0-2' }}</td>
-      <td>{{ '123' | number: '1.0-2' }}</td>
-      <td>{{ '123' | number: '1.0-2' }}</td>
-      <td>{{ '123' | number: '1.0-2' }}</td>
-      <td>{{ '123' | number: '1.0-2' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].applied | number: '1.0-2' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].basic | number: '1.0-2' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].teaching | number: '1.0-2' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].basic + tableSummary[discipline.code - 1].applied + tableSummary[discipline.code - 1].teaching | number: '1.0-2' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].journal1 | number: '1.0-2' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].journal2 | number: '1.0-2' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].others | number: '1.0-2' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].journal1 + tableSummary[discipline.code - 1].journal2 + tableSummary[discipline.code - 1].others | number: '1.0-2' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].pIC | percent: '1.0-0' }}</td>
+      <td>{{ tableSummary[discipline.code - 1].fteToken | percent: '1.0-0' }}</td>
     </tr>
   </ng-container>
   <tr style="background-color: #fafafa;">
     <td><b>Total</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
-    <td><b>{{ '123' | number: '1.0-2' }}</b></td>
+    <td><b>{{ totalTableSummary?.applied | number: '1.0-2' }}</b></td>
+    <td><b>{{ totalTableSummary?.basic | number: '1.0-2' }}</b></td>
+    <td><b>{{ totalTableSummary?.teaching | number: '1.0-2' }}</b></td>
+    <td><b>{{ (totalTableSummary?.applied || 0) + (totalTableSummary?.basic || 0) + (totalTableSummary?.teaching || 0) | number: '1.0-2' }}</b></td>
+    <td><b>{{ totalTableSummary?.journal1 | number: '1.0-2' }}</b></td>
+    <td><b>{{ totalTableSummary?.journal2 | number: '1.0-2' }}</b></td>
+    <td><b>{{ totalTableSummary?.others | number: '1.0-2' }}</b></td>
+    <td><b>{{ (totalTableSummary?.journal1 || 0) + (totalTableSummary?.journal2 || 0) + (totalTableSummary?.others || 0) | number: '1.0-2' }}</b></td>
+    <td><b>{{ (totalTableSummary?.pIC || 0) / disciplines.length | percent: '1.0-0' }}</b></td>
+    <td><b>{{ (totalTableSummary?.fteToken || 0) / disciplines.length | percent: '1.0-0' }}</b></td>
   </tr>
 
 </table>

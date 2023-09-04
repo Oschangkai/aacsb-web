@@ -6,7 +6,7 @@ import Aacsb31Component from '@here/pages/aacsb31/aacsb31.component';
 import { Aacsb32Component } from '@here/pages/aacsb32/aacsb32.component';
 
 // Resolver
-import { aacsb31TableResolver, getAacsb32TableResolver, getAcademicYearResolver, getDepartmentResolver, getDisciplineResolver } from './services/report.resolver';
+import { aacsb31TableResolver, aacsb81TableResolver, getAacsb32TableResolver, getAcademicYearResolver, getDepartmentResolver, getDisciplineResolver } from './services/report.resolver';
 import { Aacsb81Component } from './pages/aacsb81/aacsb81.component';
 import { AacsbTeacherProfileComponent } from './pages/aacsb-teacher-profile/aacsb-teacher-profile.component';
 
@@ -45,6 +45,7 @@ const routes: Routes = [
       {
         path: 'aacsb-8-1',
         resolve: {
+          aacsb81Table: aacsb81TableResolver,
           disciplineList: getDisciplineResolver,
           academicYearList: getAcademicYearResolver,
         },

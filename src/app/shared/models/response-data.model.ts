@@ -43,6 +43,21 @@ export interface CourseList {
   importSignatureId: string;
 }
 
+export interface AacsbTable81 {
+  disciplineTotal: number;
+  creditTotal: number;
+  discipline: number;
+  teacher: string;
+  teacherId: string;
+  workType: 'P' | 'S' | null;
+  journal1?: number|null;
+  journal2?: number|null;
+  others?: number|null;
+  basic?: number|null;
+  applied?: number|null;
+  teaching?: number|null;
+}
+
 export interface AacsbTable32 {
   qualification: null | 'SA' | 'SP' | 'IP' | 'PA' | 'A';
   percentage: number;
