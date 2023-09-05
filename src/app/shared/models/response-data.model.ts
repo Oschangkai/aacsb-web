@@ -1,3 +1,27 @@
+export interface TeacherResume {
+  name: string;
+  englishName: string;
+  degreeYear: number;
+  degree: string;
+  department: string;
+  qualification: null | 'SA' | 'SP' | 'IP' | 'PA' | 'A';
+  research: TeacherResumeResearch[];
+  course: TeacherResumeCourse[];
+}
+
+export interface TeacherResumeResearch {
+  value: string;
+  type: 'Journal 1' | 'Journal 2' | 'Others';
+}
+export interface TeacherResumeCourse {
+  code: string;
+  name: string;
+  englishName: string;
+  time: string;
+  semester: number;
+  teacher: string;
+  teacherId: string;
+}
 export interface MissingDataTeacherList {
   teacher: string;
   teacherEnglishName?: string;

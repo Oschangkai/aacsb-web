@@ -3,7 +3,7 @@ import { inject } from "@angular/core";
 import { Observable } from "rxjs";
 
 import { ReportService } from "./report.service";
-import { AacsbTable31, AacsbTable32, AacsbTable81, Department, Discipline } from "@model/response-data.model";
+import { AacsbTable31, AacsbTable32, AacsbTable81, Department, Discipline, TeacherResume } from "@model/response-data.model";
 
 export const aacsb31TableResolver: ResolveFn<Observable<AacsbTable31[]>> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
@@ -33,4 +33,9 @@ export const getAacsb32TableResolver: (type: string) => ResolveFn<Observable<Aac
 export const aacsb81TableResolver: ResolveFn<Observable<AacsbTable81[]>> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
       return inject(ReportService).getAacsb81Table({semester: (new Date().getFullYear() - 1912).toString()});
+    };
+
+export const teacherResumeResolver: ResolveFn<Observable<TeacherResume[]>> =
+    (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+      return inject(ReportService).getTeacherResume({academicYear: (new Date().getFullYear() - 1912).toString()});
     };
