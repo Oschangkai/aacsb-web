@@ -152,7 +152,7 @@ const generateQualificationDescription = (qualification: null | 'SA' | 'SP' | 'I
     case 'PA':
       return "PA: Meets or Exceeds 3 RPs";
     case 'A':
-      return "A: Additional Qualification";
+      return "A: Additional";
     default:
       return "";
   }

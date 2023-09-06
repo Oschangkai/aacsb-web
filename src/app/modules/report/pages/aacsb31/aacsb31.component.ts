@@ -127,7 +127,7 @@ export default class Aacsb31Component {
     ]).subscribe(([discipline, aacsb31Table]) => {
         this.disciplines = discipline;
         this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
-        this.aacsbTable31 = aacsb31Table.sort((a, b) => a.teacher.localeCompare(b.teacher, "zh-TW"));
+        this.aacsbTable31 = aacsb31Table.sort((a, b) => a.teacherEnglishName.localeCompare(b.teacherEnglishName, "zh-TW"));
         this.caculateTableSummary();
       });
   }
@@ -135,7 +135,7 @@ export default class Aacsb31Component {
   ngOnInit(): void {
     this.route.data.subscribe(
       ({ aacsb31Table, disciplineList, academicYearList }) => {
-        this.aacsbTable31 = [...aacsb31Table].sort((a, b) => a.teacher.localeCompare(b.teacher, "zh-TW"));
+        this.aacsbTable31 = [...aacsb31Table].sort((a, b) => a.teacherEnglishName.localeCompare(b.teacherEnglishName, "zh-TW"));
         this.disciplines = [...disciplineList];
         this.academicYearList = [...academicYearList];
         this.academicYear = this.academicYearList.sort((a, b) => b - a)[0];

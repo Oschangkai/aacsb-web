@@ -50,7 +50,9 @@ export class AacsbTeacherProfileComponent {
   ngOnInit(): void {
     this.route.data.subscribe(
       ({ teacherResume }) => {
-        this.teacherResume = [...teacherResume].sort((a, b) => a.department.localeCompare(b.department, "zh-TW"));
+        this.teacherResume = [...teacherResume]
+          .sort((a, b) => a.englishName.localeCompare(b.englishName))
+          .sort((a, b) => a.department.localeCompare(b.department, "zh-TW"));
       }
     );
   }
