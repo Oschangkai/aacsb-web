@@ -62,9 +62,9 @@ export class Aacsb81Component {
       
       let pSummary = pData.reduce((prev, curr) => ({
         // profoilo
-        basic: prev.basic + (curr.basic || 0) * curr.disciplineTotal,
-        applied: prev.applied + (curr.applied || 0) * curr.disciplineTotal,
-        teaching: prev.teaching + (curr.teaching || 0) * curr.disciplineTotal,
+        basic: prev.basic + (curr.basic || 0) * curr.disciplineTotal / curr.creditTotal,
+        applied: prev.applied + (curr.applied || 0) * curr.disciplineTotal / curr.creditTotal,
+        teaching: prev.teaching + (curr.teaching || 0) * curr.disciplineTotal / curr.creditTotal,
         // types
         journal1: prev.journal1 + (curr.journal1 || 0) * curr.disciplineTotal / curr.creditTotal,
         journal2: prev.journal2 + (curr.journal2 || 0) * curr.disciplineTotal / curr.creditTotal,
