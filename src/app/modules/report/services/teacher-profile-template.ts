@@ -90,7 +90,7 @@ const generateCourse = (course: TeacherResumeCourse[]): FileChild[] => {
 
   return [
     new Paragraph({
-      text: "Courses Taught (2023)：",
+      text: "Courses Taught (2022-23)：",
       numbering: { reference: "alphabetNumbering", level: 0 }
     }),
     ...course.map(c => (new Paragraph({
@@ -102,41 +102,12 @@ const generateCourse = (course: TeacherResumeCourse[]): FileChild[] => {
 
 const generateResearch = (research: TeacherResumeResearch[]): FileChild[] => {
   if (research.length == 0) return [];
-  const journal1 = research.filter(r => r.type == 'Journal 1');
-  const journal2 = research.filter(r => r.type == 'Journal 2');
-  const others = research.filter(r => r.type == 'Others');
 
   const researchList: FileChild[] = [];
-  if (journal1.length > 0) {
-    researchList.push(new Paragraph({
-      text: "Research Publication (Journals)：",
+  researchList.push(new Paragraph({
+      text: "Publications (2018-23)：",
       numbering: { reference: "alphabetNumbering", level: 0 },
     }));
-    researchList.push(...journal1.map(r => (new Paragraph({
-      text: r.value,
-      numbering: { reference: "alphabetNumbering", level: 1 },
-    }))));
-  }
-  if (journal2.length > 0) {
-    researchList.push(new Paragraph({
-      text: "Peer Reviewed Proceedings：",
-      numbering: { reference: "alphabetNumbering", level: 0 },
-    }));
-    researchList.push(...journal2.map(r => (new Paragraph({
-      text: r.value,
-      numbering: { reference: "alphabetNumbering", level: 1 },
-    }))));
-  }
-  if (others.length > 0) {
-    researchList.push(new Paragraph({
-      text: "Conference Presentations：",
-      numbering: { reference: "alphabetNumbering", level: 0 },
-    }));
-    researchList.push(...others.map(r => (new Paragraph({
-      text: r.value,
-      numbering: { reference: "alphabetNumbering", level: 1 },
-    }))));
-  }
   return researchList;
 }
 

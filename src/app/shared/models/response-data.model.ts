@@ -11,7 +11,7 @@ export interface TeacherResume {
 
 export interface TeacherResumeResearch {
   value: string;
-  type: 'Journal 1' | 'Journal 2' | 'Others';
+  type: 'Journal 1' | 'Journal 2' | 'Presentation' | 'Proceeding';
 }
 export interface TeacherResumeCourse {
   code: string;
