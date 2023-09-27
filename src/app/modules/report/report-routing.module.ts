@@ -6,7 +6,7 @@ import Aacsb31Component from '@here/pages/aacsb31/aacsb31.component';
 import { Aacsb32Component } from '@here/pages/aacsb32/aacsb32.component';
 
 // Resolver
-import { aacsb31TableResolver, aacsb81TableResolver, getAacsb32TableResolver, getAcademicYearResolver, getDepartmentResolver, getDisciplineResolver, teacherResumeResolver } from './services/report.resolver';
+import { aacsb31TableResolver, aacsb81TableResolver, getAacsb32TableResolver, getAcademicYearResolver, getDepartmentResolver, getDisciplineResolver, getSemesterResolver, teacherResumeResolver } from './services/report.resolver';
 import { Aacsb81Component } from './pages/aacsb81/aacsb81.component';
 import { AacsbTeacherProfileComponent } from './pages/aacsb-teacher-profile/aacsb-teacher-profile.component';
 
@@ -16,7 +16,7 @@ const routes: Routes = [
     children: [
       {
         path: 'aacsb-3-1',
-        resolve: { aacsb31Table: aacsb31TableResolver, disciplineList: getDisciplineResolver, academicYearList: getAcademicYearResolver },
+        resolve: { aacsb31Table: aacsb31TableResolver, disciplineList: getDisciplineResolver, semesterList: getSemesterResolver, },
         component: Aacsb31Component,
         children: [
           {
@@ -31,7 +31,7 @@ const routes: Routes = [
           bachelorTable: getAacsb32TableResolver('bachelor'), 
           masterTable: getAacsb32TableResolver('master'), 
           mbaTable: getAacsb32TableResolver('mba'),
-          academicYearList: getAcademicYearResolver,
+          semesterList: getSemesterResolver,
           departmentList: getDepartmentResolver,
         },
         component: Aacsb32Component,
@@ -47,7 +47,7 @@ const routes: Routes = [
         resolve: {
           aacsb81Table: aacsb81TableResolver,
           disciplineList: getDisciplineResolver,
-          academicYearList: getAcademicYearResolver,
+          semesterList: getSemesterResolver,
         },
         component: Aacsb81Component,
         children: [

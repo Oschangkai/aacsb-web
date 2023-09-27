@@ -1,18 +1,19 @@
 <h1>AACSB Table 3-1</h1>
 <form clrForm>
-  <!-- Academic Year -->
-  <clr-select-container>
-    <label>Academic Year</label>
-    <select clrSelect name="academicYear" [(ngModel)]="academicYear" [disabled]="loadData" (change)="load();">
-      <ng-container *ngFor="let year of academicYearList">
-        <option [attr.aria-label]=year [ngValue]=year>{{year}}</option>
-      </ng-container>
-    </select>
-  </clr-select-container>
+  <!-- Semester -->
+  <clr-combobox-container>
+    <label>Semester</label>
+    <clr-combobox [(ngModel)]="semester" name="semester" clrMulti="true" (clrSelectionChange)="load($event)">
+      <ng-container *clrOptionSelected="let selected">{{selected}}</ng-container>
+      <clr-options>
+        <clr-option *clrOptionItems="let s of semesterList" [clrValue]="s">{{s}}</clr-option>
+      </clr-options>
+    </clr-combobox>
+  </clr-combobox-container>
   <!-- Discipline -->
   <clr-select-container>
     <label>Discipline</label>
-    <select clrSelect name="discipline" [(ngModel)]="discipline" [disabled]="loadData" (change)="load();">
+    <select clrSelect name="discipline" [(ngModel)]="discipline" [disabled]="loadData" (change)="load($event);">
       <!-- All -->
       <option aria-label="all-discipline" [ngValue]="null">All</option>
       <ng-container *ngFor="let discipline of disciplines">

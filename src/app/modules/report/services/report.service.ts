@@ -20,26 +20,30 @@ export class ReportService {
     return this.http.get<number[]>(`${this.reportDataUrl}/academic-year`);
   }
 
+  getSemesters(): Observable<number[]> {
+    return this.http.get<number[]>(`${this.reportDataUrl}/semester`);
+  }
+
   getDepartments(): Observable<Department[]> {
     return this.http.get<Department[]>(`${this.reportDataUrl}/department`);
   }
 
-  getAacsb31Table(params: {semester: string}): Observable<AacsbTable31[]> {
+  getAacsb31Table(params: {semester: number[]}): Observable<AacsbTable31[]> {
     return this.http.post<AacsbTable31[]>(`${this.reportUrl}/a31`, params);
   }
-  getAacsb31TableByDiscipline(params: {semester: string, discipline: number}): Observable<AacsbTable31[]> {
+  getAacsb31TableByDiscipline(params: {semester: number[], discipline: number}): Observable<AacsbTable31[]> {
     return this.http.post<AacsbTable31[]>(`${this.reportUrl}/a31/${params.discipline}`, params);
   }
 
-  getAacsb32Table(params: {semester: string, type: string, departmentId?: string}): Observable<AacsbTable32[]> {
+  getAacsb32Table(params: {semester: number[], type: string, departmentId?: string}): Observable<AacsbTable32[]> {
     return this.http.post<AacsbTable32[]>(`${this.reportUrl}/a32`, params);
   }
 
-  getAacsb81Table(params: {semester: string}): Observable<AacsbTable81[]> {
+  getAacsb81Table(params: {semester: number[]}): Observable<AacsbTable81[]> {
     return this.http.post<AacsbTable81[]>(`${this.reportUrl}/a81`, params);
   }
 
-  getTeacherResume(params: {academicYear: string}): Observable<TeacherResume[]> {
+  getTeacherResume(params: {academicYear: number[]}): Observable<TeacherResume[]> {
     return this.http.post<TeacherResume[]>(`${this.reportUrl}/teacher-resume`, params);
   }
 }

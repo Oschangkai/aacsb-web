@@ -32,8 +32,8 @@ export default class Aacsb31Component {
   // states
   Permission = Permission;
   loadData = true;
-  academicYear = (new Date()).getFullYear() - 1912;
-  academicYearList: number[] = [];
+  semester = [parseInt((new Date().getFullYear() - 1912).toString() + '1'), parseInt((new Date().getFullYear() - 1912).toString() + '2')];
+  semesterList: number[] = [];
   showTeachers = false;
   // data
   aacsbTable31: AacsbTable31[] = [];
@@ -116,14 +116,18 @@ export default class Aacsb31Component {
     return this.aacsbTable31.filter(x => x.discipline == discipline).length;
   }
 
-  load(): void {
+  load(event: any): void {
     this.aacsbTable31 = [];
     this.disciplines = [];
+
+    if (this.semester === null) this.semester = event.model;
+    if (this.semester.length == 0) return;
+
     combineLatest([
       this.reportService.getDisciplines(), 
       this.discipline === null ? 
-        this.reportService.getAacsb31Table({semester: this.academicYear.toString()}) : 
-        this.reportService.getAacsb31TableByDiscipline({semester: this.academicYear.toString(), discipline: this.discipline})
+        this.reportService.getAacsb31Table({semester: [...this.semester]}) : 
+        this.reportService.getAacsb31TableByDiscipline({semester: [...this.semester], discipline: this.discipline})
     ]).subscribe(([discipline, aacsb31Table]) => {
         this.disciplines = discipline;
         this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
@@ -134,11 +138,10 @@ export default class Aacsb31Component {
 
   ngOnInit(): void {
     this.route.data.subscribe(
-      ({ aacsb31Table, disciplineList, academicYearList }) => {
+      ({ aacsb31Table, disciplineList, semesterList }) => {
         this.aacsbTable31 = [...aacsb31Table].sort((a, b) => a.teacherEnglishName.localeCompare(b.teacherEnglishName, "zh-TW"));
         this.disciplines = [...disciplineList];
-        this.academicYearList = [...academicYearList];
-        this.academicYear = this.academicYearList.sort((a, b) => b - a)[0];
+        this.semesterList = [...semesterList].sort((a, b) => b - a);
         this.disciplines.unshift({code: 0, name: 'Not Categorized (Debug Only)', id: ''});
         this.caculateTableSummary();
       }

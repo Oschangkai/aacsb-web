@@ -28,24 +28,26 @@ export class Aacsb32Component {
 
   ngOnInit(): void {
     this.route.data.subscribe(
-      ({ bachelorTable, masterTable, mbaTable, academicYearList, departmentList }) => {
+      ({ bachelorTable, masterTable, mbaTable, semesterList, departmentList }) => {
         this.tableData = [
           { table: bachelorTable, title: 'Bachelor' },
           { table: masterTable, title: 'Master' },
           { table: mbaTable, title: 'MBA' }
         ];
-        this.academicYearList = [...academicYearList];
-        this.academicYear = this.academicYearList.sort((a, b) => b - a)[0];
+        this.semesterList = [...semesterList].sort((a, b) => b - a);
         this.departmentList = [...departmentList];
         this.loadData = false;
       }
     );
   }
 
-  load(): void {
+  load(event: any): void {
     this.tableData = [];
+
+    if (this.semester === null) this.semester = event.model;
+    if (this.semester.length == 0) return;
     let postData: any = {
-      semester: this.academicYear.toString()
+      semester: [...this.semester]
     };
     if (this.department != "undefined") {
       postData['departmentId'] = this.department;
@@ -67,8 +69,10 @@ export class Aacsb32Component {
   // states
   Permission = Permission;
   loadData = true;
-  academicYear = (new Date()).getFullYear() - 1912;
-  academicYearList: number[] = [];
+  // academicYear = (new Date()).getFullYear() - 1912;
+  // academicYearList: number[] = [];
+  semester = [parseInt((new Date().getFullYear() - 1912).toString() + '1'), parseInt((new Date().getFullYear() - 1912).toString() + '2')];
+  semesterList: number[] = [];
   department?: string = undefined;
   departmentList: Department[] = [];
   // data

@@ -5,9 +5,11 @@ import { Observable } from "rxjs";
 import { ReportService } from "./report.service";
 import { AacsbTable31, AacsbTable32, AacsbTable81, Department, Discipline, TeacherResume } from "@model/response-data.model";
 
+const defaultSemester: number[] = [parseInt((new Date().getFullYear() - 1912).toString() + '1'), parseInt((new Date().getFullYear() - 1912).toString() + '2')];
+
 export const aacsb31TableResolver: ResolveFn<Observable<AacsbTable31[]>> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-      return inject(ReportService).getAacsb31Table({semester: (new Date().getFullYear() - 1912).toString()});
+      return inject(ReportService).getAacsb31Table({semester: [...defaultSemester]});
     };
 
 export const getDisciplineResolver: ResolveFn<Observable<Discipline[]>> =
@@ -25,17 +27,22 @@ export const getAcademicYearResolver: ResolveFn<Observable<number[]>> =
       return inject(ReportService).getAcademicYear();
     };
 
+export const getSemesterResolver: ResolveFn<Observable<number[]>> =
+    (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+      return inject(ReportService).getSemesters();
+    };
+
 export const getAacsb32TableResolver: (type: string) => ResolveFn<Observable<AacsbTable32[]>> = 
     (type : string) => (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-      return inject(ReportService).getAacsb32Table({semester: (new Date().getFullYear() - 1912).toString(), type: type});
+      return inject(ReportService).getAacsb32Table({semester: [...defaultSemester], type: type});
     };
 
 export const aacsb81TableResolver: ResolveFn<Observable<AacsbTable81[]>> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-      return inject(ReportService).getAacsb81Table({semester: (new Date().getFullYear() - 1912).toString()});
+      return inject(ReportService).getAacsb81Table({semester: [...defaultSemester]});
     };
 
 export const teacherResumeResolver: ResolveFn<Observable<TeacherResume[]>> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-      return inject(ReportService).getTeacherResume({academicYear: (new Date().getFullYear() - 1912).toString()});
+      return inject(ReportService).getTeacherResume({academicYear: [...defaultSemester]});
     };

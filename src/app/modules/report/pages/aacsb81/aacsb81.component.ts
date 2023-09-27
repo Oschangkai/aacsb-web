@@ -29,8 +29,10 @@ export class Aacsb81Component {
   // states
   Permission = Permission;
   loadData = true;
-  academicYear = (new Date()).getFullYear() - 1912;
-  academicYearList: number[] = [];
+  // academicYear = (new Date()).getFullYear() - 1912;
+  // academicYearList: number[] = [];
+  semester = [parseInt((new Date().getFullYear() - 1912).toString() + '1'), parseInt((new Date().getFullYear() - 1912).toString() + '2')];
+  semesterList: number[] = [];
 
   // data
   aacsbTable81: AacsbTable81[] = [];
@@ -38,12 +40,16 @@ export class Aacsb81Component {
   tableSummary: AacsbTable81Summary[] = [];
   totalTableSummary: AacsbTable81Summary|undefined = undefined;
 
-  load(): void {
+  load(event: any): void {
     this.aacsbTable81 = [];
     this.disciplines = [];
+
+    if (this.semester === null) this.semester = event.model;
+    if (this.semester.length == 0) return;
+
     combineLatest([
       this.reportService.getDisciplines(),
-      this.reportService.getAacsb81Table({semester: this.academicYear.toString()})
+      this.reportService.getAacsb81Table({semester: [...this.semester]})
     ]).subscribe(([discipline, aacsb81Table]) => {
         this.aacsbTable81 = aacsb81Table.sort((a, b) => a.teacher.localeCompare(b.teacher, "zh-TW"));
         this.disciplines = discipline;
@@ -105,11 +111,10 @@ export class Aacsb81Component {
 
   ngOnInit(): void {
     this.route.data.subscribe(
-      ({ aacsb81Table, disciplineList, academicYearList }) => {
+      ({ aacsb81Table, disciplineList, semesterList }) => {
         this.aacsbTable81 = [...aacsb81Table].sort((a, b) => a.teacher.localeCompare(b.teacher, "zh-TW"));
         this.disciplines = [...disciplineList];
-        this.academicYearList = [...academicYearList];
-        this.academicYear = this.academicYearList.sort((a, b) => b - a)[0];
+        this.semesterList = [...semesterList].sort((a, b) => b - a);
         this.caculateTableSummary();
       }
     );
