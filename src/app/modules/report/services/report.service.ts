@@ -43,7 +43,7 @@ export class ReportService {
     return this.http.post<AacsbTable81[]>(`${this.reportUrl}/a81`, params);
   }
 
-  getTeacherResume(params: {academicYear: number[]}): Observable<TeacherResume[]> {
+  getTeacherResume(params: {semester: number[]}): Observable<TeacherResume[]> {
     return this.http.post<TeacherResume[]>(`${this.reportUrl}/teacher-resume`, params);
   }
 }

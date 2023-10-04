@@ -44,5 +44,5 @@ export const aacsb81TableResolver: ResolveFn<Observable<AacsbTable81[]>> =
 
 export const teacherResumeResolver: ResolveFn<Observable<TeacherResume[]>> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-      return inject(ReportService).getTeacherResume({academicYear: [...defaultSemester]});
+      return inject(ReportService).getTeacherResume({semester: [...defaultSemester]});
     };
