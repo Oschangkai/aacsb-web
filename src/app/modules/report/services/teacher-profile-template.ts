@@ -1,5 +1,5 @@
 import { TeacherResume, TeacherResumeCourse, TeacherResumeResearch } from "@model/response-data.model";
-import { Document, IIndentAttributesProperties, ISectionOptions, LevelFormat, Paragraph, SectionType, convertInchesToTwip } from "docx";
+import { Document, IIndentAttributesProperties, ISectionOptions, LevelFormat, Paragraph, ParagraphChild, SectionType, TextRun, convertInchesToTwip } from "docx";
 import { FileChild } from "docx/build/file/file-child";
 
 const bulletIndent: (level: number) => IIndentAttributesProperties = 
@@ -24,7 +24,7 @@ export const teacherResumeTemplate = (resumes: TeacherResume[]) => new Document(
       levels: [{
         level: 0,
         format: LevelFormat.BULLET,
-        text: "\u2023",
+        text: "．",
         style: {
           paragraph: { indent: bulletIndent(0) }
         }
@@ -108,7 +108,73 @@ const generateResearch = (research: TeacherResumeResearch[]): FileChild[] => {
       text: "Publications (2018-23)：",
       numbering: { reference: "alphabetNumbering", level: 0 },
     }));
+  researchList.push(...research.map(r => (new Paragraph({
+      numbering: { reference: "alphabetNumbering", level: 1 },
+      children: generateResearchItem(r)
+    }))));
   return researchList;
+}
+
+const generateResearchItem = (research: TeacherResumeResearch): ParagraphChild[] => {
+  const children: ParagraphChild[] = [];
+
+  if(research.researchTypeCode) {
+    children.push(new TextRun({
+      text: `[${research.researchTypeCode}] `,
+      color: "969696",
+    }));
+  }
+
+  children.push(new TextRun({
+    text: `${research.authors} `,
+  }));
+
+  if (research.year) {
+    children.push(new TextRun({
+      text: `(${research.year}). `,
+    }));
+  } else {
+    children.push(new TextRun({
+      text: `(n.d.). `,
+    }));
+  }
+
+  children.push(new TextRun({
+    text: `${research.title}. `,
+  }));
+  children.push(new TextRun({
+    text: `${research.appearedIn}`,
+    italics: true,
+  }));
+
+  if (research.volume) {
+    children.push(new TextRun({
+      text: `, ${research.volume}`,
+    }));
+  } else {
+    children.push(new TextRun({
+      text: `. `,
+    }));
+  }
+
+  if (research.issue) {
+    children.push(new TextRun({
+      text: `(${research.issue})`,
+    }));
+  }
+
+  if (research.page) {
+    children.push(new TextRun({
+      text: `:${research.page}`,
+    }));
+  }
+
+  if (research.class) {
+    children.push(new TextRun({
+      text: ` [${research.class}]`,
+    }));
+  }
+  return children;
 }
 
 

@@ -10,8 +10,16 @@ export interface TeacherResume {
 }
 
 export interface TeacherResumeResearch {
-  value: string;
-  type: 'Journal 1' | 'Journal 2' | 'Presentation' | 'Proceeding';
+    authors: string;
+    year: string;
+    title: string;
+    volume: string;
+    appearedIn: string;
+    issue: string;
+    page: string;
+    class: string;
+    researchTypeCode: string;
+    teacherId: string;
 }
 export interface TeacherResumeCourse {
   code: string;
