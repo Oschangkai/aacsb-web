@@ -29,8 +29,6 @@ export class Aacsb81Component {
   // states
   Permission = Permission;
   loadData = true;
-  // academicYear = (new Date()).getFullYear() - 1912;
-  // academicYearList: number[] = [];
   semester = [parseInt((new Date().getFullYear() - 1912).toString() + '1'), parseInt((new Date().getFullYear() - 1912).toString() + '2')];
   semesterList: number[] = [];
 

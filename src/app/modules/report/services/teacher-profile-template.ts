@@ -103,6 +103,11 @@ const generateCourse = (course: TeacherResumeCourse[]): FileChild[] => {
 const generateResearch = (research: TeacherResumeResearch[]): FileChild[] => {
   if (research.length == 0) return [];
 
+  const r = research.filter(r => {
+    if (!r.researchTypeCode) return true; // preserve old data
+    return !r.researchTypeCode.match(/乙|丙|庚/g); // filter out 國科會、產學合作、教育部教學實踐研究計畫
+  });
+
   const researchList: FileChild[] = [];
   researchList.push(new Paragraph({
       text: "Publications (2018-23)：",
@@ -125,9 +130,11 @@ const generateResearchItem = (research: TeacherResumeResearch): ParagraphChild[]
     }));
   }
 
-  children.push(new TextRun({
-    text: `${research.authors} `,
-  }));
+  if (research.authors) {
+    children.push(new TextRun({
+      text: `${research.authors} `,
+    }));
+  }
 
   if (research.year) {
     children.push(new TextRun({
@@ -142,14 +149,17 @@ const generateResearchItem = (research: TeacherResumeResearch): ParagraphChild[]
   children.push(new TextRun({
     text: `${research.title}. `,
   }));
-  children.push(new TextRun({
-    text: `${research.appearedIn}`,
-    italics: true,
-  }));
+  if (research.appearedIn) {
+    children.push(new TextRun({
+      text: `${research.appearedIn}`,
+      italics: true,
+    }));
+  }
+
 
   if (research.volume) {
     children.push(new TextRun({
-      text: `, ${research.volume}`,
+      text: `${!!research.appearedIn ? ', ' : ' '}${research.volume}`,
     }));
   } else {
     children.push(new TextRun({
