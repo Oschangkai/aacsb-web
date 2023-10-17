@@ -23,6 +23,13 @@
   </clr-select-container>
 </form>
 
+<clr-toggle-container>
+  <clr-toggle-wrapper>
+    <input type="checkbox" [disabled]="loadData" clrToggle [(ngModel)]="debug" />
+    <label>Debugger</label>
+  </clr-toggle-wrapper>
+</clr-toggle-container>
+
 <!-- Empty Table -->
 <div style="margin-top: 2rem; display: flex; justify-content: center;" *ngIf="loadData || !tableData.length; else reportA32">
   <clr-spinner [clrMedium]="true" *ngIf="loadData"></clr-spinner>
@@ -42,7 +49,7 @@
         <th>Scholarly Practitioner (SP) %</th>
         <th>Instructional Practitioner (IP) %</th>
         <th>Additional (A) %</th>
-        <th>NULL % (For debug only)</th>
+        <th *ngIf="debug">NULL % (For debug only)</th>
         <th>Total %</th>
       </tr>
     </thead>
@@ -54,7 +61,7 @@
         <td>{{ (data.table | filter: { qualification: 'SP' })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
         <td>{{ (data.table | filter: { qualification: 'IP' })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
         <td>{{ (data.table | filter: { qualification: 'A' })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
-        <td>{{ (data.table | filter: { qualification: null })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
+        <td *ngIf="debug">{{ (data.table | filter: { qualification: null })[0]?.percentage ?? 0 | percent: '1.0-2' }}</td>
         <td>{{ getQualifcationTotal(data.table) | percent: '1.0-2' }}</td>
       </tr>
     </ng-container>

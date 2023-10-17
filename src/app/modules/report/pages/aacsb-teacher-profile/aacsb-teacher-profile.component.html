@@ -1,2 +1,8 @@
 <h1>Teacher Profile</h1>
 <button class="btn btn-primary" (click)="generateDocuments()">Download All</button>
+<clr-toggle-container>
+  <clr-toggle-wrapper>
+    <input type="checkbox" [disabled]="loadData" clrToggle [(ngModel)]="debug" />
+    <label>Debugger</label>
+  </clr-toggle-wrapper>
+</clr-toggle-container>

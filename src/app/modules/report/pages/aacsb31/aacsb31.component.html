@@ -31,6 +31,13 @@
   </clr-toggle-wrapper>
 </clr-toggle-container>
 
+<clr-toggle-container>
+  <clr-toggle-wrapper>
+    <input type="checkbox" [disabled]="loadData" clrToggle [(ngModel)]="debugMode" />
+    <label>Debugger</label>
+  </clr-toggle-wrapper>
+</clr-toggle-container>
+
 <!-- Empty Table -->
 <div style="margin-top: 2rem; display: flex; justify-content: center;" *ngIf="loadData || !aacsbTable31.length; else reportA31">
   <clr-spinner [clrMedium]="true" *ngIf="loadData"></clr-spinner>
@@ -108,10 +115,10 @@
 <!-- forEach api/getDiscipline name & id 0-6  -->
 <ng-container *ngFor="let discipline of disciplines">
   <!--
-    (discipline.code != 0 || !env.production) : 在 production 不顯示 code = 0 的 discipline
+    (discipline.code != 0 || !env.production) : 在 production (!debug mode) 不顯示 code = 0 的 discipline
     若出現 code = 0 的 discipline，代表該老師有課程未被分類
   -->
-<ng-container *ngIf="(discipline.code != 0 || !env.production) && !!countDisciplineTeacher(discipline.code)">
+<ng-container *ngIf="(discipline.code != 0 || debugMode) && !!countDisciplineTeacher(discipline.code)">
   <!-- 灰底 discipline 開頭  -->
   <tr style="background-color: hsl(198, 0%, 87%);">
     <td colspan="2">{{ discipline.name }}</td>

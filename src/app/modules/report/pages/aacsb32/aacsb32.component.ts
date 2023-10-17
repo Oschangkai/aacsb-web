@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Permission } from '@model/ApplicationPermission.model';
 import { AacsbTable32, Department } from '@model/response-data.model';
 import { ReportService } from '@module/report/services/report.service';
+import { EnvironmentService } from '@service/environment.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Subscription, combineLatest } from 'rxjs';
 
@@ -15,6 +16,7 @@ export class Aacsb32Component {
   constructor(
     private route: ActivatedRoute,
     private reportService: ReportService,
+    protected env: EnvironmentService,
     private ngProgress: NgProgress
   ) {
     this.httpStateSubscription = this.ngProgress.ref('http-load').state.subscribe(state => {
@@ -23,7 +25,7 @@ export class Aacsb32Component {
   }
 
   getQualifcationTotal(table: AacsbTable32[]): number {
-    return table.reduce((prev, curr) => prev + curr.percentage, 0);
+    return table.reduce((prev, curr) => prev + (curr.qualification || this.debug ? curr.percentage : 0), 0);
   }
 
   ngOnInit(): void {
@@ -69,8 +71,7 @@ export class Aacsb32Component {
   // states
   Permission = Permission;
   loadData = true;
-  // academicYear = (new Date()).getFullYear() - 1912;
-  // academicYearList: number[] = [];
+  debug = !this.env.production;
   semester = [parseInt((new Date().getFullYear() - 1912).toString() + '1'), parseInt((new Date().getFullYear() - 1912).toString() + '2')];
   semesterList: number[] = [];
   department?: string = undefined;

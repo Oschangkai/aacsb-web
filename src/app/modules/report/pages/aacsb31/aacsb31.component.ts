@@ -32,6 +32,7 @@ export default class Aacsb31Component {
   // states
   Permission = Permission;
   loadData = true;
+  debugMode = !this.env.production;
   semester = [parseInt((new Date().getFullYear() - 1912).toString() + '1'), parseInt((new Date().getFullYear() - 1912).toString() + '2')];
   semesterList: number[] = [];
   showTeachers = false;

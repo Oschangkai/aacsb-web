@@ -34,6 +34,7 @@ export class AacsbTeacherProfileComponent {
   
   // states
   loadData = true;
+  debug = false;
   academicYear = (new Date()).getFullYear() - 1912;
   academicYearList: number[] = [];
   selectedTeacher: string|null = null;
@@ -42,7 +43,7 @@ export class AacsbTeacherProfileComponent {
   teacherResume: TeacherResume[] = [];
 
   async generateDocuments() {
-    const blob = await Packer.toBlob(teacherResumeTemplate(this.teacherResume));
+    const blob = await Packer.toBlob(teacherResumeTemplate(this.teacherResume, this.debug));
     const docblob = blob.slice(0, blob.size, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
     saveAs(docblob, `${(new Date()).getFullYear() - 1912}-resumes.docx`);
   }

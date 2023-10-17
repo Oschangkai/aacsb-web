@@ -6,7 +6,7 @@ const bulletIndent: (level: number) => IIndentAttributesProperties =
   (level: number) => ({ left: convertInchesToTwip(level == 0 ? 0.5 : 0.5+0.25*level), hanging: convertInchesToTwip(0.25) })
 
 
-export const teacherResumeTemplate = (resumes: TeacherResume[]) => new Document({
+export const teacherResumeTemplate = (resumes: TeacherResume[], debug: boolean = false) => new Document({
   creator: "NTUST SOM - KaiYi Chang",
   title: "Sample Document",
   description: "profile",
@@ -38,10 +38,10 @@ export const teacherResumeTemplate = (resumes: TeacherResume[]) => new Document(
       }],
     }]
   },
-  sections: [...generateTeacherPage(resumes)]
+  sections: [...generateTeacherPage(resumes, debug)]
 });
 
-const generateTeacherPage = (resumes: TeacherResume[]): ISectionOptions[] => {
+const generateTeacherPage = (resumes: TeacherResume[], debug: boolean): ISectionOptions[] => {
   return resumes.map(resume => ({
     properties: {
       type: SectionType.NEXT_PAGE,
@@ -50,7 +50,7 @@ const generateTeacherPage = (resumes: TeacherResume[]): ISectionOptions[] => {
       ...generateTeacherInfo(resume),
       new Paragraph({}),
       ...generateCourse(resume.course),
-      ...generateResearch(resume.research),
+      ...generateResearch(resume.research, debug),
     ],
   } as ISectionOptions));
 }
@@ -100,7 +100,7 @@ const generateCourse = (course: TeacherResumeCourse[]): FileChild[] => {
   ];
 }
 
-const generateResearch = (research: TeacherResumeResearch[]): FileChild[] => {
+const generateResearch = (research: TeacherResumeResearch[], debug: boolean): FileChild[] => {
   if (research.length == 0) return [];
 
   const r = research.filter(r => {
@@ -113,17 +113,17 @@ const generateResearch = (research: TeacherResumeResearch[]): FileChild[] => {
       text: "Publications (2018-23)：",
       numbering: { reference: "alphabetNumbering", level: 0 },
     }));
-  researchList.push(...research.map(r => (new Paragraph({
+  researchList.push(...r.map(r => (new Paragraph({
       numbering: { reference: "alphabetNumbering", level: 1 },
-      children: generateResearchItem(r)
+      children: generateResearchItem(r, debug)
     }))));
   return researchList;
 }
 
-const generateResearchItem = (research: TeacherResumeResearch): ParagraphChild[] => {
+const generateResearchItem = (research: TeacherResumeResearch, debug: boolean): ParagraphChild[] => {
   const children: ParagraphChild[] = [];
 
-  if(research.researchTypeCode) {
+  if(research.researchTypeCode && debug) {
     children.push(new TextRun({
       text: `[${research.researchTypeCode}] `,
       color: "969696",
