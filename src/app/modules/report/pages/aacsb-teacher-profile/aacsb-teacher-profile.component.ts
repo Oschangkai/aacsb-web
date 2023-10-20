@@ -34,7 +34,7 @@ export class AacsbTeacherProfileComponent {
   
   // states
   loadData = true;
-  debug = false;
+  debug = !this.env.production;
   academicYear = (new Date()).getFullYear() - 1912;
   academicYearList: number[] = [];
   selectedTeacher: string|null = null;
@@ -45,7 +45,7 @@ export class AacsbTeacherProfileComponent {
   async generateDocuments() {
     const blob = await Packer.toBlob(teacherResumeTemplate(this.teacherResume, this.debug));
     const docblob = blob.slice(0, blob.size, "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-    saveAs(docblob, `${(new Date()).getFullYear() - 1912}-resumes.docx`);
+    saveAs(docblob, `${(new Date()).getFullYear() - 1912}-resumes-${Math.round((new Date()).getTime() / 100000)}${this.debug ? '-debug' : ''}.docx`);
   }
 
   ngOnInit(): void {
