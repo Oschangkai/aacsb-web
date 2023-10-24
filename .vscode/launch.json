@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "msedge",
+      "request": "launch",
+      "name": "Launch Browser Debugger",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "presentation": {
+        "hidden": true
+      }
+    },
+    {
+      "command": "yarn start",
+      "name": "Debug",
+      "cwd": "${workspaceFolder}",
+      "request": "launch",
+      "type": "node-terminal",
+      "serverReadyAction": {
+        "action": "startDebugging",
+        "name": "Launch Chrome Debugger",
+        "pattern": "Watch mode enabled. Watching for file changes...",
+        "killOnServerStop": true
+      }
+    }
+  ]
+}
