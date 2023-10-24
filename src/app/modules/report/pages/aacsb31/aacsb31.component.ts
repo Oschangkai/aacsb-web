@@ -62,19 +62,19 @@ export default class Aacsb31Component {
 
       let SA = disciplineData
         .filter(x => x.qualification == 'SA')
-        .reduce((prev, curr) => prev + curr.disciplineTotal / curr.creditTotal * 100, 0);
+        .reduce((prev, curr) => prev + (curr.workType == 'S' ? (curr.disciplineTotal >= 9 ? 9 : curr.disciplineTotal) * 4 : curr.disciplineTotal / curr.creditTotal * 100), 0);
       let PA = disciplineData
         .filter(x => x.qualification == 'PA')
-        .reduce((prev, curr) => prev + curr.disciplineTotal / curr.creditTotal * 100, 0);
+        .reduce((prev, curr) => prev + (curr.workType == 'S' ? (curr.disciplineTotal >= 9 ? 9 : curr.disciplineTotal) * 4 : curr.disciplineTotal / curr.creditTotal * 100), 0);
       let SP = disciplineData
         .filter(x => x.qualification == 'SP')
-        .reduce((prev, curr) => prev + curr.disciplineTotal / curr.creditTotal * 100, 0);
+        .reduce((prev, curr) => prev + (curr.workType == 'S' ? (curr.disciplineTotal >= 9 ? 9 : curr.disciplineTotal) * 4 : curr.disciplineTotal / curr.creditTotal * 100), 0);
       let IP = disciplineData
         .filter(x => x.qualification == 'IP')
-        .reduce((prev, curr) => prev + curr.disciplineTotal / curr.creditTotal * 100, 0);
+        .reduce((prev, curr) => prev + (curr.workType == 'S' ? (curr.disciplineTotal >= 9 ? 9 : curr.disciplineTotal) * 4 : curr.disciplineTotal / curr.creditTotal * 100), 0);
       let A = disciplineData
         .filter(x => (x.qualification == null || x.qualification == 'A'))
-        .reduce((prev, curr) => prev + curr.disciplineTotal / curr.creditTotal * 100, 0);
+        .reduce((prev, curr) => prev + (curr.workType == 'S' ? (curr.disciplineTotal >= 9 ? 9 : curr.disciplineTotal) * 4 : curr.disciplineTotal / curr.creditTotal * 100), 0);
       let total = SA + PA + SP + IP + A;
 
       this.tableSummary.disciplineTotal.push({
