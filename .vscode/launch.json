@@ -19,7 +19,7 @@
       "type": "node-terminal",
       "serverReadyAction": {
         "action": "startDebugging",
-        "name": "Launch Chrome Debugger",
+        "name": "Launch Browser Debugger",
         "pattern": "Watch mode enabled. Watching for file changes...",
         "killOnServerStop": true
       }
